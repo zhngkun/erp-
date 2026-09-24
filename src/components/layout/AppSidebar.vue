@@ -82,9 +82,9 @@ function onSelect(path) {
 }
 
 .soft-panel {
-  background: #ffffff;
+  background: var(--soft-surface);
   border-radius: 1rem;
-  box-shadow: 0 12px 28px -10px rgb(148 163 184 / 0.35);
+  box-shadow: var(--soft-shadow-lg);
 }
 
 .brand {
@@ -106,8 +106,8 @@ function onSelect(path) {
   border-radius: 999px;
   display: grid;
   place-items: center;
-  background: #eef2ff;
-  color: #4f46e5;
+  background: var(--soft-primary-light);
+  color: var(--soft-primary);
   flex-shrink: 0;
 }
 
@@ -115,14 +115,14 @@ function onSelect(path) {
   margin: 0;
   font-size: 1rem;
   font-weight: 700;
-  color: #1f2937;
+  color: var(--soft-text);
   line-height: 1.2;
 }
 
 .brand-sub {
   margin: 2px 0 0;
   font-size: 0.6875rem;
-  color: #9ca3af;
+  color: var(--soft-text-muted);
 }
 
 .menu-scroll {

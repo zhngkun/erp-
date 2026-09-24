@@ -85,16 +85,16 @@ watch(
 .layout-chrome {
   flex-shrink: 0;
   margin: 8px 12px 0;
-  background: #ffffff;
+  background: var(--soft-surface);
   border-radius: 1rem;
-  box-shadow: 0 12px 28px -10px rgb(148 163 184 / 0.35);
+  box-shadow: var(--soft-shadow-lg);
   overflow: hidden;
 }
 
 .chrome-divider {
   height: 1px;
   margin: 0 12px;
-  background: #eef2ff;
+  background: var(--soft-divider);
 }
 
 .layout-content {

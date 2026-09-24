@@ -172,12 +172,12 @@ onMounted(fetchList)
   border-radius: 999px;
   font-size: 0.75rem;
   font-weight: 600;
-  background: #f3f4f6;
-  color: #6b7280;
+  background: var(--soft-status-off-bg);
+  color: var(--soft-status-off-text);
 }
 
 .status-pill[data-on='true'] {
-  background: #ecfdf5;
-  color: #059669;
+  background: var(--soft-status-on-bg);
+  color: var(--soft-status-on-text);
 }
 </style>

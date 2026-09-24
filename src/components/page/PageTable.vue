@@ -123,9 +123,9 @@ defineExpose({
   min-height: 0;
   display: flex;
   flex-direction: column;
-  background: #ffffff;
+  background: var(--soft-surface);
   border-radius: 1rem;
-  box-shadow: 0 12px 28px -10px rgb(148 163 184 / 0.35);
+  box-shadow: var(--soft-shadow-lg);
   padding: 14px 16px;
   overflow: hidden;
 }
@@ -142,12 +142,12 @@ defineExpose({
 .page-head h2 {
   margin: 0;
   font-size: 1.125rem;
-  color: #1f2937;
+  color: var(--soft-text);
 }
 
 .page-head p {
   margin: 4px 0 0;
-  color: #9ca3af;
+  color: var(--soft-text-muted);
   font-size: 0.75rem;
 }
 
@@ -173,7 +173,7 @@ defineExpose({
 
 :deep(.el-table) {
   --el-table-border-color: transparent;
-  --el-table-header-bg-color: #f8fafc;
+  --el-table-header-bg-color: var(--soft-table-header);
   border-radius: 0.75rem;
 }
 
@@ -183,7 +183,7 @@ defineExpose({
 }
 
 :deep(.el-table th.el-table__cell) {
-  color: #4b5563;
+  color: var(--soft-text-secondary);
   font-weight: 600;
 }
 
@@ -192,12 +192,18 @@ defineExpose({
 :deep(.el-pagination.is-background .btn-next) {
   border-radius: 10px;
   border: 0;
-  background: #f8fafc;
+  background: var(--soft-fill);
+  color: var(--soft-text-secondary);
 }
 
 :deep(.el-pagination.is-background .el-pager li.is-active) {
-  background: #4f46e5;
-  box-shadow: 0 8px 18px -6px rgb(79 70 229 / 0.35);
+  background: var(--soft-primary);
+  box-shadow: var(--soft-shadow-primary);
+  color: #ffffff;
+}
+
+html.dark :deep(.el-pagination.is-background .el-pager li.is-active) {
+  color: #0f172a;
 }
 
 @media (max-width: 768px) {

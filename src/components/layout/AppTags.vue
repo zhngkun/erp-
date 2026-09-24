@@ -98,8 +98,8 @@ function onContext(command, tag) {
   padding: 0 12px;
   border: 0;
   border-radius: 0;
-  background: #f8fafc;
-  color: #4b5563;
+  background: var(--soft-fill);
+  color: var(--soft-text-secondary);
   font: inherit;
   font-size: 0.8125rem;
   font-weight: 500;
@@ -109,13 +109,17 @@ function onContext(command, tag) {
 }
 
 .tag-item:hover {
-  background: #eef2ff;
-  color: #4f46e5;
+  background: var(--soft-primary-light);
+  color: var(--soft-primary);
 }
 
 .tag-item.is-active {
-  background: #4f46e5;
+  background: var(--soft-primary);
   color: #ffffff;
+}
+
+html.dark .tag-item.is-active {
+  color: #0f172a;
 }
 
 .close {
@@ -127,7 +131,7 @@ function onContext(command, tag) {
 
 .close:hover {
   opacity: 1;
-  background: rgb(0 0 0 / 0.08);
+  background: rgb(15 23 42 / 0.08);
 }
 
 .tag-item.is-active .close:hover {

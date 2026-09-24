@@ -1,16 +1,19 @@
 <script setup>
-import { reactive, ref } from 'vue'
+import { computed, reactive, ref } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { ElMessage } from 'element-plus'
-import { User, Lock } from '@element-plus/icons-vue'
+import { User, Lock, Moon, Sunny } from '@element-plus/icons-vue'
 import { useUserStore } from '@/stores/user'
+import { useAppStore } from '@/stores/app'
 
 const router = useRouter()
 const route = useRoute()
 const userStore = useUserStore()
+const appStore = useAppStore()
 
 const loading = ref(false)
 const formRef = ref()
+const isDark = computed(() => appStore.isDark)
 const form = reactive({
   username: 'admin',
   password: '123456',
@@ -40,6 +43,18 @@ async function handleLogin() {
 <template>
   <div class="login-page">
     <div class="login-ambient" aria-hidden="true" />
+
+    <button
+      class="theme-btn"
+      type="button"
+      :aria-label="isDark ? '切换日间模式' : '切换夜间模式'"
+      :title="isDark ? '日间模式' : '夜间模式'"
+      @click="appStore.toggleTheme()"
+    >
+      <el-icon :size="18">
+        <component :is="isDark ? Sunny : Moon" />
+      </el-icon>
+    </button>
 
     <div class="login-card">
       <div class="login-brand">
@@ -96,7 +111,31 @@ async function handleLogin() {
   padding: 24px;
   position: relative;
   overflow: hidden;
-  background: #f8fafc;
+  background: var(--soft-bg);
+}
+
+.theme-btn {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  z-index: 2;
+  width: 40px;
+  height: 40px;
+  border: 0;
+  border-radius: 999px;
+  display: grid;
+  place-items: center;
+  background: var(--soft-surface);
+  color: var(--soft-text-secondary);
+  box-shadow: var(--soft-shadow-lg);
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+.theme-btn:hover {
+  transform: translateY(-1px);
+  color: var(--soft-primary);
+  box-shadow: var(--soft-shadow-primary);
 }
 
 .login-ambient {
@@ -105,7 +144,7 @@ async function handleLogin() {
   width: 520px;
   height: 520px;
   border-radius: 999px;
-  background: #eef2ff;
+  background: var(--soft-primary-light);
   filter: blur(40px);
   opacity: 0.9;
   pointer-events: none;
@@ -115,9 +154,9 @@ async function handleLogin() {
   position: relative;
   width: min(100%, 440px);
   padding: 40px 36px;
-  background: #ffffff;
+  background: var(--soft-surface);
   border-radius: 1.5rem;
-  box-shadow: 0 20px 40px -10px rgb(148 163 184 / 0.4);
+  box-shadow: var(--soft-shadow-lg);
 }
 
 .login-brand {
@@ -132,23 +171,23 @@ async function handleLogin() {
   border-radius: 999px;
   display: grid;
   place-items: center;
-  background: #eef2ff;
-  color: #4f46e5;
+  background: var(--soft-primary-light);
+  color: var(--soft-primary);
   font-weight: 700;
   letter-spacing: 0.04em;
-  box-shadow: 0 12px 28px -6px rgb(79 70 229 / 0.28);
+  box-shadow: var(--soft-shadow-primary);
 }
 
 .login-brand h1 {
   margin: 0;
   font-size: 1.875rem;
   font-weight: 700;
-  color: #1f2937;
+  color: var(--soft-text);
 }
 
 .login-brand p {
   margin: 8px 0 0;
-  color: #6b7280;
+  color: var(--soft-text-muted);
   font-size: 0.875rem;
 }
 
@@ -168,6 +207,6 @@ async function handleLogin() {
   margin: 20px 0 0;
   text-align: center;
   font-size: 0.75rem;
-  color: #9ca3af;
+  color: var(--soft-text-muted);
 }
 </style>

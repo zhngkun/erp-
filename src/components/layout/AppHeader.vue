@@ -1,7 +1,7 @@
 <script setup>
 import { computed } from 'vue'
 import { useRouter } from 'vue-router'
-import { Fold, Expand, ArrowDown } from '@element-plus/icons-vue'
+import { Fold, Expand, ArrowDown, Moon, Sunny } from '@element-plus/icons-vue'
 import { ElMessageBox } from 'element-plus'
 import { useAppStore } from '@/stores/app'
 import { useUserStore } from '@/stores/user'
@@ -14,6 +14,7 @@ const userStore = useUserStore()
 const tagsStore = useTagsStore()
 
 const collapsed = computed(() => appStore.sidebarCollapsed)
+const isDark = computed(() => appStore.isDark)
 const nickname = computed(() => userStore.userInfo?.nickname || '用户')
 
 async function handleCommand(command) {
@@ -51,6 +52,18 @@ async function handleCommand(command) {
     </div>
 
     <div class="header-right">
+      <button
+        class="icon-btn"
+        type="button"
+        :aria-label="isDark ? '切换日间模式' : '切换夜间模式'"
+        :title="isDark ? '日间模式' : '夜间模式'"
+        @click="appStore.toggleTheme()"
+      >
+        <el-icon :size="18">
+          <component :is="isDark ? Sunny : Moon" />
+        </el-icon>
+      </button>
+
       <el-dropdown trigger="click" @command="handleCommand">
         <button class="user-trigger" type="button">
           <span class="avatar">{{ nickname.slice(0, 1).toUpperCase() }}</span>
@@ -88,10 +101,10 @@ async function handleCommand(command) {
 .icon-btn,
 .user-trigger {
   border: 0;
-  background: #f8fafc;
+  background: var(--soft-fill);
   cursor: pointer;
   font: inherit;
-  color: #4b5563;
+  color: var(--soft-text-secondary);
   transition: all 0.2s ease-in-out;
 }
 
@@ -106,8 +119,8 @@ async function handleCommand(command) {
 .icon-btn:hover,
 .user-trigger:hover {
   transform: translateY(-1px);
-  box-shadow: 0 8px 16px -6px rgb(79 70 229 / 0.2);
-  color: #4f46e5;
+  box-shadow: var(--soft-shadow-primary);
+  color: var(--soft-primary);
 }
 
 .user-trigger {
@@ -124,15 +137,15 @@ async function handleCommand(command) {
   border-radius: 999px;
   display: grid;
   place-items: center;
-  background: #eef2ff;
-  color: #4f46e5;
+  background: var(--soft-primary-light);
+  color: var(--soft-primary);
   font-weight: 700;
   font-size: 0.8125rem;
 }
 
 .name {
   font-weight: 600;
-  color: #1f2937;
+  color: var(--soft-text);
   font-size: 0.875rem;
 }
 

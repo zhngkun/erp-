@@ -49,9 +49,9 @@ function onReset() {
 <style scoped>
 .page-search {
   flex-shrink: 0;
-  background: #ffffff;
+  background: var(--soft-surface);
   border-radius: 1rem;
-  box-shadow: 0 12px 28px -10px rgb(148 163 184 / 0.35);
+  box-shadow: var(--soft-shadow-lg);
   padding: 14px 16px;
 }
 
@@ -67,7 +67,7 @@ function onReset() {
 }
 
 .search-form :deep(.el-form-item__label) {
-  color: #4b5563;
+  color: var(--soft-text-secondary);
   font-weight: 500;
 }
 

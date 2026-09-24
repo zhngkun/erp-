@@ -21,26 +21,26 @@ const router = useRouter()
   min-height: 100vh;
   display: grid;
   place-items: center;
-  background: #f8fafc;
+  background: var(--soft-bg);
   padding: 24px;
 }
 
 .panel {
   text-align: center;
-  background: #ffffff;
+  background: var(--soft-surface);
   border-radius: 1.5rem;
-  box-shadow: 0 20px 40px -10px rgb(148 163 184 / 0.4);
+  box-shadow: var(--soft-shadow-lg);
   padding: 48px 40px;
 }
 
 .panel h1 {
   margin: 0;
   font-size: 4rem;
-  color: #4f46e5;
+  color: var(--soft-primary);
 }
 
 .panel p {
   margin: 8px 0 24px;
-  color: #6b7280;
+  color: var(--soft-text-muted);
 }
 </style>

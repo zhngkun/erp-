@@ -65,16 +65,16 @@ const stats = [
 }
 
 .soft-card {
-  background: #ffffff;
+  background: var(--soft-surface);
   border-radius: 1rem;
-  box-shadow: 0 12px 28px -10px rgb(148 163 184 / 0.35);
+  box-shadow: var(--soft-shadow-lg);
   padding: 14px 16px;
   transition: all 0.3s ease-in-out;
 }
 
 .soft-card:hover {
   transform: translateY(-2px);
-  box-shadow: 0 16px 32px -10px rgb(148 163 184 / 0.4);
+  box-shadow: var(--soft-shadow-lg);
 }
 
 .welcome {
@@ -87,12 +87,12 @@ const stats = [
 .welcome h2 {
   margin: 0;
   font-size: 1.25rem;
-  color: #1f2937;
+  color: var(--soft-text);
 }
 
 .welcome p {
   margin: 4px 0 0;
-  color: #6b7280;
+  color: var(--soft-text-secondary);
   max-width: 42rem;
   font-size: 0.875rem;
 }
@@ -103,8 +103,8 @@ const stats = [
   border-radius: 999px;
   display: grid;
   place-items: center;
-  background: #eef2ff;
-  color: #4f46e5;
+  background: var(--soft-primary-light);
+  color: var(--soft-primary);
   flex-shrink: 0;
 }
 
@@ -130,13 +130,13 @@ const stats = [
 }
 
 .stat-icon[data-tone='indigo'] {
-  background: #eef2ff;
-  color: #4f46e5;
+  background: var(--soft-primary-light);
+  color: var(--soft-primary);
 }
 
 .stat-icon[data-tone='emerald'] {
-  background: #ecfdf5;
-  color: #059669;
+  background: var(--soft-status-on-bg);
+  color: var(--soft-status-on-text);
 }
 
 .stat-icon[data-tone='pink'] {
@@ -144,38 +144,43 @@ const stats = [
   color: #db2777;
 }
 
+html.dark .stat-icon[data-tone='pink'] {
+  background: #4a1942;
+  color: #f9a8d4;
+}
+
 .stat-label {
   margin: 0;
   font-size: 0.8125rem;
-  color: #9ca3af;
+  color: var(--soft-text-muted);
 }
 
 .stat-value {
   margin: 2px 0 0;
   font-size: 1.25rem;
   font-weight: 700;
-  color: #1f2937;
+  color: var(--soft-text);
 }
 
 .guide h3 {
   margin: 0 0 8px;
   font-size: 1rem;
-  color: #1f2937;
+  color: var(--soft-text);
 }
 
 .guide ul {
   margin: 0;
   padding-left: 1.2rem;
-  color: #4b5563;
+  color: var(--soft-text-secondary);
   line-height: 1.6;
   font-size: 0.875rem;
 }
 
 .guide code {
-  background: #f8fafc;
+  background: var(--soft-fill);
   border-radius: 0.5rem;
   padding: 2px 6px;
-  color: #4f46e5;
+  color: var(--soft-primary);
 }
 
 @media (max-width: 1100px) {
