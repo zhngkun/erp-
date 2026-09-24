@@ -43,19 +43,35 @@ function onSelect(path) {
         @select="onSelect"
       >
         <template v-for="item in menuRoutes" :key="item.path">
+          <!-- 有二级 -->
           <el-sub-menu v-if="item.children?.length" :index="item.path">
             <template #title>
               <el-icon><component :is="resolveIcon(item.meta?.icon)" /></el-icon>
               <span>{{ item.meta?.title }}</span>
             </template>
-            <el-menu-item
-              v-for="child in item.children"
-              :key="child.path"
-              :index="child.path"
-            >
-              <el-icon><component :is="resolveIcon(child.meta?.icon)" /></el-icon>
-              <span>{{ child.meta?.title }}</span>
-            </el-menu-item>
+
+            <template v-for="child in item.children" :key="child.path">
+              <!-- 三级：供应商 / 客户 / 存货 -->
+              <el-sub-menu v-if="child.children?.length" :index="child.path">
+                <template #title>
+                  <el-icon><component :is="resolveIcon(child.meta?.icon)" /></el-icon>
+                  <span>{{ child.meta?.title }}</span>
+                </template>
+                <el-menu-item
+                  v-for="grand in child.children"
+                  :key="grand.path"
+                  :index="grand.path"
+                >
+                  <el-icon><component :is="resolveIcon(grand.meta?.icon)" /></el-icon>
+                  <span>{{ grand.meta?.title }}</span>
+                </el-menu-item>
+              </el-sub-menu>
+
+              <el-menu-item v-else :index="child.path">
+                <el-icon><component :is="resolveIcon(child.meta?.icon)" /></el-icon>
+                <span>{{ child.meta?.title }}</span>
+              </el-menu-item>
+            </template>
           </el-sub-menu>
 
           <el-menu-item v-else :index="item.path">
