@@ -52,12 +52,11 @@ function onContext(command, tag) {
         @command="(cmd) => onContext(cmd, tag)"
       >
         <button
-          class="tag-card"
+          class="tag-item"
           type="button"
           :class="{ 'is-active': isActive(tag) }"
           @click="go(tag)"
         >
-          <span class="dot" />
           <span class="title">{{ tag.title }}</span>
           <el-icon
             v-if="!tag.affix"
@@ -80,73 +79,64 @@ function onContext(command, tag) {
 
 <style scoped>
 .tags-bar {
-  margin: 16px 24px 0;
+  flex-shrink: 0;
+  padding: 8px 12px;
 }
 
 .tags-scroll {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 6px;
   overflow-x: auto;
-  padding-bottom: 2px;
 }
 
-.tag-card {
+.tag-item {
   display: inline-flex;
   align-items: center;
-  gap: 8px;
-  min-height: 40px;
-  padding: 8px 14px;
+  gap: 6px;
+  min-height: 30px;
+  padding: 0 12px;
   border: 0;
-  border-radius: 999px;
-  background: #ffffff;
+  border-radius: 0;
+  background: #f8fafc;
   color: #4b5563;
   font: inherit;
+  font-size: 0.8125rem;
   font-weight: 500;
-  box-shadow: 0 10px 25px -5px rgb(148 163 184 / 0.35);
   cursor: pointer;
   white-space: nowrap;
-  transition: all 0.2s ease-in-out;
+  transition: background 0.2s ease-in-out, color 0.2s ease-in-out;
 }
 
-.tag-card:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 14px 28px -8px rgb(79 70 229 / 0.22);
+.tag-item:hover {
+  background: #eef2ff;
   color: #4f46e5;
 }
 
-.tag-card.is-active {
+.tag-item.is-active {
   background: #4f46e5;
   color: #ffffff;
-  box-shadow: 0 12px 28px -6px rgb(79 70 229 / 0.28);
-}
-
-.dot {
-  width: 8px;
-  height: 8px;
-  border-radius: 999px;
-  background: currentColor;
-  opacity: 0.45;
-}
-
-.tag-card.is-active .dot {
-  opacity: 1;
-  background: #ffffff;
 }
 
 .close {
   font-size: 12px;
-  border-radius: 999px;
-  transition: background 0.2s ease-in-out;
+  padding: 1px;
+  transition: background 0.2s ease-in-out, opacity 0.2s ease-in-out;
+  opacity: 0.7;
 }
 
 .close:hover {
-  background: rgb(255 255 255 / 0.25);
+  opacity: 1;
+  background: rgb(0 0 0 / 0.08);
+}
+
+.tag-item.is-active .close:hover {
+  background: rgb(255 255 255 / 0.22);
 }
 
 @media (max-width: 640px) {
   .tags-bar {
-    margin: 12px 12px 0;
+    padding: 8px 10px;
   }
 }
 </style>

@@ -65,9 +65,9 @@
 .el-menu-item,
 .el-sub-menu__title {
   border-radius: var(--soft-radius) !important;
-  margin: 4px 12px;
-  height: 44px !important;
-  line-height: 44px !important;
+  margin: 2px 8px;
+  height: 38px !important;
+  line-height: 38px !important;
   color: var(--soft-text-secondary) !important;
   transition: all 0.2s ease-in-out;
 }
@@ -91,10 +91,10 @@
 
 .el-menu--collapse > .el-menu-item,
 .el-menu--collapse > .el-sub-menu > .el-sub-menu__title {
-  margin: 4px auto !important;
-  width: 44px !important;
-  min-width: 44px !important;
-  height: 44px !important;
+  margin: 2px auto !important;
+  width: 38px !important;
+  min-width: 38px !important;
+  height: 38px !important;
   padding: 0 !important;
   display: flex !important;
   align-items: center !important;
@@ -154,4 +154,12 @@
 .el-tag {
   border: 0 !important;
   border-radius: 999px !important;
+}
+
+.el-table--striped .el-table__body tr.el-table__row--striped td.el-table__cell {
+  background: #f8fafc !important;
+}
+
+.el-table--enable-row-hover .el-table__body tr:hover > td.el-table__cell {
+  background: #eef2ff !important;
 }

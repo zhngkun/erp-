@@ -30,13 +30,43 @@ src/
   api/                 # 接口定义（与后端路径对齐）
   mock/                # 本地假数据与处理器
   utils/request.js     # axios 封装，USE_MOCK 时走 mock
-  components/layout/   # 侧栏、顶栏、面包屑、Tags
+  components/
+    layout/            # 侧栏、顶栏、面包屑、Tags
+    page/              # 列表页共用：PageSearch / PageTable / PageList
   layouts/             # 主布局
   router/              # 路由与菜单
   stores/              # pinia：用户 / Tags / 侧栏
   styles/              # Soft UI + Element 覆盖
   views/               # 页面
 ```
+
+### 列表页共用组件
+
+```vue
+<PageList
+  v-model:page="query.page"
+  v-model:page-size="query.pageSize"
+  title="模块名称"
+  :query="query"
+  :loading="loading"
+  :data="list"
+  :total="total"
+  @search="fetchList"
+  @reset="resetAndFetch"
+  @page-change="fetchList"
+  @size-change="fetchList"
+>
+  <template #search>
+    <el-form-item label="关键字">...</el-form-item>
+  </template>
+  <template #actions>
+    <el-button type="primary">新增</el-button>
+  </template>
+  <el-table-column prop="name" label="名称" />
+</PageList>
+```
+
+也可单独使用 `PageSearch`、`PageTable`。
 
 ## 后续扩展
 

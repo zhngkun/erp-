@@ -27,7 +27,7 @@ function onSelect(path) {
   <div class="sidebar soft-panel" :class="{ 'is-collapsed': collapsed }">
     <div class="brand" @click="router.push('/dashboard')">
       <div class="brand-mark">
-        <el-icon :size="20"><component :is="Icons.Box" /></el-icon>
+        <el-icon :size="18"><component :is="Icons.Box" /></el-icon>
       </div>
       <div v-show="!collapsed" class="brand-text">
         <p class="brand-name">Soft ERP</p>
@@ -71,38 +71,38 @@ function onSelect(path) {
 <style scoped>
 .sidebar {
   height: 100%;
-  margin: 16px 0 16px 16px;
+  margin: 0;
   display: flex;
   flex-direction: column;
   overflow: hidden;
 }
 
 .sidebar.is-collapsed {
-  margin: 16px 12px;
+  margin: 0;
 }
 
 .soft-panel {
   background: #ffffff;
-  border-radius: 1.5rem;
-  box-shadow: 0 20px 40px -10px rgb(148 163 184 / 0.4);
+  border-radius: 1rem;
+  box-shadow: 0 12px 28px -10px rgb(148 163 184 / 0.35);
 }
 
 .brand {
   display: flex;
   align-items: center;
-  gap: 12px;
-  padding: 24px 20px 16px;
+  gap: 10px;
+  padding: 14px 14px 10px;
   cursor: pointer;
 }
 
 .sidebar.is-collapsed .brand {
   justify-content: center;
-  padding: 20px 0 12px;
+  padding: 12px 0 8px;
 }
 
 .brand-mark {
-  width: 44px;
-  height: 44px;
+  width: 36px;
+  height: 36px;
   border-radius: 999px;
   display: grid;
   place-items: center;
@@ -113,7 +113,7 @@ function onSelect(path) {
 
 .brand-name {
   margin: 0;
-  font-size: 1.125rem;
+  font-size: 1rem;
   font-weight: 700;
   color: #1f2937;
   line-height: 1.2;
@@ -121,13 +121,13 @@ function onSelect(path) {
 
 .brand-sub {
   margin: 2px 0 0;
-  font-size: 0.75rem;
+  font-size: 0.6875rem;
   color: #9ca3af;
 }
 
 .menu-scroll {
   flex: 1;
-  padding-bottom: 16px;
+  padding-bottom: 8px;
 }
 
 .sidebar.is-collapsed .menu-scroll {

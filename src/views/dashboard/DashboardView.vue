@@ -58,44 +58,48 @@ const stats = [
 .dashboard {
   display: flex;
   flex-direction: column;
-  gap: 24px;
+  gap: 12px;
+  height: 100%;
+  min-height: 0;
+  overflow: auto;
 }
 
 .soft-card {
   background: #ffffff;
-  border-radius: 1.5rem;
-  box-shadow: 0 20px 40px -10px rgb(148 163 184 / 0.4);
-  padding: 24px 32px;
+  border-radius: 1rem;
+  box-shadow: 0 12px 28px -10px rgb(148 163 184 / 0.35);
+  padding: 14px 16px;
   transition: all 0.3s ease-in-out;
 }
 
 .soft-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 24px 48px -12px rgb(148 163 184 / 0.45);
+  transform: translateY(-2px);
+  box-shadow: 0 16px 32px -10px rgb(148 163 184 / 0.4);
 }
 
 .welcome {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 24px;
+  gap: 16px;
 }
 
 .welcome h2 {
   margin: 0;
-  font-size: 1.75rem;
+  font-size: 1.25rem;
   color: #1f2937;
 }
 
 .welcome p {
-  margin: 8px 0 0;
+  margin: 4px 0 0;
   color: #6b7280;
   max-width: 42rem;
+  font-size: 0.875rem;
 }
 
 .welcome-badge {
-  width: 56px;
-  height: 56px;
+  width: 44px;
+  height: 44px;
   border-radius: 999px;
   display: grid;
   place-items: center;
@@ -107,18 +111,18 @@ const stats = [
 .stat-grid {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 24px;
+  gap: 12px;
 }
 
 .stat-card {
   display: flex;
   align-items: center;
-  gap: 16px;
+  gap: 12px;
 }
 
 .stat-icon {
-  width: 48px;
-  height: 48px;
+  width: 40px;
+  height: 40px;
   border-radius: 999px;
   display: grid;
   place-items: center;
@@ -142,20 +146,20 @@ const stats = [
 
 .stat-label {
   margin: 0;
-  font-size: 0.875rem;
+  font-size: 0.8125rem;
   color: #9ca3af;
 }
 
 .stat-value {
-  margin: 4px 0 0;
-  font-size: 1.5rem;
+  margin: 2px 0 0;
+  font-size: 1.25rem;
   font-weight: 700;
   color: #1f2937;
 }
 
 .guide h3 {
-  margin: 0 0 12px;
-  font-size: 1.25rem;
+  margin: 0 0 8px;
+  font-size: 1rem;
   color: #1f2937;
 }
 
@@ -163,13 +167,14 @@ const stats = [
   margin: 0;
   padding-left: 1.2rem;
   color: #4b5563;
-  line-height: 1.8;
+  line-height: 1.6;
+  font-size: 0.875rem;
 }
 
 .guide code {
   background: #f8fafc;
   border-radius: 0.5rem;
-  padding: 2px 8px;
+  padding: 2px 6px;
   color: #4f46e5;
 }
 
@@ -185,7 +190,7 @@ const stats = [
   }
 
   .soft-card {
-    padding: 20px;
+    padding: 12px;
   }
 }
 </style>

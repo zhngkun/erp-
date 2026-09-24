@@ -29,16 +29,21 @@ watch(
     </aside>
 
     <section class="layout-main">
-      <AppHeader />
-      <AppTags />
+      <div class="layout-chrome">
+        <AppHeader />
+        <div class="chrome-divider" role="separator" />
+        <AppTags />
+      </div>
       <main class="layout-content">
-        <router-view v-slot="{ Component, route: currentRoute }">
-          <transition name="fade-soft" mode="out-in">
-            <keep-alive>
-              <component :is="Component" :key="currentRoute.path" />
-            </keep-alive>
-          </transition>
-        </router-view>
+        <div class="layout-page">
+          <router-view v-slot="{ Component, route: currentRoute }">
+            <transition name="fade-soft" mode="out-in">
+              <keep-alive>
+                <component :is="Component" :key="currentRoute.path" />
+              </keep-alive>
+            </transition>
+          </router-view>
+        </div>
       </main>
     </section>
   </div>
@@ -47,31 +52,73 @@ watch(
 <style scoped>
 .main-layout {
   display: flex;
-  min-height: 100vh;
+  height: 100vh;
+  height: 100dvh;
+  overflow: hidden;
   background: var(--soft-bg);
 }
 
 .layout-aside {
-  width: 248px;
+  width: 220px;
   flex-shrink: 0;
+  height: 100%;
+  overflow: hidden;
+  padding: 8px 0 8px 8px;
   transition: width 0.3s ease-in-out;
 }
 
 .main-layout.is-collapsed .layout-aside {
-  width: 96px;
+  width: 76px;
+  padding: 8px;
 }
 
 .layout-main {
   flex: 1;
   min-width: 0;
+  min-height: 0;
+  height: 100%;
   display: flex;
   flex-direction: column;
+  overflow: hidden;
+}
+
+.layout-chrome {
+  flex-shrink: 0;
+  margin: 8px 12px 0;
+  background: #ffffff;
+  border-radius: 1rem;
+  box-shadow: 0 12px 28px -10px rgb(148 163 184 / 0.35);
+  overflow: hidden;
+}
+
+.chrome-divider {
+  height: 1px;
+  margin: 0 12px;
+  background: #eef2ff;
 }
 
 .layout-content {
   flex: 1;
-  padding: 24px;
-  overflow: auto;
+  min-height: 0;
+  padding: 16px 12px 12px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.layout-page {
+  flex: 1;
+  min-height: 0;
+  height: 100%;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.layout-page > * {
+  flex: 1;
+  min-height: 0;
+  height: 100%;
 }
 
 .fade-soft-enter-active,
@@ -82,23 +129,28 @@ watch(
 .fade-soft-enter-from,
 .fade-soft-leave-to {
   opacity: 0;
-  transform: translateY(6px);
+  transform: translateY(4px);
 }
 
 @media (max-width: 768px) {
   .layout-aside {
     position: fixed;
     z-index: 40;
-    height: 100vh;
+    height: 100%;
   }
 
   .main-layout.is-collapsed .layout-aside {
     width: 0;
+    padding: 0;
     overflow: hidden;
   }
 
+  .layout-chrome {
+    margin: 8px 8px 0;
+  }
+
   .layout-content {
-    padding: 16px;
+    padding: 8px;
   }
 }
 </style>

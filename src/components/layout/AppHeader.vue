@@ -72,19 +72,16 @@ async function handleCommand(command) {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 16px;
-  margin: 16px 24px 0;
-  padding: 14px 20px;
-  background: #ffffff;
-  border-radius: 1.5rem;
-  box-shadow: 0 20px 40px -10px rgb(148 163 184 / 0.4);
+  gap: 12px;
+  flex-shrink: 0;
+  padding: 8px 12px;
 }
 
 .header-left,
 .header-right {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 8px;
   min-width: 0;
 }
 
@@ -99,8 +96,8 @@ async function handleCommand(command) {
 }
 
 .icon-btn {
-  width: 44px;
-  height: 44px;
+  width: 36px;
+  height: 36px;
   border-radius: 999px;
   display: grid;
   place-items: center;
@@ -108,39 +105,40 @@ async function handleCommand(command) {
 
 .icon-btn:hover,
 .user-trigger:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 12px 24px -8px rgb(79 70 229 / 0.2);
+  transform: translateY(-1px);
+  box-shadow: 0 8px 16px -6px rgb(79 70 229 / 0.2);
   color: #4f46e5;
 }
 
 .user-trigger {
   display: inline-flex;
   align-items: center;
-  gap: 10px;
-  padding: 6px 14px 6px 6px;
+  gap: 8px;
+  padding: 4px 10px 4px 4px;
   border-radius: 999px;
 }
 
 .avatar {
-  width: 36px;
-  height: 36px;
+  width: 28px;
+  height: 28px;
   border-radius: 999px;
   display: grid;
   place-items: center;
   background: #eef2ff;
   color: #4f46e5;
   font-weight: 700;
+  font-size: 0.8125rem;
 }
 
 .name {
   font-weight: 600;
   color: #1f2937;
+  font-size: 0.875rem;
 }
 
 @media (max-width: 640px) {
   .app-header {
-    margin: 12px 12px 0;
-    padding: 12px 14px;
+    padding: 8px 10px;
   }
 
   .name {
