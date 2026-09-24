@@ -1,0 +1,83 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --soft-bg: #f8fafc;
+  --soft-surface: #ffffff;
+  --soft-primary: #4f46e5;
+  --soft-primary-soft: #6366f1;
+  --soft-primary-light: #eef2ff;
+  --soft-text: #1f2937;
+  --soft-text-secondary: #4b5563;
+  --soft-text-muted: #9ca3af;
+  --soft-radius: 1rem;
+  --soft-radius-lg: 1.5rem;
+  --soft-shadow: 0 10px 25px -5px rgb(148 163 184 / 0.35);
+  --soft-shadow-lg: 0 20px 40px -10px rgb(148 163 184 / 0.4);
+  --soft-shadow-primary: 0 12px 28px -6px rgb(79 70 229 / 0.28);
+
+  --el-color-primary: #4f46e5;
+  --el-color-primary-light-3: #818cf8;
+  --el-color-primary-light-5: #a5b4fc;
+  --el-color-primary-light-7: #c7d2fe;
+  --el-color-primary-light-8: #e0e7ff;
+  --el-color-primary-light-9: #eef2ff;
+  --el-color-primary-dark-2: #4338ca;
+  --el-border-radius-base: 16px;
+  --el-border-radius-small: 12px;
+  --el-border-radius-round: 999px;
+  --el-font-family: 'Nunito Sans', system-ui, sans-serif;
+  --el-text-color-primary: #1f2937;
+  --el-text-color-regular: #4b5563;
+  --el-text-color-secondary: #6b7280;
+  --el-text-color-placeholder: #9ca3af;
+  --el-border-color: transparent;
+  --el-border-color-light: #f1f5f9;
+  --el-border-color-lighter: #f8fafc;
+  --el-fill-color-blank: #f8fafc;
+  --el-bg-color: #ffffff;
+  --el-bg-color-page: #f8fafc;
+  --el-box-shadow: var(--soft-shadow);
+  --el-box-shadow-light: 0 8px 20px -6px rgb(148 163 184 / 0.3);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#app {
+  width: 100%;
+  min-height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: 'Nunito Sans', system-ui, sans-serif;
+  color: var(--soft-text);
+  background: var(--soft-bg);
+  -webkit-font-smoothing: antialiased;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+#app {
+  min-height: 100vh;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

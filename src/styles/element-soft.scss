@@ -1,0 +1,157 @@
+/* Soft UI overrides for Element Plus */
+
+.el-button {
+  border: 0 !important;
+  font-weight: 500;
+  transition: all 0.2s ease-in-out;
+  box-shadow: 0 8px 18px -6px rgb(148 163 184 / 0.35);
+}
+
+.el-button:hover,
+.el-button:focus {
+  transform: translateY(-2px);
+  box-shadow: 0 14px 28px -8px rgb(79 70 229 / 0.28);
+}
+
+.el-button:active {
+  transform: scale(0.95);
+}
+
+.el-button--primary {
+  background-color: var(--soft-primary);
+  box-shadow: var(--soft-shadow-primary);
+}
+
+.el-button--primary:hover,
+.el-button--primary:focus {
+  background-color: var(--soft-primary-soft);
+}
+
+.el-input__wrapper {
+  border-radius: var(--soft-radius) !important;
+  background-color: #f8fafc !important;
+  box-shadow: none !important;
+  padding: 4px 16px;
+  transition: all 0.2s ease-in-out;
+}
+
+.el-input__wrapper:hover {
+  background-color: #f1f5f9 !important;
+}
+
+.el-input__wrapper.is-focus {
+  background-color: #ffffff !important;
+  box-shadow: 0 0 0 3px rgb(79 70 229 / 0.2) !important;
+}
+
+.el-card {
+  border: 0 !important;
+  border-radius: var(--soft-radius-lg) !important;
+  box-shadow: var(--soft-shadow-lg) !important;
+  background: var(--soft-surface);
+  transition: all 0.3s ease-in-out;
+}
+
+.el-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 24px 48px -12px rgb(148 163 184 / 0.45) !important;
+}
+
+.el-menu {
+  border-right: 0 !important;
+  background: transparent !important;
+}
+
+.el-menu-item,
+.el-sub-menu__title {
+  border-radius: var(--soft-radius) !important;
+  margin: 4px 12px;
+  height: 44px !important;
+  line-height: 44px !important;
+  color: var(--soft-text-secondary) !important;
+  transition: all 0.2s ease-in-out;
+}
+
+.el-menu-item:hover,
+.el-sub-menu__title:hover {
+  background: var(--soft-primary-light) !important;
+  color: var(--soft-primary) !important;
+}
+
+.el-menu-item.is-active {
+  background: var(--soft-primary) !important;
+  color: #ffffff !important;
+  box-shadow: var(--soft-shadow-primary);
+}
+
+/* 折叠态：去掉左右 margin，图标水平居中对齐 */
+.el-menu--collapse {
+  width: 100% !important;
+}
+
+.el-menu--collapse > .el-menu-item,
+.el-menu--collapse > .el-sub-menu > .el-sub-menu__title {
+  margin: 4px auto !important;
+  width: 44px !important;
+  min-width: 44px !important;
+  height: 44px !important;
+  padding: 0 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+.el-menu--collapse .el-menu-item .el-menu-tooltip__trigger,
+.el-menu--collapse .el-sub-menu__title {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 100% !important;
+  height: 100% !important;
+  padding: 0 !important;
+}
+
+.el-menu--collapse .el-icon {
+  margin: 0 !important;
+  width: 20px;
+  height: 20px;
+}
+
+.el-menu--collapse .el-sub-menu__icon-arrow {
+  display: none !important;
+}
+
+.el-menu--collapse .el-menu-item span,
+.el-menu--collapse .el-sub-menu__title span {
+  display: none !important;
+  width: 0 !important;
+  height: 0 !important;
+  overflow: hidden !important;
+  visibility: hidden !important;
+}
+
+.el-breadcrumb__inner,
+.el-breadcrumb__inner a {
+  font-weight: 500 !important;
+  color: var(--soft-text-secondary) !important;
+}
+
+.el-breadcrumb__item:last-child .el-breadcrumb__inner {
+  color: var(--soft-text) !important;
+}
+
+.el-dropdown-menu {
+  border: 0 !important;
+  border-radius: var(--soft-radius) !important;
+  box-shadow: var(--soft-shadow-lg) !important;
+  padding: 8px !important;
+}
+
+.el-dropdown-menu__item {
+  border-radius: 12px;
+}
+
+.el-tag {
+  border: 0 !important;
+  border-radius: 999px !important;
+}
