@@ -102,6 +102,14 @@ import {
   mockGetCustomerList,
   mockUpdateCustomer,
 } from '@/mock/customer'
+import {
+  mockBatchDeleteCustomerPrice,
+  mockBatchUpdateCustomerPrice,
+  mockCreateCustomerPrice,
+  mockDeleteCustomerPrice,
+  mockGetCustomerPriceList,
+  mockUpdateCustomerPrice,
+} from '@/mock/customerPrice'
 
 const service = axios.create({
   baseURL: import.meta.env.VITE_API_BASE || '/api',
@@ -324,6 +332,21 @@ async function request(config) {
   } else if (url?.startsWith('/basic/customers/') && m === 'delete') {
     const id = url.split('/').pop()
     result = await mockDeleteCustomer(id)
+  } else if (url === '/basic/customer-prices' && m === 'get') {
+    result = await mockGetCustomerPriceList(params)
+  } else if (url === '/basic/customer-prices' && m === 'post') {
+    result = await mockCreateCustomerPrice(data)
+  } else if (url === '/basic/customer-prices/batch-delete' && m === 'post') {
+    result = await mockBatchDeleteCustomerPrice(data?.ids)
+  } else if (url === '/basic/customer-prices/batch-update' && m === 'post') {
+    const { ids, ...rest } = data || {}
+    result = await mockBatchUpdateCustomerPrice(ids, rest)
+  } else if (url?.startsWith('/basic/customer-prices/') && m === 'put') {
+    const id = url.split('/').pop()
+    result = await mockUpdateCustomerPrice(id, data)
+  } else if (url?.startsWith('/basic/customer-prices/') && m === 'delete') {
+    const id = url.split('/').pop()
+    result = await mockDeleteCustomerPrice(id)
   } else {
     result = { code: 1, message: `未配置 mock: ${m.toUpperCase()} ${url}`, data: null }
   }
