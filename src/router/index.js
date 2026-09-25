@@ -270,11 +270,20 @@ export const constantRoutes = [
       { path: 'supplier/list', name: 'SupplierList', component: () => import('@/views/basic/supplier/SupplierListView.vue'), meta: { title: '供应商管理', icon: 'Briefcase' } },
       { path: 'supplier/price', name: 'SupplierPrice', component: () => import('@/views/basic/supplier/SupplierPriceView.vue'), meta: { title: '供应商价格本', icon: 'Notebook' } },
       { path: 'supplier/portal', name: 'SupplierPortal', component: Placeholder, meta: { title: '供应商门户', icon: 'Star' } },
-      // 客户
+      // 客户（顺序对齐朋来P8）
       { path: 'customer/category', name: 'CustomerCategory', component: () => import('@/views/basic/customer/CustomerCategoryView.vue'), meta: { title: '客户分类', icon: 'Operation' } },
+      { path: 'customer/public-lead', name: 'CustomerPublicLead', component: () => import('@/views/basic/customer/PublicLeadView.vue'), meta: { title: '公海线索', icon: 'Share' } },
+      { path: 'customer/private-lead', name: 'CustomerPrivateLead', component: () => import('@/views/basic/customer/PrivateLeadView.vue'), meta: { title: '私海线索', icon: 'Lock' } },
+      { path: 'customer/opportunity', name: 'CustomerOpportunity', component: () => import('@/views/basic/customer/OpportunityView.vue'), meta: { title: '销售机会', icon: 'TrendCharts' } },
+      { path: 'customer/opportunity-eval', name: 'CustomerOpportunityEval', component: Placeholder, meta: { title: '机会评估', icon: 'DataAnalysis' } },
       { path: 'customer/list', name: 'CustomerList', component: Placeholder, meta: { title: '客户管理', icon: 'User' } },
       { path: 'customer/price', name: 'CustomerPrice', component: Placeholder, meta: { title: '客户价格本', icon: 'Notebook' } },
+      { path: 'customer/owner', name: 'CustomerOwner', component: Placeholder, meta: { title: '客户负责人', icon: 'Avatar' } },
       { path: 'customer/portal', name: 'CustomerPortal', component: Placeholder, meta: { title: '客户门户', icon: 'Star' } },
+      { path: 'customer/order', name: 'CustomerOrder', component: Placeholder, meta: { title: '客户订单', icon: 'ShoppingCart' } },
+      { path: 'customer/withdraw', name: 'CustomerWithdraw', component: Placeholder, meta: { title: '客户提现', icon: 'Wallet' } },
+      { path: 'customer/commission', name: 'CustomerCommission', component: Placeholder, meta: { title: '客户佣金', icon: 'Money' } },
+      { path: 'customer/feedback', name: 'CustomerFeedback', component: Placeholder, meta: { title: '客户反馈', icon: 'ChatDotRound' } },
       // 存货
       { path: 'inventory/category', name: 'InventoryCategory', component: Placeholder, meta: { title: '存货分类', icon: 'Operation' } },
       { path: 'inventory/list', name: 'InventoryList', component: Placeholder, meta: { title: '存货管理', icon: 'Goods' } },

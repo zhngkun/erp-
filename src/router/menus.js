@@ -63,6 +63,26 @@ export const menuRoutes = [
             meta: { title: '客户分类', icon: 'Operation' },
           },
           {
+            path: '/basic/customer/public-lead',
+            name: 'CustomerPublicLead',
+            meta: { title: '公海线索', icon: 'Share' },
+          },
+          {
+            path: '/basic/customer/private-lead',
+            name: 'CustomerPrivateLead',
+            meta: { title: '私海线索', icon: 'Lock' },
+          },
+          {
+            path: '/basic/customer/opportunity',
+            name: 'CustomerOpportunity',
+            meta: { title: '销售机会', icon: 'TrendCharts' },
+          },
+          {
+            path: '/basic/customer/opportunity-eval',
+            name: 'CustomerOpportunityEval',
+            meta: { title: '机会评估', icon: 'DataAnalysis' },
+          },
+          {
             path: '/basic/customer/list',
             name: 'CustomerList',
             meta: { title: '客户管理', icon: 'User' },
@@ -73,9 +93,34 @@ export const menuRoutes = [
             meta: { title: '客户价格本', icon: 'Notebook' },
           },
           {
+            path: '/basic/customer/owner',
+            name: 'CustomerOwner',
+            meta: { title: '客户负责人', icon: 'Avatar' },
+          },
+          {
             path: '/basic/customer/portal',
             name: 'CustomerPortal',
             meta: { title: '客户门户', icon: 'Star' },
+          },
+          {
+            path: '/basic/customer/order',
+            name: 'CustomerOrder',
+            meta: { title: '客户订单', icon: 'ShoppingCart' },
+          },
+          {
+            path: '/basic/customer/withdraw',
+            name: 'CustomerWithdraw',
+            meta: { title: '客户提现', icon: 'Wallet' },
+          },
+          {
+            path: '/basic/customer/commission',
+            name: 'CustomerCommission',
+            meta: { title: '客户佣金', icon: 'Money' },
+          },
+          {
+            path: '/basic/customer/feedback',
+            name: 'CustomerFeedback',
+            meta: { title: '客户反馈', icon: 'ChatDotRound' },
           },
         ],
       },

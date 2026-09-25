@@ -62,6 +62,32 @@ import {
   mockGetCustomerCategoryList,
   mockUpdateCustomerCategory,
 } from '@/mock/customerCategory'
+import {
+  mockBatchAssignPublicLead,
+  mockBatchClaimPublicLead,
+  mockBatchDeletePublicLead,
+  mockCreatePublicLead,
+  mockDeletePublicLead,
+  mockGetPublicLeadList,
+  mockUpdatePublicLead,
+} from '@/mock/customerPublicLead'
+import {
+  mockBatchDealPrivateLead,
+  mockBatchDeletePrivateLead,
+  mockBatchReleasePrivateLead,
+  mockCreatePrivateLead,
+  mockDeletePrivateLead,
+  mockGetPrivateLeadList,
+  mockUpdatePrivateLead,
+} from '@/mock/customerPrivateLead'
+import {
+  mockBatchDeleteOpportunity,
+  mockCreateOpportunity,
+  mockDeleteOpportunity,
+  mockGetOpportunityList,
+  mockPushOpportunity,
+  mockUpdateOpportunity,
+} from '@/mock/customerOpportunity'
 
 const service = axios.create({
   baseURL: import.meta.env.VITE_API_BASE || '/api',
@@ -212,6 +238,53 @@ async function request(config) {
   } else if (url?.startsWith('/basic/customer-categories/') && m === 'delete') {
     const id = url.split('/').pop()
     result = await mockDeleteCustomerCategory(id)
+  } else if (url === '/basic/customer-public-leads' && m === 'get') {
+    result = await mockGetPublicLeadList(params)
+  } else if (url === '/basic/customer-public-leads' && m === 'post') {
+    result = await mockCreatePublicLead(data)
+  } else if (url === '/basic/customer-public-leads/batch-delete' && m === 'post') {
+    result = await mockBatchDeletePublicLead(data?.ids)
+  } else if (url === '/basic/customer-public-leads/batch-claim' && m === 'post') {
+    result = await mockBatchClaimPublicLead(data?.ids)
+  } else if (url === '/basic/customer-public-leads/batch-assign' && m === 'post') {
+    const { ids, ...rest } = data || {}
+    result = await mockBatchAssignPublicLead(ids, rest)
+  } else if (url?.startsWith('/basic/customer-public-leads/') && m === 'put') {
+    const id = url.split('/').pop()
+    result = await mockUpdatePublicLead(id, data)
+  } else if (url?.startsWith('/basic/customer-public-leads/') && m === 'delete') {
+    const id = url.split('/').pop()
+    result = await mockDeletePublicLead(id)
+  } else if (url === '/basic/customer-private-leads' && m === 'get') {
+    result = await mockGetPrivateLeadList(params)
+  } else if (url === '/basic/customer-private-leads' && m === 'post') {
+    result = await mockCreatePrivateLead(data)
+  } else if (url === '/basic/customer-private-leads/batch-delete' && m === 'post') {
+    result = await mockBatchDeletePrivateLead(data?.ids)
+  } else if (url === '/basic/customer-private-leads/batch-deal' && m === 'post') {
+    result = await mockBatchDealPrivateLead(data?.ids)
+  } else if (url === '/basic/customer-private-leads/batch-release' && m === 'post') {
+    result = await mockBatchReleasePrivateLead(data?.ids)
+  } else if (url?.startsWith('/basic/customer-private-leads/') && m === 'put') {
+    const id = url.split('/').pop()
+    result = await mockUpdatePrivateLead(id, data)
+  } else if (url?.startsWith('/basic/customer-private-leads/') && m === 'delete') {
+    const id = url.split('/').pop()
+    result = await mockDeletePrivateLead(id)
+  } else if (url === '/basic/customer-opportunities' && m === 'get') {
+    result = await mockGetOpportunityList(params)
+  } else if (url === '/basic/customer-opportunities' && m === 'post') {
+    result = await mockCreateOpportunity(data)
+  } else if (url === '/basic/customer-opportunities/batch-delete' && m === 'post') {
+    result = await mockBatchDeleteOpportunity(data?.ids)
+  } else if (url === '/basic/customer-opportunities/push' && m === 'post') {
+    result = await mockPushOpportunity(data?.ids, data?.target)
+  } else if (url?.startsWith('/basic/customer-opportunities/') && m === 'put') {
+    const id = url.split('/').pop()
+    result = await mockUpdateOpportunity(id, data)
+  } else if (url?.startsWith('/basic/customer-opportunities/') && m === 'delete') {
+    const id = url.split('/').pop()
+    result = await mockDeleteOpportunity(id)
   } else {
     result = { code: 1, message: `未配置 mock: ${m.toUpperCase()} ${url}`, data: null }
   }
