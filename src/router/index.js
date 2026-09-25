@@ -280,8 +280,8 @@ export const constantRoutes = [
       { path: 'customer/price', name: 'CustomerPrice', component: () => import('@/views/basic/customer/CustomerPriceView.vue'), meta: { title: '客户价格本', icon: 'Notebook' } },
       { path: 'customer/owner', name: 'CustomerOwner', component: () => import('@/views/basic/customer/CustomerOwnerView.vue'), meta: { title: '客户负责人', icon: 'Avatar' } },
       { path: 'customer/portal', name: 'CustomerPortal', component: () => import('@/views/basic/customer/CustomerPortalView.vue'), meta: { title: '客户门户', icon: 'Star' } },
-      { path: 'customer/order', name: 'CustomerOrder', component: Placeholder, meta: { title: '客户订单', icon: 'ShoppingCart' } },
-      { path: 'customer/withdraw', name: 'CustomerWithdraw', component: Placeholder, meta: { title: '客户提现', icon: 'Wallet' } },
+      { path: 'customer/order', name: 'CustomerOrder', component: () => import('@/views/basic/customer/CustomerOrderView.vue'), meta: { title: '客户订单', icon: 'ShoppingCart' } },
+      { path: 'customer/withdraw', name: 'CustomerWithdraw', component: () => import('@/views/basic/customer/CustomerWithdrawView.vue'), meta: { title: '客户提现', icon: 'Wallet' } },
       { path: 'customer/commission', name: 'CustomerCommission', component: Placeholder, meta: { title: '客户佣金', icon: 'Money' } },
       { path: 'customer/feedback', name: 'CustomerFeedback', component: Placeholder, meta: { title: '客户反馈', icon: 'ChatDotRound' } },
       // 存货

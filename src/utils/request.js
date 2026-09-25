@@ -117,6 +117,18 @@ import {
   mockGetCustomerOwnerList,
   mockUpdateCustomerOwner,
 } from '@/mock/customerOwner'
+import {
+  mockBatchDeleteCustomerOrder,
+  mockBatchUpdateCustomerOrder,
+  mockDeleteCustomerOrder,
+  mockGetCustomerOrderList,
+  mockUpdateCustomerOrder,
+} from '@/mock/customerOrder'
+import {
+  mockBatchUpdateCustomerWithdraw,
+  mockGetCustomerWithdrawList,
+  mockUpdateCustomerWithdraw,
+} from '@/mock/customerWithdraw'
 
 const service = axios.create({
   baseURL: import.meta.env.VITE_API_BASE || '/api',
@@ -367,6 +379,27 @@ async function request(config) {
   } else if (url?.startsWith('/basic/customer-owners/') && m === 'delete') {
     const id = url.split('/').pop()
     result = await mockDeleteCustomerOwner(id)
+  } else if (url === '/basic/customer-orders' && m === 'get') {
+    result = await mockGetCustomerOrderList(params)
+  } else if (url === '/basic/customer-orders/batch-delete' && m === 'post') {
+    result = await mockBatchDeleteCustomerOrder(data?.ids)
+  } else if (url === '/basic/customer-orders/batch-update' && m === 'post') {
+    const { ids, ...rest } = data || {}
+    result = await mockBatchUpdateCustomerOrder(ids, rest)
+  } else if (url?.startsWith('/basic/customer-orders/') && m === 'put') {
+    const id = url.split('/').pop()
+    result = await mockUpdateCustomerOrder(id, data)
+  } else if (url?.startsWith('/basic/customer-orders/') && m === 'delete') {
+    const id = url.split('/').pop()
+    result = await mockDeleteCustomerOrder(id)
+  } else if (url === '/basic/customer-withdrawals' && m === 'get') {
+    result = await mockGetCustomerWithdrawList(params)
+  } else if (url === '/basic/customer-withdrawals/batch-update' && m === 'post') {
+    const { ids, ...rest } = data || {}
+    result = await mockBatchUpdateCustomerWithdraw(ids, rest)
+  } else if (url?.startsWith('/basic/customer-withdrawals/') && m === 'put') {
+    const id = url.split('/').pop()
+    result = await mockUpdateCustomerWithdraw(id, data)
   } else {
     result = { code: 1, message: `未配置 mock: ${m.toUpperCase()} ${url}`, data: null }
   }
