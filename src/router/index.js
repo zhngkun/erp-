@@ -282,8 +282,8 @@ export const constantRoutes = [
       { path: 'customer/portal', name: 'CustomerPortal', component: () => import('@/views/basic/customer/CustomerPortalView.vue'), meta: { title: '客户门户', icon: 'Star' } },
       { path: 'customer/order', name: 'CustomerOrder', component: () => import('@/views/basic/customer/CustomerOrderView.vue'), meta: { title: '客户订单', icon: 'ShoppingCart' } },
       { path: 'customer/withdraw', name: 'CustomerWithdraw', component: () => import('@/views/basic/customer/CustomerWithdrawView.vue'), meta: { title: '客户提现', icon: 'Wallet' } },
-      { path: 'customer/commission', name: 'CustomerCommission', component: Placeholder, meta: { title: '客户佣金', icon: 'Money' } },
-      { path: 'customer/feedback', name: 'CustomerFeedback', component: Placeholder, meta: { title: '客户反馈', icon: 'ChatDotRound' } },
+      { path: 'customer/commission', name: 'CustomerCommission', component: () => import('@/views/basic/customer/CustomerCommissionView.vue'), meta: { title: '客户佣金', icon: 'Money' } },
+      { path: 'customer/feedback', name: 'CustomerFeedback', component: () => import('@/views/basic/customer/CustomerFeedbackView.vue'), meta: { title: '客户反馈', icon: 'ChatDotRound' } },
       // 存货
       { path: 'inventory/category', name: 'InventoryCategory', component: Placeholder, meta: { title: '存货分类', icon: 'Operation' } },
       { path: 'inventory/list', name: 'InventoryList', component: Placeholder, meta: { title: '存货管理', icon: 'Goods' } },

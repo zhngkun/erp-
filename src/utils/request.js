@@ -129,6 +129,16 @@ import {
   mockGetCustomerWithdrawList,
   mockUpdateCustomerWithdraw,
 } from '@/mock/customerWithdraw'
+import {
+  mockGetCustomerCommissionCustomerDetails,
+  mockGetCustomerCommissionSaleDetails,
+  mockGetCustomerCommissionSummary,
+  mockGetCustomerCommissionWithdrawDetails,
+} from '@/mock/customerCommission'
+import {
+  mockGetCustomerFeedbackList,
+  mockUpdateCustomerFeedback,
+} from '@/mock/customerFeedback'
 
 const service = axios.create({
   baseURL: import.meta.env.VITE_API_BASE || '/api',
@@ -400,6 +410,19 @@ async function request(config) {
   } else if (url?.startsWith('/basic/customer-withdrawals/') && m === 'put') {
     const id = url.split('/').pop()
     result = await mockUpdateCustomerWithdraw(id, data)
+  } else if (url === '/basic/customer-commissions/summary' && m === 'get') {
+    result = await mockGetCustomerCommissionSummary(params)
+  } else if (url === '/basic/customer-commissions/sale-details' && m === 'get') {
+    result = await mockGetCustomerCommissionSaleDetails(params)
+  } else if (url === '/basic/customer-commissions/customer-details' && m === 'get') {
+    result = await mockGetCustomerCommissionCustomerDetails(params)
+  } else if (url === '/basic/customer-commissions/withdraw-details' && m === 'get') {
+    result = await mockGetCustomerCommissionWithdrawDetails(params)
+  } else if (url === '/basic/customer-feedbacks' && m === 'get') {
+    result = await mockGetCustomerFeedbackList(params)
+  } else if (url?.startsWith('/basic/customer-feedbacks/') && m === 'put') {
+    const id = url.split('/').pop()
+    result = await mockUpdateCustomerFeedback(id, data)
   } else {
     result = { code: 1, message: `未配置 mock: ${m.toUpperCase()} ${url}`, data: null }
   }
