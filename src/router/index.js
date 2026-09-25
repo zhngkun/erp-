@@ -275,7 +275,7 @@ export const constantRoutes = [
       { path: 'customer/public-lead', name: 'CustomerPublicLead', component: () => import('@/views/basic/customer/PublicLeadView.vue'), meta: { title: '公海线索', icon: 'Share' } },
       { path: 'customer/private-lead', name: 'CustomerPrivateLead', component: () => import('@/views/basic/customer/PrivateLeadView.vue'), meta: { title: '私海线索', icon: 'Lock' } },
       { path: 'customer/opportunity', name: 'CustomerOpportunity', component: () => import('@/views/basic/customer/OpportunityView.vue'), meta: { title: '销售机会', icon: 'TrendCharts' } },
-      { path: 'customer/opportunity-eval', name: 'CustomerOpportunityEval', component: Placeholder, meta: { title: '机会评估', icon: 'DataAnalysis' } },
+      { path: 'customer/opportunity-eval', name: 'CustomerOpportunityEval', component: () => import('@/views/basic/customer/OpportunityEvalView.vue'), meta: { title: '机会评估', icon: 'DataAnalysis' } },
       { path: 'customer/list', name: 'CustomerList', component: Placeholder, meta: { title: '客户管理', icon: 'User' } },
       { path: 'customer/price', name: 'CustomerPrice', component: Placeholder, meta: { title: '客户价格本', icon: 'Notebook' } },
       { path: 'customer/owner', name: 'CustomerOwner', component: Placeholder, meta: { title: '客户负责人', icon: 'Avatar' } },

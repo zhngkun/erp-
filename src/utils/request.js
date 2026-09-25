@@ -88,6 +88,12 @@ import {
   mockPushOpportunity,
   mockUpdateOpportunity,
 } from '@/mock/customerOpportunity'
+import {
+  mockBatchDeleteOpportunityEval,
+  mockDeleteOpportunityEval,
+  mockGetOpportunityEvalList,
+  mockUpdateOpportunityEval,
+} from '@/mock/customerOpportunityEval'
 
 const service = axios.create({
   baseURL: import.meta.env.VITE_API_BASE || '/api',
@@ -285,6 +291,16 @@ async function request(config) {
   } else if (url?.startsWith('/basic/customer-opportunities/') && m === 'delete') {
     const id = url.split('/').pop()
     result = await mockDeleteOpportunity(id)
+  } else if (url === '/basic/customer-opportunity-evals' && m === 'get') {
+    result = await mockGetOpportunityEvalList(params)
+  } else if (url === '/basic/customer-opportunity-evals/batch-delete' && m === 'post') {
+    result = await mockBatchDeleteOpportunityEval(data?.ids)
+  } else if (url?.startsWith('/basic/customer-opportunity-evals/') && m === 'put') {
+    const id = url.split('/').pop()
+    result = await mockUpdateOpportunityEval(id, data)
+  } else if (url?.startsWith('/basic/customer-opportunity-evals/') && m === 'delete') {
+    const id = url.split('/').pop()
+    result = await mockDeleteOpportunityEval(id)
   } else {
     result = { code: 1, message: `未配置 mock: ${m.toUpperCase()} ${url}`, data: null }
   }
