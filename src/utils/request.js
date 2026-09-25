@@ -149,6 +149,15 @@ import { getBillStore } from '@/mock/stock/bills'
 import { getPurchaseBillStore } from '@/mock/purchase/bills'
 import { mockGetPurchaseFollowUpList } from '@/mock/purchase/followUp'
 import { getSalesBillStore } from '@/mock/sales/bills'
+import { getCashBillStore } from '@/mock/cash/bills'
+import {
+  mockBatchDeleteCashPaymentMethod,
+  mockBatchUpdateCashPaymentMethod,
+  mockCreateCashPaymentMethod,
+  mockDeleteCashPaymentMethod,
+  mockGetCashPaymentMethodList,
+  mockUpdateCashPaymentMethod,
+} from '@/mock/cash/paymentMethod'
 import {
   mockBatchDeleteInventoryBrand,
   mockBatchUpdateInventoryBrand,
@@ -702,6 +711,44 @@ async function request(config) {
     const billKey = parts[3]
     const id = parts[4]
     result = await getSalesBillStore(billKey).remove(id)
+  } else if (url === '/cash/payment-methods' && m === 'get') {
+    result = await mockGetCashPaymentMethodList(params)
+  } else if (url === '/cash/payment-methods' && m === 'post') {
+    result = await mockCreateCashPaymentMethod(data)
+  } else if (url === '/cash/payment-methods/batch-delete' && m === 'post') {
+    result = await mockBatchDeleteCashPaymentMethod(data?.ids)
+  } else if (url === '/cash/payment-methods/batch-update' && m === 'post') {
+    const { ids, ...rest } = data || {}
+    result = await mockBatchUpdateCashPaymentMethod(ids, rest)
+  } else if (url?.startsWith('/cash/payment-methods/') && m === 'put') {
+    const id = url.split('/').pop()
+    result = await mockUpdateCashPaymentMethod(id, data)
+  } else if (url?.startsWith('/cash/payment-methods/') && m === 'delete') {
+    const id = url.split('/').pop()
+    result = await mockDeleteCashPaymentMethod(id)
+  } else if (url?.match(/^\/cash\/bills\/[^/]+$/) && m === 'get') {
+    const billKey = url.split('/')[3]
+    result = await getCashBillStore(billKey).getList(params)
+  } else if (url?.match(/^\/cash\/bills\/[^/]+$/) && m === 'post') {
+    const billKey = url.split('/')[3]
+    result = await getCashBillStore(billKey).create(data)
+  } else if (url?.match(/^\/cash\/bills\/[^/]+\/batch-delete$/) && m === 'post') {
+    const billKey = url.split('/')[3]
+    result = await getCashBillStore(billKey).batchDelete(data?.ids)
+  } else if (url?.match(/^\/cash\/bills\/[^/]+\/batch-update$/) && m === 'post') {
+    const billKey = url.split('/')[3]
+    const { ids, ...rest } = data || {}
+    result = await getCashBillStore(billKey).batchUpdate(ids, rest)
+  } else if (url?.match(/^\/cash\/bills\/[^/]+\/[^/]+$/) && m === 'put') {
+    const parts = url.split('/')
+    const billKey = parts[3]
+    const id = parts[4]
+    result = await getCashBillStore(billKey).update(id, data)
+  } else if (url?.match(/^\/cash\/bills\/[^/]+\/[^/]+$/) && m === 'delete') {
+    const parts = url.split('/')
+    const billKey = parts[3]
+    const id = parts[4]
+    result = await getCashBillStore(billKey).remove(id)
   } else {
     result = { code: 1, message: `未配置 mock: ${m.toUpperCase()} ${url}`, data: null }
   }
