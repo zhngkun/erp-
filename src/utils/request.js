@@ -8,6 +8,21 @@ import {
   mockLogin,
   mockUpdateUser,
 } from '@/mock/user'
+import {
+  mockBatchDeleteWarehouse,
+  mockBatchUpdateWarehouse,
+  mockCreateWarehouse,
+  mockDeleteWarehouse,
+  mockGetWarehouseList,
+  mockUpdateWarehouse,
+} from '@/mock/warehouse'
+import {
+  mockBatchDeleteAddress,
+  mockCreateAddress,
+  mockDeleteAddress,
+  mockGetAddressList,
+  mockUpdateAddress,
+} from '@/mock/address'
 
 const service = axios.create({
   baseURL: import.meta.env.VITE_API_BASE || '/api',
@@ -59,6 +74,33 @@ async function request(config) {
   } else if (url?.startsWith('/system/users/') && m === 'delete') {
     const id = url.split('/').pop()
     result = await mockDeleteUser(id)
+  } else if (url === '/basic/warehouses' && m === 'get') {
+    result = await mockGetWarehouseList(params)
+  } else if (url === '/basic/warehouses' && m === 'post') {
+    result = await mockCreateWarehouse(data)
+  } else if (url === '/basic/warehouses/batch-delete' && m === 'post') {
+    result = await mockBatchDeleteWarehouse(data?.ids)
+  } else if (url === '/basic/warehouses/batch-update' && m === 'post') {
+    const { ids, ...rest } = data || {}
+    result = await mockBatchUpdateWarehouse(ids, rest)
+  } else if (url?.startsWith('/basic/warehouses/') && m === 'put') {
+    const id = url.split('/').pop()
+    result = await mockUpdateWarehouse(id, data)
+  } else if (url?.startsWith('/basic/warehouses/') && m === 'delete') {
+    const id = url.split('/').pop()
+    result = await mockDeleteWarehouse(id)
+  } else if (url === '/basic/addresses' && m === 'get') {
+    result = await mockGetAddressList(params)
+  } else if (url === '/basic/addresses' && m === 'post') {
+    result = await mockCreateAddress(data)
+  } else if (url === '/basic/addresses/batch-delete' && m === 'post') {
+    result = await mockBatchDeleteAddress(data?.ids)
+  } else if (url?.startsWith('/basic/addresses/') && m === 'put') {
+    const id = url.split('/').pop()
+    result = await mockUpdateAddress(id, data)
+  } else if (url?.startsWith('/basic/addresses/') && m === 'delete') {
+    const id = url.split('/').pop()
+    result = await mockDeleteAddress(id)
   } else {
     result = { code: 1, message: `未配置 mock: ${m.toUpperCase()} ${url}`, data: null }
   }

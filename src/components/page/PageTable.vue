@@ -44,7 +44,7 @@ const props = defineProps({
 const page = defineModel('page', { type: Number, default: 1 })
 const pageSize = defineModel('pageSize', { type: Number, default: 10 })
 
-const emit = defineEmits(['page-change', 'size-change'])
+const emit = defineEmits(['page-change', 'size-change', 'selection-change'])
 
 const tableWrapRef = ref(null)
 const { tableHeight, updateHeight } = useTableHeight(tableWrapRef)
@@ -97,6 +97,7 @@ defineExpose({
         :height="tableHeight"
         :stripe="stripe"
         style="width: 100%"
+        @selection-change="emit('selection-change', $event)"
       >
         <slot />
       </el-table>

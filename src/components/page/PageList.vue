@@ -46,7 +46,7 @@ defineProps({
 const page = defineModel('page', { type: Number, default: 1 })
 const pageSize = defineModel('pageSize', { type: Number, default: 10 })
 
-const emit = defineEmits(['search', 'reset', 'page-change', 'size-change'])
+const emit = defineEmits(['search', 'reset', 'page-change', 'size-change', 'selection-change'])
 
 const slots = useSlots()
 const hasSearch = !!slots.search
@@ -76,6 +76,7 @@ const hasSearch = !!slots.search
       :page-sizes="pageSizes"
       @page-change="emit('page-change', $event)"
       @size-change="emit('size-change', $event)"
+      @selection-change="emit('selection-change', $event)"
     >
       <template v-if="$slots.header" #header>
         <slot name="header" />

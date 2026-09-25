@@ -200,6 +200,42 @@ html.dark .el-menu-item.is-active {
   background: var(--soft-table-hover) !important;
 }
 
+/* 表格多选框：保证在斑马纹/深色背景下边框始终可见 */
+.el-table .el-checkbox__inner {
+  background-color: var(--soft-surface) !important;
+  border: 1.5px solid var(--soft-text-muted) !important;
+  box-shadow: none !important;
+}
+
+.el-table .el-checkbox__input.is-checked .el-checkbox__inner,
+.el-table .el-checkbox__input.is-indeterminate .el-checkbox__inner {
+  background-color: var(--soft-primary) !important;
+  border-color: var(--soft-primary) !important;
+}
+
+.el-table .el-checkbox__input.is-checked .el-checkbox__inner::after {
+  border-color: #ffffff !important;
+}
+
+html.dark .el-table .el-checkbox__inner {
+  background-color: #0f172a !important;
+  border-color: #94a3b8 !important;
+}
+
+html.dark .el-table .el-checkbox__input.is-checked .el-checkbox__inner,
+html.dark .el-table .el-checkbox__input.is-indeterminate .el-checkbox__inner {
+  background-color: var(--soft-primary) !important;
+  border-color: var(--soft-primary) !important;
+}
+
+html.dark .el-table .el-checkbox__input.is-checked .el-checkbox__inner::after {
+  border-color: #0f172a !important;
+}
+
+html.dark .el-table .el-checkbox__input.is-indeterminate .el-checkbox__inner::before {
+  background-color: #0f172a !important;
+}
+
 .el-pagination.is-background .el-pager li.is-active {
   background: var(--soft-primary) !important;
 }
