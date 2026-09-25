@@ -140,6 +140,13 @@ import {
   mockUpdateCustomerFeedback,
 } from '@/mock/customerFeedback'
 import {
+  mockGetStockFlowList,
+  mockGetStockInventoryList,
+  mockGetStockLockList,
+  mockUnlockStock,
+} from '@/mock/stock/inventory'
+import { getBillStore } from '@/mock/stock/bills'
+import {
   mockBatchDeleteInventoryBrand,
   mockBatchUpdateInventoryBrand,
   mockCreateInventoryBrand,
@@ -612,6 +619,38 @@ async function request(config) {
   } else if (url?.startsWith('/basic/dict-values/') && m === 'delete') {
     const id = url.split('/').pop()
     result = await mockDeleteDictValue(id)
+  } else if (url === '/stock/inventories' && m === 'get') {
+    result = await mockGetStockInventoryList(params)
+  } else if (url === '/stock/flows' && m === 'get') {
+    result = await mockGetStockFlowList(params)
+  } else if (url === '/stock/locks' && m === 'get') {
+    result = await mockGetStockLockList(params)
+  } else if (url?.match(/^\/stock\/locks\/[^/]+\/unlock$/) && m === 'post') {
+    const id = url.split('/')[3]
+    result = await mockUnlockStock(id)
+  } else if (url?.match(/^\/stock\/bills\/[^/]+$/) && m === 'get') {
+    const billKey = url.split('/')[3]
+    result = await getBillStore(billKey).getList(params)
+  } else if (url?.match(/^\/stock\/bills\/[^/]+$/) && m === 'post') {
+    const billKey = url.split('/')[3]
+    result = await getBillStore(billKey).create(data)
+  } else if (url?.match(/^\/stock\/bills\/[^/]+\/batch-delete$/) && m === 'post') {
+    const billKey = url.split('/')[3]
+    result = await getBillStore(billKey).batchDelete(data?.ids)
+  } else if (url?.match(/^\/stock\/bills\/[^/]+\/batch-update$/) && m === 'post') {
+    const billKey = url.split('/')[3]
+    const { ids, ...rest } = data || {}
+    result = await getBillStore(billKey).batchUpdate(ids, rest)
+  } else if (url?.match(/^\/stock\/bills\/[^/]+\/[^/]+$/) && m === 'put') {
+    const parts = url.split('/')
+    const billKey = parts[3]
+    const id = parts[4]
+    result = await getBillStore(billKey).update(id, data)
+  } else if (url?.match(/^\/stock\/bills\/[^/]+\/[^/]+$/) && m === 'delete') {
+    const parts = url.split('/')
+    const billKey = parts[3]
+    const id = parts[4]
+    result = await getBillStore(billKey).remove(id)
   } else {
     result = { code: 1, message: `未配置 mock: ${m.toUpperCase()} ${url}`, data: null }
   }
