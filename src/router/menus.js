@@ -130,14 +130,19 @@ export const menuRoutes = [
         meta: { title: '存货', icon: 'ShoppingBag' },
         children: [
           {
-            path: '/basic/inventory/category',
-            name: 'InventoryCategory',
-            meta: { title: '存货分类', icon: 'Operation' },
+            path: '/basic/inventory/brand',
+            name: 'InventoryBrand',
+            meta: { title: '品牌管理', icon: 'Medal' },
           },
           {
-            path: '/basic/inventory/list',
-            name: 'InventoryList',
-            meta: { title: '存货管理', icon: 'Goods' },
+            path: '/basic/inventory/category',
+            name: 'InventoryCategory',
+            meta: { title: '分类管理', icon: 'Operation' },
+          },
+          {
+            path: '/basic/inventory/attr',
+            name: 'InventoryAttr',
+            meta: { title: '属性管理', icon: 'SetUp' },
           },
           {
             path: '/basic/inventory/unit',
@@ -145,9 +150,14 @@ export const menuRoutes = [
             meta: { title: '计量单位', icon: 'ScaleToOriginal' },
           },
           {
-            path: '/basic/inventory/brand',
-            name: 'InventoryBrand',
-            meta: { title: '品牌管理', icon: 'Medal' },
+            path: '/basic/inventory/batch-code',
+            name: 'InventoryBatchCode',
+            meta: { title: '批次条码', icon: 'Postcard' },
+          },
+          {
+            path: '/basic/inventory/list',
+            name: 'InventoryList',
+            meta: { title: '存货管理', icon: 'Goods' },
           },
         ],
       },

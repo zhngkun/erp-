@@ -284,11 +284,13 @@ export const constantRoutes = [
       { path: 'customer/withdraw', name: 'CustomerWithdraw', component: () => import('@/views/basic/customer/CustomerWithdrawView.vue'), meta: { title: '客户提现', icon: 'Wallet' } },
       { path: 'customer/commission', name: 'CustomerCommission', component: () => import('@/views/basic/customer/CustomerCommissionView.vue'), meta: { title: '客户佣金', icon: 'Money' } },
       { path: 'customer/feedback', name: 'CustomerFeedback', component: () => import('@/views/basic/customer/CustomerFeedbackView.vue'), meta: { title: '客户反馈', icon: 'ChatDotRound' } },
-      // 存货
-      { path: 'inventory/category', name: 'InventoryCategory', component: Placeholder, meta: { title: '存货分类', icon: 'Operation' } },
-      { path: 'inventory/list', name: 'InventoryList', component: Placeholder, meta: { title: '存货管理', icon: 'Goods' } },
-      { path: 'inventory/unit', name: 'InventoryUnit', component: Placeholder, meta: { title: '计量单位', icon: 'ScaleToOriginal' } },
-      { path: 'inventory/brand', name: 'InventoryBrand', component: Placeholder, meta: { title: '品牌管理', icon: 'Medal' } },
+      // 存货（顺序对齐朋来P8：品牌→分类→属性→单位→批次条码→存货管理）
+      { path: 'inventory/brand', name: 'InventoryBrand', component: () => import('@/views/basic/inventory/BrandView.vue'), meta: { title: '品牌管理', icon: 'Medal' } },
+      { path: 'inventory/category', name: 'InventoryCategory', component: () => import('@/views/basic/inventory/CategoryView.vue'), meta: { title: '分类管理', icon: 'Operation' } },
+      { path: 'inventory/attr', name: 'InventoryAttr', component: () => import('@/views/basic/inventory/AttrView.vue'), meta: { title: '属性管理', icon: 'SetUp' } },
+      { path: 'inventory/unit', name: 'InventoryUnit', component: () => import('@/views/basic/inventory/UnitView.vue'), meta: { title: '计量单位', icon: 'ScaleToOriginal' } },
+      { path: 'inventory/batch-code', name: 'InventoryBatchCode', component: () => import('@/views/basic/inventory/BatchCodeView.vue'), meta: { title: '批次条码', icon: 'Postcard' } },
+      { path: 'inventory/list', name: 'InventoryList', component: () => import('@/views/basic/inventory/InventoryListView.vue'), meta: { title: '存货管理', icon: 'Goods' } },
     ],
   },
   {

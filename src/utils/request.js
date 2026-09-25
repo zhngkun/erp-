@@ -139,6 +139,55 @@ import {
   mockGetCustomerFeedbackList,
   mockUpdateCustomerFeedback,
 } from '@/mock/customerFeedback'
+import {
+  mockBatchDeleteInventoryBrand,
+  mockBatchUpdateInventoryBrand,
+  mockCreateInventoryBrand,
+  mockDeleteInventoryBrand,
+  mockGetInventoryBrandList,
+  mockUpdateInventoryBrand,
+} from '@/mock/inventoryBrand'
+import {
+  mockBatchDeleteInventoryCategory,
+  mockBatchUpdateInventoryCategory,
+  mockCreateInventoryCategory,
+  mockDeleteInventoryCategory,
+  mockGetInventoryCategoryList,
+  mockUpdateInventoryCategory,
+} from '@/mock/inventoryCategory'
+import {
+  mockBatchDeleteInventoryAttr,
+  mockBatchUpdateInventoryAttr,
+  mockCreateInventoryAttr,
+  mockDeleteInventoryAttr,
+  mockGetInventoryAttrList,
+  mockUpdateInventoryAttr,
+} from '@/mock/inventoryAttr'
+import {
+  mockBatchDeleteInventoryUnit,
+  mockBatchUpdateInventoryUnit,
+  mockCreateInventoryUnit,
+  mockCreateInventoryUnitGroup,
+  mockDeleteInventoryUnit,
+  mockDeleteInventoryUnitGroup,
+  mockGetInventoryUnitGroupList,
+  mockGetInventoryUnitList,
+  mockUpdateInventoryUnit,
+  mockUpdateInventoryUnitGroup,
+} from '@/mock/inventoryUnit'
+import {
+  mockGetInventoryBatchCodeSettings,
+  mockPreviewInventoryBatchCodes,
+  mockSaveInventoryBatchCodeSettings,
+} from '@/mock/inventoryBatchCode'
+import {
+  mockBatchDeleteInventory,
+  mockBatchUpdateInventory,
+  mockCreateInventory,
+  mockDeleteInventory,
+  mockGetInventoryList,
+  mockUpdateInventory,
+} from '@/mock/inventory'
 
 const service = axios.create({
   baseURL: import.meta.env.VITE_API_BASE || '/api',
@@ -423,6 +472,97 @@ async function request(config) {
   } else if (url?.startsWith('/basic/customer-feedbacks/') && m === 'put') {
     const id = url.split('/').pop()
     result = await mockUpdateCustomerFeedback(id, data)
+  } else if (url === '/basic/inventory-brands' && m === 'get') {
+    result = await mockGetInventoryBrandList(params)
+  } else if (url === '/basic/inventory-brands' && m === 'post') {
+    result = await mockCreateInventoryBrand(data)
+  } else if (url === '/basic/inventory-brands/batch-delete' && m === 'post') {
+    result = await mockBatchDeleteInventoryBrand(data?.ids)
+  } else if (url === '/basic/inventory-brands/batch-update' && m === 'post') {
+    const { ids, ...rest } = data || {}
+    result = await mockBatchUpdateInventoryBrand(ids, rest)
+  } else if (url?.startsWith('/basic/inventory-brands/') && m === 'put') {
+    const id = url.split('/').pop()
+    result = await mockUpdateInventoryBrand(id, data)
+  } else if (url?.startsWith('/basic/inventory-brands/') && m === 'delete') {
+    const id = url.split('/').pop()
+    result = await mockDeleteInventoryBrand(id)
+  } else if (url === '/basic/inventory-categories' && m === 'get') {
+    result = await mockGetInventoryCategoryList(params)
+  } else if (url === '/basic/inventory-categories' && m === 'post') {
+    result = await mockCreateInventoryCategory(data)
+  } else if (url === '/basic/inventory-categories/batch-delete' && m === 'post') {
+    result = await mockBatchDeleteInventoryCategory(data?.ids)
+  } else if (url === '/basic/inventory-categories/batch-update' && m === 'post') {
+    const { ids, ...rest } = data || {}
+    result = await mockBatchUpdateInventoryCategory(ids, rest)
+  } else if (url?.startsWith('/basic/inventory-categories/') && m === 'put') {
+    const id = url.split('/').pop()
+    result = await mockUpdateInventoryCategory(id, data)
+  } else if (url?.startsWith('/basic/inventory-categories/') && m === 'delete') {
+    const id = url.split('/').pop()
+    result = await mockDeleteInventoryCategory(id)
+  } else if (url === '/basic/inventory-attrs' && m === 'get') {
+    result = await mockGetInventoryAttrList(params)
+  } else if (url === '/basic/inventory-attrs' && m === 'post') {
+    result = await mockCreateInventoryAttr(data)
+  } else if (url === '/basic/inventory-attrs/batch-delete' && m === 'post') {
+    result = await mockBatchDeleteInventoryAttr(data?.ids)
+  } else if (url === '/basic/inventory-attrs/batch-update' && m === 'post') {
+    const { ids, ...rest } = data || {}
+    result = await mockBatchUpdateInventoryAttr(ids, rest)
+  } else if (url?.startsWith('/basic/inventory-attrs/') && m === 'put') {
+    const id = url.split('/').pop()
+    result = await mockUpdateInventoryAttr(id, data)
+  } else if (url?.startsWith('/basic/inventory-attrs/') && m === 'delete') {
+    const id = url.split('/').pop()
+    result = await mockDeleteInventoryAttr(id)
+  } else if (url === '/basic/inventory-unit-groups' && m === 'get') {
+    result = await mockGetInventoryUnitGroupList(params)
+  } else if (url === '/basic/inventory-unit-groups' && m === 'post') {
+    result = await mockCreateInventoryUnitGroup(data)
+  } else if (url?.startsWith('/basic/inventory-unit-groups/') && m === 'put') {
+    const id = url.split('/').pop()
+    result = await mockUpdateInventoryUnitGroup(id, data)
+  } else if (url?.startsWith('/basic/inventory-unit-groups/') && m === 'delete') {
+    const id = url.split('/').pop()
+    result = await mockDeleteInventoryUnitGroup(id)
+  } else if (url === '/basic/inventory-units' && m === 'get') {
+    result = await mockGetInventoryUnitList(params)
+  } else if (url === '/basic/inventory-units' && m === 'post') {
+    result = await mockCreateInventoryUnit(data)
+  } else if (url === '/basic/inventory-units/batch-delete' && m === 'post') {
+    result = await mockBatchDeleteInventoryUnit(data?.ids)
+  } else if (url === '/basic/inventory-units/batch-update' && m === 'post') {
+    const { ids, ...rest } = data || {}
+    result = await mockBatchUpdateInventoryUnit(ids, rest)
+  } else if (url?.startsWith('/basic/inventory-units/') && m === 'put') {
+    const id = url.split('/').pop()
+    result = await mockUpdateInventoryUnit(id, data)
+  } else if (url?.startsWith('/basic/inventory-units/') && m === 'delete') {
+    const id = url.split('/').pop()
+    result = await mockDeleteInventoryUnit(id)
+  } else if (url === '/basic/inventory-batch-code/settings' && m === 'get') {
+    result = await mockGetInventoryBatchCodeSettings()
+  } else if (url === '/basic/inventory-batch-code/settings' && m === 'put') {
+    result = await mockSaveInventoryBatchCodeSettings(data)
+  } else if (url === '/basic/inventory-batch-code/preview' && m === 'post') {
+    result = await mockPreviewInventoryBatchCodes(data)
+  } else if (url === '/basic/inventories' && m === 'get') {
+    result = await mockGetInventoryList(params)
+  } else if (url === '/basic/inventories' && m === 'post') {
+    result = await mockCreateInventory(data)
+  } else if (url === '/basic/inventories/batch-delete' && m === 'post') {
+    result = await mockBatchDeleteInventory(data?.ids)
+  } else if (url === '/basic/inventories/batch-update' && m === 'post') {
+    const { ids, ...rest } = data || {}
+    result = await mockBatchUpdateInventory(ids, rest)
+  } else if (url?.startsWith('/basic/inventories/') && m === 'put') {
+    const id = url.split('/').pop()
+    result = await mockUpdateInventory(id, data)
+  } else if (url?.startsWith('/basic/inventories/') && m === 'delete') {
+    const id = url.split('/').pop()
+    result = await mockDeleteInventory(id)
   } else {
     result = { code: 1, message: `未配置 mock: ${m.toUpperCase()} ${url}`, data: null }
   }
