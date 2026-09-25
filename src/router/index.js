@@ -271,7 +271,7 @@ export const constantRoutes = [
       { path: 'supplier/price', name: 'SupplierPrice', component: () => import('@/views/basic/supplier/SupplierPriceView.vue'), meta: { title: '供应商价格本', icon: 'Notebook' } },
       { path: 'supplier/portal', name: 'SupplierPortal', component: Placeholder, meta: { title: '供应商门户', icon: 'Star' } },
       // 客户
-      { path: 'customer/category', name: 'CustomerCategory', component: Placeholder, meta: { title: '客户分类', icon: 'Operation' } },
+      { path: 'customer/category', name: 'CustomerCategory', component: () => import('@/views/basic/customer/CustomerCategoryView.vue'), meta: { title: '客户分类', icon: 'Operation' } },
       { path: 'customer/list', name: 'CustomerList', component: Placeholder, meta: { title: '客户管理', icon: 'User' } },
       { path: 'customer/price', name: 'CustomerPrice', component: Placeholder, meta: { title: '客户价格本', icon: 'Notebook' } },
       { path: 'customer/portal', name: 'CustomerPortal', component: Placeholder, meta: { title: '客户门户', icon: 'Star' } },

@@ -54,6 +54,14 @@ import {
   mockGetSupplierPriceList,
   mockUpdateSupplierPrice,
 } from '@/mock/supplierPrice'
+import {
+  mockBatchDeleteCustomerCategory,
+  mockBatchUpdateCustomerCategory,
+  mockCreateCustomerCategory,
+  mockDeleteCustomerCategory,
+  mockGetCustomerCategoryList,
+  mockUpdateCustomerCategory,
+} from '@/mock/customerCategory'
 
 const service = axios.create({
   baseURL: import.meta.env.VITE_API_BASE || '/api',
@@ -189,6 +197,21 @@ async function request(config) {
   } else if (url?.startsWith('/basic/supplier-prices/') && m === 'delete') {
     const id = url.split('/').pop()
     result = await mockDeleteSupplierPrice(id)
+  } else if (url === '/basic/customer-categories' && m === 'get') {
+    result = await mockGetCustomerCategoryList(params)
+  } else if (url === '/basic/customer-categories' && m === 'post') {
+    result = await mockCreateCustomerCategory(data)
+  } else if (url === '/basic/customer-categories/batch-delete' && m === 'post') {
+    result = await mockBatchDeleteCustomerCategory(data?.ids)
+  } else if (url === '/basic/customer-categories/batch-update' && m === 'post') {
+    const { ids, ...rest } = data || {}
+    result = await mockBatchUpdateCustomerCategory(ids, rest)
+  } else if (url?.startsWith('/basic/customer-categories/') && m === 'put') {
+    const id = url.split('/').pop()
+    result = await mockUpdateCustomerCategory(id, data)
+  } else if (url?.startsWith('/basic/customer-categories/') && m === 'delete') {
+    const id = url.split('/').pop()
+    result = await mockDeleteCustomerCategory(id)
   } else {
     result = { code: 1, message: `未配置 mock: ${m.toUpperCase()} ${url}`, data: null }
   }
