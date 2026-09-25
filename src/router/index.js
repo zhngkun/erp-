@@ -263,8 +263,8 @@ export const constantRoutes = [
       { path: 'warehouse', name: 'BasicWarehouse', component: () => import('@/views/basic/WarehouseView.vue'), meta: { title: '仓库管理', icon: 'Box' } },
       { path: 'location', name: 'BasicLocation', component: () => import('@/views/basic/LocationView.vue'), meta: { title: '货位管理', icon: 'Grid' } },
       { path: 'address', name: 'BasicAddress', component: () => import('@/views/basic/AddressView.vue'), meta: { title: '行政地址', icon: 'Van' } },
-      { path: 'finance-item', name: 'BasicFinanceItem', component: Placeholder, meta: { title: '收支项目', icon: 'Wallet' } },
-      { path: 'dict', name: 'BasicDict', component: Placeholder, meta: { title: '字典管理', icon: 'Menu' } },
+      { path: 'finance-item', name: 'BasicFinanceItem', component: () => import('@/views/basic/FinanceItemView.vue'), meta: { title: '收支项目', icon: 'Wallet' } },
+      { path: 'dict', name: 'BasicDict', component: () => import('@/views/basic/DictView.vue'), meta: { title: '字典管理', icon: 'Menu' } },
       // 供应商
       { path: 'supplier/category', name: 'SupplierCategory', component: () => import('@/views/basic/supplier/SupplierCategoryView.vue'), meta: { title: '供应商分类', icon: 'Operation' } },
       { path: 'supplier/list', name: 'SupplierList', component: () => import('@/views/basic/supplier/SupplierListView.vue'), meta: { title: '供应商管理', icon: 'Briefcase' } },

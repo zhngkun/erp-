@@ -188,6 +188,23 @@ import {
   mockGetInventoryList,
   mockUpdateInventory,
 } from '@/mock/inventory'
+import {
+  mockBatchDeleteFinanceItem,
+  mockBatchUpdateFinanceItem,
+  mockCreateFinanceItem,
+  mockDeleteFinanceItem,
+  mockGetFinanceItemList,
+  mockUpdateFinanceItem,
+} from '@/mock/financeItem'
+import {
+  mockBatchDeleteDictValue,
+  mockBatchUpdateDictValue,
+  mockCreateDictValue,
+  mockDeleteDictValue,
+  mockGetDictTypeList,
+  mockGetDictValueList,
+  mockUpdateDictValue,
+} from '@/mock/dict'
 
 const service = axios.create({
   baseURL: import.meta.env.VITE_API_BASE || '/api',
@@ -563,6 +580,38 @@ async function request(config) {
   } else if (url?.startsWith('/basic/inventories/') && m === 'delete') {
     const id = url.split('/').pop()
     result = await mockDeleteInventory(id)
+  } else if (url === '/basic/finance-items' && m === 'get') {
+    result = await mockGetFinanceItemList(params)
+  } else if (url === '/basic/finance-items' && m === 'post') {
+    result = await mockCreateFinanceItem(data)
+  } else if (url === '/basic/finance-items/batch-delete' && m === 'post') {
+    result = await mockBatchDeleteFinanceItem(data?.ids)
+  } else if (url === '/basic/finance-items/batch-update' && m === 'post') {
+    const { ids, ...rest } = data || {}
+    result = await mockBatchUpdateFinanceItem(ids, rest)
+  } else if (url?.startsWith('/basic/finance-items/') && m === 'put') {
+    const id = url.split('/').pop()
+    result = await mockUpdateFinanceItem(id, data)
+  } else if (url?.startsWith('/basic/finance-items/') && m === 'delete') {
+    const id = url.split('/').pop()
+    result = await mockDeleteFinanceItem(id)
+  } else if (url === '/basic/dict-types' && m === 'get') {
+    result = await mockGetDictTypeList()
+  } else if (url === '/basic/dict-values' && m === 'get') {
+    result = await mockGetDictValueList(params)
+  } else if (url === '/basic/dict-values' && m === 'post') {
+    result = await mockCreateDictValue(data)
+  } else if (url === '/basic/dict-values/batch-delete' && m === 'post') {
+    result = await mockBatchDeleteDictValue(data?.ids)
+  } else if (url === '/basic/dict-values/batch-update' && m === 'post') {
+    const { ids, ...rest } = data || {}
+    result = await mockBatchUpdateDictValue(ids, rest)
+  } else if (url?.startsWith('/basic/dict-values/') && m === 'put') {
+    const id = url.split('/').pop()
+    result = await mockUpdateDictValue(id, data)
+  } else if (url?.startsWith('/basic/dict-values/') && m === 'delete') {
+    const id = url.split('/').pop()
+    result = await mockDeleteDictValue(id)
   } else {
     result = { code: 1, message: `未配置 mock: ${m.toUpperCase()} ${url}`, data: null }
   }
