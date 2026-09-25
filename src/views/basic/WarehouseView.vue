@@ -352,27 +352,29 @@ onMounted(fetchList)
     <el-table-column prop="sort" label="排序值" width="90" sortable />
     <el-table-column prop="remark" label="备注" min-width="120" show-overflow-tooltip />
     <el-table-column prop="createdAt" label="创建时间" min-width="170" sortable />
-    <el-table-column label="操作" width="140" fixed="right">
+    <el-table-column label="操作" width="150" fixed="right">
       <template #default="{ row }">
-        <el-button link type="primary" @click="openEdit(row)">编辑</el-button>
-        <el-dropdown
-          trigger="click"
-          @command="(cmd) => handleMoreCommand(cmd, row)"
-        >
-          <el-button link type="primary">
-            更多
-            <el-icon class="el-icon--right"><ArrowDown /></el-icon>
-          </el-button>
-          <template #dropdown>
-            <el-dropdown-menu>
-              <el-dropdown-item command="trend">出库趋势</el-dropdown-item>
-              <el-dropdown-item command="warning">库存预警</el-dropdown-item>
-              <el-dropdown-item command="delete" divided>
-                <span class="danger-text">删除</span>
-              </el-dropdown-item>
-            </el-dropdown-menu>
-          </template>
-        </el-dropdown>
+        <div class="table-actions">
+          <el-button link type="primary" @click="openEdit(row)">编辑</el-button>
+          <el-dropdown
+            trigger="click"
+            @command="(cmd) => handleMoreCommand(cmd, row)"
+          >
+            <el-button link type="primary">
+              更多
+              <el-icon class="el-icon--right"><ArrowDown /></el-icon>
+            </el-button>
+            <template #dropdown>
+              <el-dropdown-menu>
+                <el-dropdown-item command="trend">出库趋势</el-dropdown-item>
+                <el-dropdown-item command="warning">库存预警</el-dropdown-item>
+                <el-dropdown-item command="delete" divided>
+                  <span class="danger-text">删除</span>
+                </el-dropdown-item>
+              </el-dropdown-menu>
+            </template>
+          </el-dropdown>
+        </div>
       </template>
     </el-table-column>
   </PageList>
@@ -448,6 +450,14 @@ onMounted(fetchList)
   display: flex;
   flex-direction: column;
   overflow: hidden;
+}
+
+.table-actions {
+  display: inline-flex;
+  align-items: center;
+  flex-wrap: nowrap;
+  gap: 2px;
+  white-space: nowrap;
 }
 
 .wh-toolbar {

@@ -31,6 +31,14 @@ import {
   mockGetLocationList,
   mockUpdateLocation,
 } from '@/mock/location'
+import {
+  mockBatchDeleteSupplierCategory,
+  mockBatchUpdateSupplierCategory,
+  mockCreateSupplierCategory,
+  mockDeleteSupplierCategory,
+  mockGetSupplierCategoryList,
+  mockUpdateSupplierCategory,
+} from '@/mock/supplierCategory'
 
 const service = axios.create({
   baseURL: import.meta.env.VITE_API_BASE || '/api',
@@ -124,6 +132,21 @@ async function request(config) {
   } else if (url?.startsWith('/basic/locations/') && m === 'delete') {
     const id = url.split('/').pop()
     result = await mockDeleteLocation(id)
+  } else if (url === '/basic/supplier-categories' && m === 'get') {
+    result = await mockGetSupplierCategoryList(params)
+  } else if (url === '/basic/supplier-categories' && m === 'post') {
+    result = await mockCreateSupplierCategory(data)
+  } else if (url === '/basic/supplier-categories/batch-delete' && m === 'post') {
+    result = await mockBatchDeleteSupplierCategory(data?.ids)
+  } else if (url === '/basic/supplier-categories/batch-update' && m === 'post') {
+    const { ids, ...rest } = data || {}
+    result = await mockBatchUpdateSupplierCategory(ids, rest)
+  } else if (url?.startsWith('/basic/supplier-categories/') && m === 'put') {
+    const id = url.split('/').pop()
+    result = await mockUpdateSupplierCategory(id, data)
+  } else if (url?.startsWith('/basic/supplier-categories/') && m === 'delete') {
+    const id = url.split('/').pop()
+    result = await mockDeleteSupplierCategory(id)
   } else {
     result = { code: 1, message: `未配置 mock: ${m.toUpperCase()} ${url}`, data: null }
   }

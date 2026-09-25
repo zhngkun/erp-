@@ -274,8 +274,10 @@ onMounted(fetchList)
     <el-table-column prop="createdAt" label="创建时间" min-width="170" sortable />
     <el-table-column label="操作" width="140" fixed="right">
       <template #default="{ row }">
-        <el-button type="primary" link @click="openEdit(row)">编辑</el-button>
-        <el-button type="danger" link @click="handleDelete(row)">删除</el-button>
+        <div class="table-actions">
+          <el-button type="primary" link @click="openEdit(row)">编辑</el-button>
+          <el-button type="danger" link @click="handleDelete(row)">删除</el-button>
+        </div>
       </template>
     </el-table-column>
   </PageList>
@@ -330,6 +332,14 @@ onMounted(fetchList)
   display: flex;
   flex-direction: column;
   overflow: hidden;
+}
+
+.table-actions {
+  display: inline-flex;
+  align-items: center;
+  flex-wrap: nowrap;
+  gap: 2px;
+  white-space: nowrap;
 }
 
 .addr-toolbar {

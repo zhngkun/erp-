@@ -31,6 +31,54 @@ html.dark .el-button {
   background-color: var(--soft-primary-soft);
 }
 
+/* 表格操作列文字按钮：不受 Soft 阴影 / 位移 / 实心底影响 */
+.el-button.is-link,
+.el-button.is-text {
+  height: auto !important;
+  padding: 0 4px !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  transform: none !important;
+}
+
+.el-button.is-link:hover,
+.el-button.is-link:focus,
+.el-button.is-link:active,
+.el-button.is-text:hover,
+.el-button.is-text:focus,
+.el-button.is-text:active {
+  background: transparent !important;
+  box-shadow: none !important;
+  transform: none !important;
+}
+
+.el-button.is-link.el-button--primary,
+.el-button.is-text.el-button--primary {
+  background: transparent !important;
+  color: var(--soft-primary) !important;
+  box-shadow: none !important;
+}
+
+.el-button.is-link.el-button--primary:hover,
+.el-button.is-link.el-button--primary:focus,
+.el-button.is-text.el-button--primary:hover,
+.el-button.is-text.el-button--primary:focus {
+  color: var(--soft-primary-soft) !important;
+  background: transparent !important;
+}
+
+.el-button.is-link.el-button--danger,
+.el-button.is-text.el-button--danger {
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+.el-button.is-link.el-button--success,
+.el-button.is-text.el-button--success {
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
 .el-input__wrapper {
   border-radius: var(--soft-radius) !important;
   background-color: var(--soft-fill) !important;
