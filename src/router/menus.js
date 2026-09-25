@@ -258,7 +258,7 @@ export const menuRoutes = [
       { path: '/project/design-task', name: 'ProjectDesignTask', meta: { title: '设计任务', icon: 'Operation' } },
       { path: '/project/drawing', name: 'ProjectDrawing', meta: { title: '图纸管理', icon: 'Notebook' } },
       { path: '/project/programming', name: 'ProjectProgramming', meta: { title: '编程设计', icon: 'EditPen' } },
-      { path: '/project/issue', name: 'ProjectIssue', meta: { title: '问题管理', icon: 'Location' } },
+      { path: '/project/issue', name: 'ProjectIssue', meta: { title: '工程变更', icon: 'Location' } },
       { path: '/project/process-route', name: 'ProjectProcessRoute', meta: { title: '工艺路线', icon: 'DataLine' } },
       { path: '/project/std-bom', name: 'ProjectStdBom', meta: { title: '标准物料清单', icon: 'Document' } },
       { path: '/project/order-bom', name: 'ProjectOrderBom', meta: { title: '订单物料清单', icon: 'Notebook' } },

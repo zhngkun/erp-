@@ -150,6 +150,7 @@ import { getPurchaseBillStore } from '@/mock/purchase/bills'
 import { mockGetPurchaseFollowUpList } from '@/mock/purchase/followUp'
 import { getSalesBillStore } from '@/mock/sales/bills'
 import { getCashBillStore } from '@/mock/cash/bills'
+import { getProjectStore } from '@/mock/project/records'
 import {
   mockBatchDeleteCashPaymentMethod,
   mockBatchUpdateCashPaymentMethod,
@@ -749,6 +750,29 @@ async function request(config) {
     const billKey = parts[3]
     const id = parts[4]
     result = await getCashBillStore(billKey).remove(id)
+  } else if (url?.match(/^\/project\/records\/[^/]+$/) && m === 'get') {
+    const recordKey = url.split('/')[3]
+    result = await getProjectStore(recordKey).getList(params)
+  } else if (url?.match(/^\/project\/records\/[^/]+$/) && m === 'post') {
+    const recordKey = url.split('/')[3]
+    result = await getProjectStore(recordKey).create(data)
+  } else if (url?.match(/^\/project\/records\/[^/]+\/batch-delete$/) && m === 'post') {
+    const recordKey = url.split('/')[3]
+    result = await getProjectStore(recordKey).batchDelete(data?.ids)
+  } else if (url?.match(/^\/project\/records\/[^/]+\/batch-update$/) && m === 'post') {
+    const recordKey = url.split('/')[3]
+    const { ids, ...rest } = data || {}
+    result = await getProjectStore(recordKey).batchUpdate(ids, rest)
+  } else if (url?.match(/^\/project\/records\/[^/]+\/[^/]+$/) && m === 'put') {
+    const parts = url.split('/')
+    const recordKey = parts[3]
+    const id = parts[4]
+    result = await getProjectStore(recordKey).update(id, data)
+  } else if (url?.match(/^\/project\/records\/[^/]+\/[^/]+$/) && m === 'delete') {
+    const parts = url.split('/')
+    const recordKey = parts[3]
+    const id = parts[4]
+    result = await getProjectStore(recordKey).remove(id)
   } else {
     result = { code: 1, message: `未配置 mock: ${m.toUpperCase()} ${url}`, data: null }
   }
