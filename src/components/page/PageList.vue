@@ -17,6 +17,14 @@ defineProps({
     type: String,
     default: '',
   },
+  searchText: {
+    type: String,
+    default: '查询',
+  },
+  resetText: {
+    type: String,
+    default: '重置',
+  },
   loading: {
     type: Boolean,
     default: false,
@@ -57,6 +65,8 @@ const hasSearch = !!slots.search
     <PageSearch
       v-if="hasSearch"
       :model="query"
+      :search-text="searchText"
+      :reset-text="resetText"
       @search="emit('search')"
       @reset="emit('reset')"
     >

@@ -267,8 +267,8 @@ export const constantRoutes = [
       { path: 'dict', name: 'BasicDict', component: Placeholder, meta: { title: '字典管理', icon: 'Menu' } },
       // 供应商
       { path: 'supplier/category', name: 'SupplierCategory', component: () => import('@/views/basic/supplier/SupplierCategoryView.vue'), meta: { title: '供应商分类', icon: 'Operation' } },
-      { path: 'supplier/list', name: 'SupplierList', component: Placeholder, meta: { title: '供应商管理', icon: 'Briefcase' } },
-      { path: 'supplier/price', name: 'SupplierPrice', component: Placeholder, meta: { title: '供应商价格本', icon: 'Notebook' } },
+      { path: 'supplier/list', name: 'SupplierList', component: () => import('@/views/basic/supplier/SupplierListView.vue'), meta: { title: '供应商管理', icon: 'Briefcase' } },
+      { path: 'supplier/price', name: 'SupplierPrice', component: () => import('@/views/basic/supplier/SupplierPriceView.vue'), meta: { title: '供应商价格本', icon: 'Notebook' } },
       { path: 'supplier/portal', name: 'SupplierPortal', component: Placeholder, meta: { title: '供应商门户', icon: 'Star' } },
       // 客户
       { path: 'customer/category', name: 'CustomerCategory', component: Placeholder, meta: { title: '客户分类', icon: 'Operation' } },

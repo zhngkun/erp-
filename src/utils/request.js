@@ -39,6 +39,21 @@ import {
   mockGetSupplierCategoryList,
   mockUpdateSupplierCategory,
 } from '@/mock/supplierCategory'
+import {
+  mockBatchDeleteSupplier,
+  mockBatchUpdateSupplier,
+  mockCreateSupplier,
+  mockDeleteSupplier,
+  mockGetSupplierList,
+  mockUpdateSupplier,
+} from '@/mock/supplier'
+import {
+  mockBatchDeleteSupplierPrice,
+  mockCreateSupplierPrice,
+  mockDeleteSupplierPrice,
+  mockGetSupplierPriceList,
+  mockUpdateSupplierPrice,
+} from '@/mock/supplierPrice'
 
 const service = axios.create({
   baseURL: import.meta.env.VITE_API_BASE || '/api',
@@ -147,6 +162,33 @@ async function request(config) {
   } else if (url?.startsWith('/basic/supplier-categories/') && m === 'delete') {
     const id = url.split('/').pop()
     result = await mockDeleteSupplierCategory(id)
+  } else if (url === '/basic/suppliers' && m === 'get') {
+    result = await mockGetSupplierList(params)
+  } else if (url === '/basic/suppliers' && m === 'post') {
+    result = await mockCreateSupplier(data)
+  } else if (url === '/basic/suppliers/batch-delete' && m === 'post') {
+    result = await mockBatchDeleteSupplier(data?.ids)
+  } else if (url === '/basic/suppliers/batch-update' && m === 'post') {
+    const { ids, ...rest } = data || {}
+    result = await mockBatchUpdateSupplier(ids, rest)
+  } else if (url?.startsWith('/basic/suppliers/') && m === 'put') {
+    const id = url.split('/').pop()
+    result = await mockUpdateSupplier(id, data)
+  } else if (url?.startsWith('/basic/suppliers/') && m === 'delete') {
+    const id = url.split('/').pop()
+    result = await mockDeleteSupplier(id)
+  } else if (url === '/basic/supplier-prices' && m === 'get') {
+    result = await mockGetSupplierPriceList(params)
+  } else if (url === '/basic/supplier-prices' && m === 'post') {
+    result = await mockCreateSupplierPrice(data)
+  } else if (url === '/basic/supplier-prices/batch-delete' && m === 'post') {
+    result = await mockBatchDeleteSupplierPrice(data?.ids)
+  } else if (url?.startsWith('/basic/supplier-prices/') && m === 'put') {
+    const id = url.split('/').pop()
+    result = await mockUpdateSupplierPrice(id, data)
+  } else if (url?.startsWith('/basic/supplier-prices/') && m === 'delete') {
+    const id = url.split('/').pop()
+    result = await mockDeleteSupplierPrice(id)
   } else {
     result = { code: 1, message: `未配置 mock: ${m.toUpperCase()} ${url}`, data: null }
   }
