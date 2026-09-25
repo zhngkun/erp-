@@ -175,6 +175,7 @@ onMounted(fetchList)
 </script>
 
 <template>
+  <div class="page-root">
   <PageList
     v-model:page="query.page"
     v-model:page-size="query.pageSize"
@@ -319,9 +320,18 @@ onMounted(fetchList)
       </el-button>
     </template>
   </el-dialog>
+  </div>
 </template>
 
 <style scoped>
+.page-root {
+  height: 100%;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
 .addr-toolbar {
   display: flex;
   align-items: center;

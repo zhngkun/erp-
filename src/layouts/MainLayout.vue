@@ -37,11 +37,13 @@ watch(
       <main class="layout-content">
         <div class="layout-page">
           <router-view v-slot="{ Component, route: currentRoute }">
-            <transition name="fade-soft" mode="out-in">
-              <keep-alive>
-                <component :is="Component" :key="currentRoute.path" />
-              </keep-alive>
-            </transition>
+            <keep-alive>
+              <component
+                :is="Component"
+                v-if="Component"
+                :key="currentRoute.path"
+              />
+            </keep-alive>
           </router-view>
         </div>
       </main>
@@ -119,17 +121,6 @@ watch(
   flex: 1;
   min-height: 0;
   height: 100%;
-}
-
-.fade-soft-enter-active,
-.fade-soft-leave-active {
-  transition: opacity 0.25s ease-in-out, transform 0.25s ease-in-out;
-}
-
-.fade-soft-enter-from,
-.fade-soft-leave-to {
-  opacity: 0;
-  transform: translateY(4px);
 }
 
 @media (max-width: 768px) {

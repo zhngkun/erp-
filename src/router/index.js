@@ -261,7 +261,7 @@ export const constantRoutes = [
     meta: { title: '基础资料', icon: 'Notebook' },
     children: [
       { path: 'warehouse', name: 'BasicWarehouse', component: () => import('@/views/basic/WarehouseView.vue'), meta: { title: '仓库管理', icon: 'Box' } },
-      { path: 'location', name: 'BasicLocation', component: Placeholder, meta: { title: '货位管理', icon: 'Grid' } },
+      { path: 'location', name: 'BasicLocation', component: () => import('@/views/basic/LocationView.vue'), meta: { title: '货位管理', icon: 'Grid' } },
       { path: 'address', name: 'BasicAddress', component: () => import('@/views/basic/AddressView.vue'), meta: { title: '行政地址', icon: 'Van' } },
       { path: 'finance-item', name: 'BasicFinanceItem', component: Placeholder, meta: { title: '收支项目', icon: 'Wallet' } },
       { path: 'dict', name: 'BasicDict', component: Placeholder, meta: { title: '字典管理', icon: 'Menu' } },

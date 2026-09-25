@@ -23,6 +23,14 @@ import {
   mockGetAddressList,
   mockUpdateAddress,
 } from '@/mock/address'
+import {
+  mockBatchDeleteLocation,
+  mockBatchUpdateLocation,
+  mockCreateLocation,
+  mockDeleteLocation,
+  mockGetLocationList,
+  mockUpdateLocation,
+} from '@/mock/location'
 
 const service = axios.create({
   baseURL: import.meta.env.VITE_API_BASE || '/api',
@@ -101,6 +109,21 @@ async function request(config) {
   } else if (url?.startsWith('/basic/addresses/') && m === 'delete') {
     const id = url.split('/').pop()
     result = await mockDeleteAddress(id)
+  } else if (url === '/basic/locations' && m === 'get') {
+    result = await mockGetLocationList(params)
+  } else if (url === '/basic/locations' && m === 'post') {
+    result = await mockCreateLocation(data)
+  } else if (url === '/basic/locations/batch-delete' && m === 'post') {
+    result = await mockBatchDeleteLocation(data?.ids)
+  } else if (url === '/basic/locations/batch-update' && m === 'post') {
+    const { ids, ...rest } = data || {}
+    result = await mockBatchUpdateLocation(ids, rest)
+  } else if (url?.startsWith('/basic/locations/') && m === 'put') {
+    const id = url.split('/').pop()
+    result = await mockUpdateLocation(id, data)
+  } else if (url?.startsWith('/basic/locations/') && m === 'delete') {
+    const id = url.split('/').pop()
+    result = await mockDeleteLocation(id)
   } else {
     result = { code: 1, message: `未配置 mock: ${m.toUpperCase()} ${url}`, data: null }
   }

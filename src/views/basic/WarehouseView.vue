@@ -234,6 +234,7 @@ onMounted(fetchList)
 </script>
 
 <template>
+  <div class="page-root">
   <PageList
     v-model:page="query.page"
     v-model:page-size="query.pageSize"
@@ -351,16 +352,14 @@ onMounted(fetchList)
     <el-table-column prop="sort" label="排序值" width="90" sortable />
     <el-table-column prop="remark" label="备注" min-width="120" show-overflow-tooltip />
     <el-table-column prop="createdAt" label="创建时间" min-width="170" sortable />
-    <el-table-column label="操作" width="168" fixed="right">
+    <el-table-column label="操作" width="140" fixed="right">
       <template #default="{ row }">
-        <el-button type="primary" size="small" @click="openEdit(row)">
-          编辑
-        </el-button>
+        <el-button link type="primary" @click="openEdit(row)">编辑</el-button>
         <el-dropdown
           trigger="click"
           @command="(cmd) => handleMoreCommand(cmd, row)"
         >
-          <el-button type="success" size="small">
+          <el-button link type="primary">
             更多
             <el-icon class="el-icon--right"><ArrowDown /></el-icon>
           </el-button>
@@ -439,9 +438,18 @@ onMounted(fetchList)
       </el-button>
     </template>
   </el-dialog>
+  </div>
 </template>
 
 <style scoped>
+.page-root {
+  height: 100%;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
 .wh-toolbar {
   display: flex;
   align-items: center;
