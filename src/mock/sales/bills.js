@@ -436,6 +436,42 @@ export const billStores = {
     ],
     filterFn: customerFilter,
   }),
+
+  boxSticker: createBillMockStore({
+    prefix: 'BX',
+    seedList: [
+      bill({
+        id: 1,
+        billCode: 'BX-20260925001',
+        sourceBillCode: 'SO-20260920002',
+        sourceBillType: '销售订单',
+        customerName: '云仓优选旗舰店',
+        customerCode: 'CUST-2006',
+        packageNumber: 5,
+        itemList: [{ ...materials[1], number: 50 }],
+        ...withAmount([{ ...materials[1], number: 50 }]),
+      }),
+    ],
+    filterFn: customerFilter,
+  }),
+
+  orderChange: createBillMockStore({
+    prefix: 'SC',
+    seedList: [
+      bill({
+        id: 1,
+        billCode: 'SC-20260925001',
+        sourceBillCode: 'SO-20260920002',
+        sourceBillType: '销售订单',
+        customerName: '云仓优选旗舰店',
+        customerCode: 'CUST-2006',
+        changeReason: '客户追加数量',
+        itemList: [{ ...materials[1], number: 12 }],
+        ...withAmount([{ ...materials[1], number: 12 }]),
+      }),
+    ],
+    filterFn: customerFilter,
+  }),
 }
 
 export function getSalesBillStore(key) {

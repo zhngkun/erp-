@@ -423,6 +423,62 @@ export const BILL_CONFIGS = {
     ],
     amountField: 'amountTotal',
   },
+  boxSticker: {
+    title: '装箱管理',
+    billKey: 'boxSticker',
+    addLabel: '新增装箱',
+    extraSearch: [
+      { key: 'customerName', label: '客户', placeholder: '请输入客户' },
+    ],
+    columns: [
+      { prop: 'sourceBillCode', label: '来源单据', minWidth: 140 },
+      { prop: 'customerName', label: '客户', minWidth: 140 },
+      { prop: 'packageNumber', label: '箱数', width: 90 },
+      { prop: 'numberTotal', label: '总数量', width: 100 },
+      {
+        prop: 'amountTotal',
+        label: '金额',
+        width: 110,
+        align: 'right',
+        format: 'amount',
+      },
+    ],
+    formExtras: [
+      { key: 'sourceBillCode', label: '来源单据' },
+      { key: 'customerName', label: '客户', required: true },
+      { key: 'packageNumber', label: '箱数' },
+    ],
+    itemFields: ['materialName', 'number', 'unitName', 'remark'],
+    amountField: 'amountTotal',
+  },
+  orderChange: {
+    title: '销售变更',
+    billKey: 'orderChange',
+    addLabel: '新增销售变更',
+    extraSearch: [
+      { key: 'customerName', label: '客户', placeholder: '请输入客户' },
+    ],
+    columns: [
+      { prop: 'sourceBillCode', label: '原销售订单', minWidth: 140 },
+      { prop: 'customerName', label: '客户', minWidth: 140 },
+      { prop: 'changeReason', label: '变更原因', minWidth: 140 },
+      {
+        prop: 'amountTotal',
+        label: '变更后金额',
+        width: 120,
+        align: 'right',
+        format: 'amount',
+      },
+    ],
+    formExtras: [
+      { key: 'sourceBillCode', label: '原销售订单', required: true },
+      { key: 'customerName', label: '客户', required: true },
+      { key: 'changeReason', label: '变更原因' },
+    ],
+    itemFields: ['materialName', 'number', 'unitName', 'salePrice', 'taxSalePrice'],
+    amountField: 'amountTotal',
+    moreActions: [{ command: 'pushOrder', label: '下推更新订单' }],
+  },
 }
 
 export const ITEM_FIELD_LABELS = {

@@ -3,12 +3,11 @@ import { computed, onMounted, reactive, ref, watch } from 'vue'
 import { ElMessage, ElMessageBox } from 'element-plus'
 import { ArrowDown, Plus, Refresh, Setting } from '@element-plus/icons-vue'
 import { createStockBillApi } from '@/api/stock'
-import { ColumnSettingDialog, PageList } from '@/components/page'
+import { ColumnSettingDialog, PageList, PrintTemplateDialog } from '@/components/page'
 import {
   exportRowsToCsv,
   filterVisibleColumns,
   loadColumnVisibility,
-  printRows,
   stripForCopy,
 } from '@/utils/listToolkit'
 import {
@@ -35,6 +34,8 @@ const dialogVisible = ref(false)
 const dialogMode = ref('create')
 const formRef = ref(null)
 const colSettingVisible = ref(false)
+const printVisible = ref(false)
+const printRowsData = ref([])
 const colVisibility = ref({})
 
 const baseColumns = computed(() => [
@@ -246,9 +247,8 @@ function handleExport() {
 }
 
 function handlePrintRow(row) {
-  const cols = filterVisibleColumns(baseColumns.value, colVisibility.value)
-  const ok = printRows(cols, [row], `${config.value.title} ${row.billCode}`, cellValue)
-  if (!ok) ElMessage.warning('请允许浏览器弹窗以打印')
+  printRowsData.value = [row]
+  printVisible.value = true
 }
 
 function onColSettingChange(vis) {
@@ -901,6 +901,13 @@ onMounted(fetchList)
       :storage-key="colStorageKey"
       :columns="baseColumns"
       @change="onColSettingChange"
+    />
+    <PrintTemplateDialog
+      v-model="printVisible"
+      :columns="baseColumns"
+      :rows="printRowsData"
+      :title="config.title"
+      :format-cell="cellValue"
     />
   </div>
 </template>

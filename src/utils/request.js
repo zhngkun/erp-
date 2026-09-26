@@ -159,7 +159,7 @@ import { getOaStore } from '@/mock/oa/records'
 import { getAccountingStore } from '@/mock/accounting/records'
 import { getReportStore } from '@/mock/report/records'
 import { getSystemStore } from '@/mock/system/records'
-import { getWarningList } from '@/mock/warning/records'
+import { getWarningList, getWarningRuleList, createWarningRule, updateWarningRule, removeWarningRule, generateWarnings } from '@/mock/warning/records'
 import {
   mockCreateSku,
   mockGetSkuList,
@@ -961,6 +961,18 @@ async function request(config) {
   } else if (url?.match(/^\/warning\/records\/[^/]+$/) && m === 'get') {
     const warningKey = url.split('/')[3]
     result = await getWarningList(warningKey, params)
+  } else if (url === '/warning/rules' && m === 'get') {
+    result = await getWarningRuleList(params)
+  } else if (url === '/warning/rules' && m === 'post') {
+    result = await createWarningRule(data)
+  } else if (url === '/warning/rules/generate' && m === 'post') {
+    result = await generateWarnings()
+  } else if (url?.match(/^\/warning\/rules\/[^/]+$/) && m === 'put') {
+    const id = url.split('/')[3]
+    result = await updateWarningRule(id, data)
+  } else if (url?.match(/^\/warning\/rules\/[^/]+$/) && m === 'delete') {
+    const id = url.split('/')[3]
+    result = await removeWarningRule(id)
   } else if (url === '/basic/sku' && m === 'get') {
     result = await mockGetSkuList(params)
   } else if (url === '/basic/sku' && m === 'post') {

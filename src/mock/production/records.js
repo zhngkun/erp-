@@ -355,6 +355,72 @@ export const productionStores = {
     ],
     filterFn: filterBy(['contractNo', 'materialInfo', 'sourceBillCode']),
   }),
+
+  processReport: createBillMockStore({
+    prefix: 'PR',
+    seedList: [
+      base({
+        id: 1,
+        billCode: 'PR-20260925001',
+        sourceBillCode: 'MO-20260925001',
+        procedureName: '精铣',
+        materialInfo: '主轴箱体 x10',
+        adminName: '李工',
+        number: 10,
+        qualifiedNumber: 9,
+        unqualifiedNumber: 1,
+        actualWorkTime: 6.5,
+      }),
+      base({
+        id: 2,
+        billCode: 'PR-20260918002',
+        billDate: '2026-09-18',
+        sourceBillCode: 'MO-20260910002',
+        procedureName: '焊接',
+        materialInfo: '液压站底板 x5',
+        adminName: '王工',
+        number: 5,
+        qualifiedNumber: 5,
+        unqualifiedNumber: 0,
+        actualWorkTime: 4,
+        status: '已审核',
+        auditName: '赵审',
+      }),
+    ],
+    filterFn: filterBy(['procedureName', 'sourceBillCode', 'adminName']),
+  }),
+
+  processExecute: createBillMockStore({
+    prefix: 'PE',
+    seedList: [
+      base({
+        id: 1,
+        billCode: 'PE-20260925001',
+        sourceBillCode: 'MO-20260925001',
+        procedureName: '粗铣',
+        materialInfo: '主轴箱体 x10',
+        executeStatus: '执行中',
+        adminName: '李工',
+        planNumber: 10,
+        doneNumber: 6,
+      }),
+      base({
+        id: 2,
+        billCode: 'PE-20260920002',
+        billDate: '2026-09-20',
+        sourceBillCode: 'MO-20260910002',
+        procedureName: '打磨',
+        materialInfo: '液压站底板 x5',
+        executeStatus: '已完成',
+        adminName: '王工',
+        planNumber: 5,
+        doneNumber: 5,
+        status: '已审核',
+        auditName: '赵审',
+      }),
+    ],
+    filterFn: filterBy(['procedureName', 'sourceBillCode', 'executeStatus']),
+  }),
 }
 
 export function getProductionStore(key) {

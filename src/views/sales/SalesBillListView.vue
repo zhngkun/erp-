@@ -148,6 +148,8 @@ const form = reactive({
   receiptStatus: '未收款',
   processStatus: '处理中',
   refundType: '退货',
+  packageNumber: 0,
+  changeReason: '',
   itemList: [emptyItem()],
 })
 
@@ -254,6 +256,8 @@ function resetForm() {
   form.receiptStatus = '未收款'
   form.processStatus = '处理中'
   form.refundType = '退货'
+  form.packageNumber = 0
+  form.changeReason = ''
   form.itemList = [emptyItem()]
 }
 

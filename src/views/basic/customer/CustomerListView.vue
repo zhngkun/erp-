@@ -19,7 +19,7 @@ import {
   getCustomerList,
   updateCustomer,
 } from '@/api/customer'
-import { PageList } from '@/components/page'
+import { PageList, ImportDialog } from '@/components/page'
 
 const TYPE_OPTIONS = [
   { value: '企业', label: '企业' },
@@ -45,6 +45,17 @@ const tableData = ref([])
 const total = ref(0)
 const selectedRows = ref([])
 const dialogVisible = ref(false)
+const importVisible = ref(false)
+
+const IMPORT_COLUMNS = [
+  { prop: 'name', label: '客户名称' },
+  { prop: 'code', label: '客户编码' },
+  { prop: 'customerType', label: '客户类型' },
+  { prop: 'contact', label: '联系人' },
+  { prop: 'phone', label: '电话' },
+  { prop: 'taxNo', label: '税号' },
+  { prop: 'remark', label: '备注' },
+]
 const detailVisible = ref(false)
 const dialogMode = ref('create')
 const detailRow = ref(null)
@@ -374,7 +385,31 @@ function handleMoreCommand(command, row) {
 }
 
 function handleImport() {
-  ElMessage.info('导入功能待开发')
+  importVisible.value = true
+}
+
+async function onImportSuccess(rows) {
+  let okCount = 0
+  for (const row of rows) {
+    try {
+      await createCustomer({
+        name: row.name,
+        code: row.code || '',
+        customerType: row.customerType || '企业',
+        contact: row.contact || '',
+        phone: row.phone || '',
+        taxNo: row.taxNo || '',
+        remark: row.remark || '',
+        status: '已保存',
+        enabled: 1,
+      })
+      okCount++
+    } catch {
+      /* skip bad row */
+    }
+  }
+  ElMessage.success(`成功导入 ${okCount} / ${rows.length} 条`)
+  fetchList()
 }
 
 function handleExport() {
@@ -1098,6 +1133,22 @@ onMounted(async () => {
         <el-button type="primary" @click="detailVisible = false">关闭</el-button>
       </template>
     </el-dialog>
+
+    <ImportDialog
+      v-model="importVisible"
+      title="客户管理"
+      :columns="IMPORT_COLUMNS"
+      :sample-row="{
+        name: '示例客户',
+        code: 'CUST-DEMO',
+        customerType: '企业',
+        contact: '张三',
+        phone: '13800000000',
+        taxNo: '',
+        remark: '',
+      }"
+      @success="onImportSuccess"
+    />
   </div>
 </template>
 
