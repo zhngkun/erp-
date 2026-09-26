@@ -107,12 +107,12 @@ export const constantRoutes = [
     redirect: '/oa/todo-biz',
     meta: { title: '办公OA', icon: 'Suitcase' },
     children: [
-      { path: 'todo-biz', name: 'OaTodoBiz', component: Placeholder, meta: { title: '待办业务', icon: 'Notebook' } },
-      { path: 'task-project', name: 'OaTaskProject', component: Placeholder, meta: { title: '任务项目', icon: 'Tickets' } },
-      { path: 'task', name: 'OaTask', component: Placeholder, meta: { title: '任务管理', icon: 'Folder' } },
-      { path: 'todo-task', name: 'OaTodoTask', component: Placeholder, meta: { title: '待办任务', icon: 'Clock' } },
-      { path: 'message', name: 'OaMessage', component: Placeholder, meta: { title: '消息管理', icon: 'ChatDotRound' } },
-      { path: 'material', name: 'OaMaterial', component: Placeholder, meta: { title: '资料管理', icon: 'Document' } },
+      { path: 'todo-biz', name: 'OaTodoBiz', component: () => import('@/views/oa/TodoBizView.vue'), meta: { title: '待办业务', icon: 'Notebook' } },
+      { path: 'task-project', name: 'OaTaskProject', component: () => import('@/views/oa/TaskProjectView.vue'), meta: { title: '任务项目', icon: 'Tickets' } },
+      { path: 'task', name: 'OaTask', component: () => import('@/views/oa/TaskView.vue'), meta: { title: '任务管理', icon: 'Folder' } },
+      { path: 'todo-task', name: 'OaTodoTask', component: () => import('@/views/oa/TodoTaskView.vue'), meta: { title: '待办任务', icon: 'Clock' } },
+      { path: 'message', name: 'OaMessage', component: () => import('@/views/oa/MessageView.vue'), meta: { title: '消息管理', icon: 'ChatDotRound' } },
+      { path: 'material', name: 'OaMaterial', component: () => import('@/views/oa/MaterialView.vue'), meta: { title: '资料管理', icon: 'Document' } },
     ],
   },
   {
