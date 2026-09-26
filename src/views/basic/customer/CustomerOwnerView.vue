@@ -86,6 +86,14 @@ function yesNo(val) {
   return Number(val) === 1 ? '是' : '否'
 }
 
+function formatAmount(val) {
+  if (val == null || val === '') return '—'
+  return Number(val).toLocaleString('zh-CN', {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
+  })
+}
+
 async function fetchList() {
   loading.value = true
   try {
@@ -456,6 +464,64 @@ onMounted(fetchList)
           {{ yesNo(row.isCheckCompanyOrder) }}
         </template>
       </el-table-column>
+      <el-table-column
+        prop="deptName"
+        label="所属部门"
+        min-width="110"
+        show-overflow-tooltip
+      />
+      <el-table-column
+        prop="adminName"
+        label="所属员工"
+        min-width="100"
+        show-overflow-tooltip
+      />
+      <el-table-column
+        prop="commissionAvailable"
+        label="可用佣金"
+        min-width="110"
+        align="right"
+      >
+        <template #default="{ row }">
+          {{ formatAmount(row.commissionAvailable) }}
+        </template>
+      </el-table-column>
+      <el-table-column
+        prop="commissionWithdrawing"
+        label="提现中佣金"
+        min-width="110"
+        align="right"
+      >
+        <template #default="{ row }">
+          {{ formatAmount(row.commissionWithdrawing) }}
+        </template>
+      </el-table-column>
+      <el-table-column
+        prop="commissionWithdrawn"
+        label="已提现佣金"
+        min-width="110"
+        align="right"
+      >
+        <template #default="{ row }">
+          {{ formatAmount(row.commissionWithdrawn) }}
+        </template>
+      </el-table-column>
+      <el-table-column
+        prop="commissionTotal"
+        label="总佣金"
+        min-width="110"
+        align="right"
+      >
+        <template #default="{ row }">
+          {{ formatAmount(row.commissionTotal) }}
+        </template>
+      </el-table-column>
+      <el-table-column
+        prop="remark"
+        label="备注"
+        min-width="120"
+        show-overflow-tooltip
+      />
       <el-table-column label="操作" width="140" fixed="right">
         <template #default="{ row }">
           <div class="table-actions">
