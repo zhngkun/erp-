@@ -4,6 +4,7 @@ import { useRoute, useRouter } from 'vue-router'
 import * as Icons from '@element-plus/icons-vue'
 import { menuRoutes } from '@/router/menus'
 import { useAppStore } from '@/stores/app'
+import { getModuleOverviewPath } from '@/config/flowcharts'
 
 const route = useRoute()
 const router = useRouter()
@@ -19,6 +20,14 @@ function resolveIcon(name) {
 function onSelect(path) {
   if (path && path !== route.path) {
     router.push(path)
+  }
+}
+
+/** 父级菜单：展开的同时打开模块流程图页 */
+function onParentClick(modulePath) {
+  const target = getModuleOverviewPath(modulePath)
+  if (target && target !== route.path) {
+    router.push(target)
   }
 }
 </script>
@@ -46,8 +55,12 @@ function onSelect(path) {
           <!-- 有二级 -->
           <el-sub-menu v-if="item.children?.length" :index="item.path">
             <template #title>
-              <el-icon><component :is="resolveIcon(item.meta?.icon)" /></el-icon>
-              <span>{{ item.meta?.title }}</span>
+              <el-icon @click="onParentClick(item.path)">
+                <component :is="resolveIcon(item.meta?.icon)" />
+              </el-icon>
+              <span class="menu-parent-label" @click="onParentClick(item.path)">
+                {{ item.meta?.title }}
+              </span>
             </template>
 
             <template v-for="child in item.children" :key="child.path">
@@ -152,5 +165,10 @@ function onSelect(path) {
 
 .sidebar.is-collapsed :deep(.el-menu) {
   width: 100%;
+}
+
+.menu-parent-label {
+  cursor: pointer;
+  user-select: none;
 }
 </style>
