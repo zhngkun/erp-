@@ -42,6 +42,7 @@ export const LIST_CONFIGS = {
     columns: [
       { prop: 'billCode', label: '单据编号', minWidth: 165 },
       { prop: 'billDate', label: '单据日期', minWidth: 120 },
+      { prop: 'designTaskType', label: '设计类型', minWidth: 110 },
       { prop: 'sourceBillType', label: '来源单据类型', minWidth: 120 },
       { prop: 'sourceBillCode', label: '来源单据', minWidth: 150 },
       { prop: 'materialName', label: '物料名称', minWidth: 140 },
@@ -51,6 +52,10 @@ export const LIST_CONFIGS = {
       { prop: 'unitName', label: '单位', width: 80 },
       { prop: 'status', label: '状态', width: 100, format: 'status' },
       { prop: 'deptName', label: '部门', minWidth: 110 },
+      { prop: 'responsibleAdminName', label: '负责人', minWidth: 100 },
+      { prop: 'planStartDate', label: '计划开始', minWidth: 120 },
+      { prop: 'planEndDate', label: '计划结束', minWidth: 120 },
+      { prop: 'designTaskProgress', label: '设计进度', minWidth: 100 },
       { prop: 'verifyData', label: '审核人', minWidth: 110 },
       { prop: 'createAdminName', label: '创建人', minWidth: 100 },
       { prop: 'createdAt', label: '创建时间', minWidth: 160 },

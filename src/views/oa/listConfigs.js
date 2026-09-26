@@ -141,6 +141,67 @@ export const LIST_CONFIGS = {
     ],
   },
 
+  messageSystem: {
+    title: '系统消息',
+    addLabel: '新增消息',
+    kind: 'master',
+    searchKeys: ['title', 'content'],
+    dateSearch: false,
+    fixedFilters: { messageScope: 'system' },
+    columns: [
+      { prop: 'title', label: '标题', minWidth: 160 },
+      { prop: 'content', label: '内容', minWidth: 220 },
+      { prop: 'urgencyLevel', label: '紧急程度', minWidth: 100 },
+      { prop: 'isRead', label: '状态', minWidth: 90 },
+      { prop: 'createAdminName', label: '创建人', minWidth: 100 },
+      { prop: 'createdAt', label: '创建时间', minWidth: 160 },
+    ],
+    formFields: [
+      { key: 'title', label: '标题', required: true },
+      { key: 'content', label: '内容', required: true, type: 'textarea' },
+      {
+        key: 'urgencyLevel',
+        label: '紧急程度',
+        type: 'select',
+        optionsKey: 'urgency',
+      },
+      { key: 'isRead', label: '状态' },
+    ],
+  },
+
+  messagePersonal: {
+    title: '个人消息',
+    addLabel: '新增消息',
+    kind: 'master',
+    searchKeys: ['title', 'content'],
+    dateSearch: false,
+    fixedFilters: { messageScope: 'personal' },
+    columns: [
+      { prop: 'title', label: '标题', minWidth: 160 },
+      { prop: 'content', label: '内容', minWidth: 200 },
+      { prop: 'urgencyLevel', label: '紧急程度', minWidth: 100 },
+      { prop: 'isRead', label: '状态', minWidth: 90 },
+      { prop: 'receiveAdminName', label: '接收人', minWidth: 100 },
+      { prop: 'receiveDeptName', label: '接收部门', minWidth: 110 },
+      { prop: 'createAdminName', label: '创建人', minWidth: 100 },
+      { prop: 'createdAt', label: '创建时间', minWidth: 160 },
+    ],
+    formFields: [
+      { key: 'title', label: '标题', required: true },
+      { key: 'content', label: '内容', required: true, type: 'textarea' },
+      {
+        key: 'urgencyLevel',
+        label: '紧急程度',
+        type: 'select',
+        optionsKey: 'urgency',
+      },
+      { key: 'receiveAdminName', label: '接收人' },
+      { key: 'receiveDeptName', label: '接收部门' },
+      { key: 'isRead', label: '状态' },
+    ],
+  },
+
+  /** 兼容旧路由/引用 */
   message: {
     title: '消息管理',
     addLabel: '新增消息',

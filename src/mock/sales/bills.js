@@ -66,9 +66,14 @@ function withAmount(items) {
       Number(i.number || 0) * Number(i.taxSalePrice || i.salePrice || 0),
     0,
   )
+  const val = Number(amount.toFixed(2))
   return {
-    amountTotal: Number(amount.toFixed(2)),
-    salePriceTotal: Number(amount.toFixed(2)),
+    amountTotal: val,
+    salePriceTotal: val,
+    materialPriceTotal: val,
+    feeAmountTotal: 0,
+    discountAmount: 0,
+    amountTotalLocal: val,
   }
 }
 
@@ -129,7 +134,10 @@ export const billStores = {
         customerName: '测试客户01',
         customerCode: '192418',
         salesmanName: '李娜',
+        currencyName: '人民币',
+        currencyExchangeRate: 1,
         deliveryDate: '2026-10-10',
+        lockStock: '否',
         settleStatus: '未结算',
         invoiceStatus: '未开票',
         contractNo: 'CT-SO-001',
@@ -144,7 +152,10 @@ export const billStores = {
         customerName: '云仓优选旗舰店',
         customerCode: 'CUST-2006',
         salesmanName: '周杰',
+        currencyName: '人民币',
+        currencyExchangeRate: 1,
         deliveryDate: '2026-09-28',
+        lockStock: '是',
         settleStatus: '部分结算',
         invoiceStatus: '部分开票',
         verifyData: '张伟 / 2026-09-20 11:00',
@@ -159,7 +170,10 @@ export const billStores = {
         customerName: '德科集团采购中心',
         customerCode: 'CUST-2004',
         salesmanName: '刘洋',
+        currencyName: '人民币',
+        currencyExchangeRate: 1,
         deliveryDate: '2026-09-15',
+        lockStock: '否',
         settleStatus: '已结算',
         invoiceStatus: '已开票',
         verifyData: '陈浩 / 2026-09-08 16:30',

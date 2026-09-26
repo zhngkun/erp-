@@ -13,6 +13,7 @@ import {
 
 const props = defineProps({
   recordKey: { type: String, required: true },
+  extraFilters: { type: Object, default: () => ({}) },
 })
 
 const config = computed(() => LIST_CONFIGS[props.recordKey])
@@ -106,6 +107,7 @@ async function fetchList() {
       page: query.page,
       pageSize: query.pageSize,
       ...(config.value.fixedFilters || {}),
+      ...(props.extraFilters || {}),
     }
     for (const key of config.value.searchKeys || []) {
       if (key !== 'billCode' && key !== 'status') {

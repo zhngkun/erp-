@@ -141,18 +141,78 @@ export const oaStores = {
         urgencyLevel: '紧急',
         isRead: '未读',
         status: '已审核',
+        messageScope: 'system',
+        direction: 'received',
+        receiveAdminName: '',
+        receiveDeptName: '',
       }),
       base({
         id: 2,
         billCode: 'MSG-002',
-        title: '月度会议提醒',
-        content: '请各部门周五前提交月报',
+        title: '版本发布公告',
+        content: 'P8 v2.6 已上线，请关注变更说明',
         urgencyLevel: '普通',
         isRead: '已读',
         status: '已审核',
+        messageScope: 'system',
+        direction: 'sent',
+        receiveAdminName: '',
+        receiveDeptName: '',
+        createAdminName: '系统管理员',
+      }),
+      base({
+        id: 3,
+        billCode: 'MSG-003',
+        title: '月度会议提醒',
+        content: '请各部门周五前提交月报',
+        urgencyLevel: '普通',
+        isRead: '未读',
+        status: '已审核',
+        messageScope: 'personal',
+        direction: 'received',
+        receiveAdminName: '当前用户',
+        receiveDeptName: '销售部',
+        createAdminName: '王经理',
+      }),
+      base({
+        id: 4,
+        billCode: 'MSG-004',
+        title: '请假审批结果',
+        content: '您的请假申请已通过',
+        urgencyLevel: '普通',
+        isRead: '已读',
+        status: '已审核',
+        messageScope: 'personal',
+        direction: 'sent',
+        receiveAdminName: '李工',
+        receiveDeptName: '工程部',
+        createAdminName: '当前用户',
+      }),
+      base({
+        id: 5,
+        billCode: 'MSG-005',
+        title: '图纸评审邀请',
+        content: '请于明日参加主轴箱体图纸评审',
+        urgencyLevel: '紧急',
+        isRead: '未读',
+        status: '已审核',
+        messageScope: 'personal',
+        direction: 'received',
+        receiveAdminName: '当前用户',
+        receiveDeptName: '工程部',
+        createAdminName: '赵审',
       }),
     ],
-    filterFn: filterBy(['title', 'content', 'urgencyLevel']),
+    filterFn: (rows, p) => {
+      let next = filterBy(['title', 'content', 'urgencyLevel'])(rows, p)
+      if (p.messageScope) {
+        next = next.filter((r) => r.messageScope === p.messageScope)
+      }
+      if (p.direction) {
+        next = next.filter((r) => r.direction === p.direction)
+      }
+      return next
+    },
   }),
 
   material: createBillMockStore({
@@ -182,7 +242,8 @@ export const oaStores = {
 }
 
 export function getOaStore(key) {
-  const store = oaStores[key]
+  const alias = { messageSystem: 'message', messagePersonal: 'message' }
+  const store = oaStores[alias[key] || key]
   if (!store) throw new Error(`未知办公模块: ${key}`)
   return store
 }

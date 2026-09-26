@@ -65,7 +65,13 @@ function withAmount(items, field = 'amountTotal') {
         Number(i.taxCostPrice || i.costPrice || 0),
     0,
   )
-  return { [field]: Number(amount.toFixed(2)), costPriceTotal: Number(amount.toFixed(2)) }
+  const val = Number(amount.toFixed(2))
+  return {
+    [field]: val,
+    costPriceTotal: val,
+    taxCostPriceTotal: val,
+    amountTotalLocal: val,
+  }
 }
 
 function supplierFilter(rows, p) {
@@ -154,6 +160,14 @@ export const billStores = {
         billCode: 'PO-20260925001',
         supplierName: '苏州精密传动有限公司',
         supplierCode: 'SUP-1001',
+        purchaseDate: '2026-09-25',
+        supplierDeliveryStatus: '正常',
+        currencyName: '人民币',
+        currencyExchangeRate: 1,
+        costPriceTotal: 0,
+        taxCostPriceTotal: 0,
+        discountAmount: 0,
+        amountTotalLocal: 0,
         arrivalDate: '2026-10-08',
         settleStatus: '未结算',
         invoiceStatus: '未开票',
@@ -168,6 +182,11 @@ export const billStores = {
         status: '已审核',
         supplierName: '德科集团',
         supplierCode: 'SUP-1004',
+        purchaseDate: '2026-09-22',
+        supplierDeliveryStatus: '即将逾期',
+        currencyName: '人民币',
+        currencyExchangeRate: 1,
+        discountAmount: 200,
         arrivalDate: '2026-09-30',
         settleStatus: '部分结算',
         invoiceStatus: '部分开票',
@@ -182,6 +201,11 @@ export const billStores = {
         status: '已完结',
         supplierName: '华东五金批发',
         supplierCode: 'SUP-1002',
+        purchaseDate: '2026-09-10',
+        supplierDeliveryStatus: '已到货',
+        currencyName: '人民币',
+        currencyExchangeRate: 1,
+        discountAmount: 0,
         arrivalDate: '2026-09-18',
         settleStatus: '已结算',
         invoiceStatus: '已开票',
