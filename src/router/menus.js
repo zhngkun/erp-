@@ -289,7 +289,7 @@ export const menuRoutes = [
       { path: '/production/fg-qc', name: 'ProductionFgQc', meta: { title: '成品质检', icon: 'ZoomIn' } },
       { path: '/production/consign-in', name: 'ProductionConsignIn', meta: { title: '受托入库', icon: 'Place' } },
       { path: '/production/consign-return', name: 'ProductionConsignReturn', meta: { title: '受托退货', icon: 'ShoppingBag' } },
-      { path: '/production/disassemble-in', name: 'ProductionDisassembleIn', meta: { title: '拆入库', icon: 'WarningFilled' } },
+      { path: '/production/disassemble-in', name: 'ProductionDisassembleIn', meta: { title: '废料入库', icon: 'WarningFilled' } },
     ],
   },
   {
