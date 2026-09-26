@@ -33,7 +33,7 @@ export const constantRoutes = [
     redirect: '/plan/overview',
     meta: { title: '计划管理', icon: 'DocumentChecked', isModuleRoot: true },
     children: [
-      { path: 'overview', name: 'PlanOverview', component: ModuleFlow, meta: { title: '计划管理流程' } },
+      { path: 'overview', name: 'PlanOverview', component: ModuleFlow, meta: { title: '计划管理概述' } },
       { path: 'mps', name: 'PlanMps', component: () => import('@/views/plan/MpsView.vue'), meta: { title: '主制作计划', icon: 'DataBoard' } },
       { path: 'mrp-scheme', name: 'PlanMrpScheme', component: () => import('@/views/plan/MrpSchemeView.vue'), meta: { title: 'MRP方案', icon: 'EditPen' } },
       { path: 'mrp', name: 'PlanMrp', component: () => import('@/views/plan/MrpView.vue'), meta: { title: 'MRP计划', icon: 'Aim' } },
@@ -86,7 +86,7 @@ export const constantRoutes = [
     redirect: '/hr/overview',
     meta: { title: '人力管理', icon: 'Avatar', isModuleRoot: true },
     children: [
-      { path: 'overview', name: 'HrOverview', component: ModuleFlow, meta: { title: '人力管理流程' } },
+      { path: 'overview', name: 'HrOverview', component: ModuleFlow, meta: { title: '人力管理概述' } },
       { path: 'salary-item', name: 'HrSalaryItem', component: () => import('@/views/hr/SalaryItemView.vue'), meta: { title: '薪资项目', icon: 'Files' } },
       { path: 'salary-adjust', name: 'HrSalaryAdjust', component: () => import('@/views/hr/SalaryAdjustView.vue'), meta: { title: '薪资增减', icon: 'EditPen' } },
       { path: 'billing-report', name: 'HrBillingReport', component: () => import('@/views/hr/BillingReportView.vue'), meta: { title: '薪资核算', icon: 'Document' } },
@@ -112,7 +112,7 @@ export const constantRoutes = [
     redirect: '/oa/overview',
     meta: { title: '办公OA', icon: 'Suitcase', isModuleRoot: true },
     children: [
-      { path: 'overview', name: 'OaOverview', component: ModuleFlow, meta: { title: '办公OA流程' } },
+      { path: 'overview', name: 'OaOverview', component: ModuleFlow, meta: { title: '办公OA概述' } },
       { path: 'todo-biz', name: 'OaTodoBiz', component: () => import('@/views/oa/TodoBizView.vue'), meta: { title: '待办业务', icon: 'Notebook' } },
       { path: 'task-project', name: 'OaTaskProject', component: () => import('@/views/oa/TaskProjectView.vue'), meta: { title: '任务项目', icon: 'Tickets' } },
       { path: 'task', name: 'OaTask', component: () => import('@/views/oa/TaskView.vue'), meta: { title: '任务管理', icon: 'Folder' } },
@@ -128,7 +128,7 @@ export const constantRoutes = [
     redirect: '/accounting/overview',
     meta: { title: '会计财务', icon: 'Tickets', isModuleRoot: true },
     children: [
-      { path: 'overview', name: 'AccountingOverview', component: ModuleFlow, meta: { title: '会计财务流程' } },
+      { path: 'overview', name: 'AccountingOverview', component: ModuleFlow, meta: { title: '会计财务概述' } },
       { path: 'infra', name: 'AccountingInfra', component: () => import('@/views/accounting/SubjectView.vue'), meta: { title: '基础设置', icon: 'Operation' } },
       { path: 'resource', name: 'AccountingResource', component: () => import('@/views/accounting/VoucherView.vue'), meta: { title: '凭证中心', icon: 'Folder' } },
       { path: 'ledger', name: 'AccountingLedger', component: () => import('@/views/accounting/SubjectBalanceView.vue'), meta: { title: '财务账簿', icon: 'Notebook' } },
@@ -145,7 +145,7 @@ export const constantRoutes = [
     redirect: '/report/overview',
     meta: { title: '报表管理', icon: 'DataAnalysis', isModuleRoot: true },
     children: [
-      { path: 'overview', name: 'ReportOverview', component: ModuleFlow, meta: { title: '报表管理流程' } },
+      { path: 'overview', name: 'ReportOverview', component: ModuleFlow, meta: { title: '报表管理概述' } },
       { path: 'stock', name: 'ReportStock', component: () => import('@/views/report/StockStatisticsView.vue'), meta: { title: '库存报表', icon: 'Box' } },
       { path: 'purchase', name: 'ReportPurchase', component: () => import('@/views/report/PurchaseStatisticsView.vue'), meta: { title: '采购报表', icon: 'Goods' } },
       { path: 'sales', name: 'ReportSales', component: () => import('@/views/report/SaleStatisticsView.vue'), meta: { title: '销售报表', icon: 'ShoppingBag' } },
@@ -167,7 +167,7 @@ export const constantRoutes = [
     redirect: '/project/overview',
     meta: { title: '工程管理', icon: 'Folder', isModuleRoot: true },
     children: [
-      { path: 'overview', name: 'ProjectOverview', component: ModuleFlow, meta: { title: '工程管理流程' } },
+      { path: 'overview', name: 'ProjectOverview', component: ModuleFlow, meta: { title: '工程管理概述' } },
       { path: 'design-task', name: 'ProjectDesignTask', component: () => import('@/views/project/DesignTaskView.vue'), meta: { title: '设计任务', icon: 'Operation' } },
       { path: 'drawing', name: 'ProjectDrawing', component: () => import('@/views/project/DrawingView.vue'), meta: { title: '图纸管理', icon: 'Notebook' } },
       { path: 'programming', name: 'ProjectProgramming', component: () => import('@/views/project/ProgrammingView.vue'), meta: { title: '编程设计', icon: 'EditPen' } },
@@ -273,7 +273,7 @@ export const constantRoutes = [
     redirect: '/basic/overview',
     meta: { title: '基础资料', icon: 'Notebook', isModuleRoot: true },
     children: [
-      { path: 'overview', name: 'BasicOverview', component: ModuleFlow, meta: { title: '基础资料流程' } },
+      { path: 'overview', name: 'BasicOverview', component: ModuleFlow, meta: { title: '基础资料概述' } },
       { path: 'warehouse', name: 'BasicWarehouse', component: () => import('@/views/basic/WarehouseView.vue'), meta: { title: '仓库管理', icon: 'Box' } },
       { path: 'location', name: 'BasicLocation', component: () => import('@/views/basic/LocationView.vue'), meta: { title: '货位管理', icon: 'Grid' } },
       { path: 'address', name: 'BasicAddress', component: () => import('@/views/basic/AddressView.vue'), meta: { title: '行政地址', icon: 'Van' } },
@@ -314,7 +314,7 @@ export const constantRoutes = [
     redirect: '/system/overview',
     meta: { title: '系统管理', icon: 'Setting', isModuleRoot: true },
     children: [
-      { path: 'overview', name: 'SystemOverview', component: ModuleFlow, meta: { title: '系统管理流程' } },
+      { path: 'overview', name: 'SystemOverview', component: ModuleFlow, meta: { title: '系统管理概述' } },
       { path: 'mcp', name: 'SystemMcp', component: () => import('@/views/system/McpView.vue'), meta: { title: 'MCP管理', icon: 'Key' } },
       { path: 'org-type', name: 'SystemOrgType', component: () => import('@/views/system/OrgTypeView.vue'), meta: { title: '组织类型', icon: 'OfficeBuilding' } },
       { path: 'org', name: 'SystemOrg', component: () => import('@/views/system/OrgView.vue'), meta: { title: '组织管理', icon: 'School' } },

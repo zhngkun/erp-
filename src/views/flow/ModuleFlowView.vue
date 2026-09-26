@@ -2,7 +2,7 @@
 import { computed } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import LogicFlowBoard from '@/components/flow/LogicFlowBoard.vue'
-import { getFlowchartByModule } from '@/config/flowcharts'
+import { getModulePageByPath } from '@/config/flowcharts'
 
 const route = useRoute()
 const router = useRouter()
@@ -12,11 +12,11 @@ const modulePath = computed(() => {
   return matched?.path || `/${route.path.split('/')[1]}`
 })
 
-const flowchart = computed(() => getFlowchartByModule(modulePath.value))
+const page = computed(() => getModulePageByPath(modulePath.value))
 
 const graphData = computed(() => ({
-  nodes: flowchart.value.nodes || [],
-  edges: flowchart.value.edges || [],
+  nodes: page.value.nodes || [],
+  edges: page.value.edges || [],
 }))
 
 function onNodeClick(data) {
@@ -31,9 +31,18 @@ function onNodeClick(data) {
   <div class="module-flow">
     <div class="flow-header">
       <span class="flow-bar" />
-      <h2 class="flow-title">{{ flowchart.title }}</h2>
+      <h2 class="flow-title">{{ page.title }}</h2>
     </div>
-    <div class="flow-canvas">
+
+    <div v-if="page.mode === 'intro'" class="intro-body">
+      <article class="intro-card">
+        <p v-for="(text, index) in page.paragraphs" :key="index" class="intro-p">
+          {{ text }}
+        </p>
+      </article>
+    </div>
+
+    <div v-else class="flow-canvas">
       <LogicFlowBoard :data="graphData" @node-click="onNodeClick" />
     </div>
   </div>
@@ -78,5 +87,34 @@ function onNodeClick(data) {
   flex: 1;
   min-height: 0;
   padding: 4px 16px 16px;
+}
+
+.intro-body {
+  flex: 1;
+  min-height: 0;
+  padding: 8px 24px 28px;
+  overflow: auto;
+}
+
+.intro-card {
+  max-width: 760px;
+  padding: 28px 32px;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.92);
+  border: 1px solid rgba(22, 119, 255, 0.08);
+  box-shadow: 0 8px 24px rgba(15, 40, 80, 0.06);
+}
+
+.intro-p {
+  margin: 0 0 1.1em;
+  font-size: 15px;
+  line-height: 1.85;
+  color: #475569;
+  text-align: justify;
+  letter-spacing: 0.02em;
+}
+
+.intro-p:last-child {
+  margin-bottom: 0;
 }
 </style>

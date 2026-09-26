@@ -1,6 +1,7 @@
 import { menuRoutes } from '@/router/menus'
 import { FLOW_EDGE_TYPE } from './helpers'
 import { cashFlowchart } from './cash'
+import { getModuleOverview } from './overviews'
 import { productionFlowchart } from './production'
 import { purchaseFlowchart } from './purchase'
 import { qualityFlowchart } from './quality'
@@ -15,6 +16,8 @@ import { stockFlowchart } from './stock'
  * 新增模块流程：
  * 1. 新建 src/config/flowcharts/<module>.js
  * 2. 在此对象中登记：'/purchase': purchaseFlowchart
+ *
+ * 仅有文字概述、无流程图的模块登记在 overviews.js，不要走自动生成流程图。
  */
 export const customFlowcharts = {
   '/stock': stockFlowchart,
@@ -82,12 +85,32 @@ export function buildAutoFlowchart(modulePath) {
 
 /**
  * @param {string} modulePath 模块根路径，如 /stock
+ * @returns {{ mode: 'flow', title: string, nodes: object[], edges: object[] } | { mode: 'intro', title: string, paragraphs: string[] }}
+ */
+export function getModulePageByPath(modulePath) {
+  const intro = getModuleOverview(modulePath)
+  if (intro) {
+    return { mode: 'intro', title: intro.title, paragraphs: intro.paragraphs }
+  }
+  const flow = customFlowcharts[modulePath] || buildAutoFlowchart(modulePath)
+  return {
+    mode: 'flow',
+    title: flow.title,
+    nodes: flow.nodes || [],
+    edges: flow.edges || [],
+  }
+}
+
+/**
+ * @deprecated 优先用 getModulePageByPath；保留给仅需流程图数据的调用
+ * @param {string} modulePath 模块根路径，如 /stock
  */
 export function getFlowchartByModule(modulePath) {
-  if (customFlowcharts[modulePath]) {
-    return customFlowcharts[modulePath]
+  const page = getModulePageByPath(modulePath)
+  if (page.mode === 'intro') {
+    return { title: page.title, nodes: [], edges: [] }
   }
-  return buildAutoFlowchart(modulePath)
+  return { title: page.title, nodes: page.nodes, edges: page.edges }
 }
 
 /** 侧边栏父级菜单对应的概览页路径 */
@@ -97,3 +120,4 @@ export function getModuleOverviewPath(modulePath) {
 }
 
 export { defineFlowchart, flowCurve, flowEdge, flowNode } from './helpers'
+export { getModuleOverview, moduleOverviews } from './overviews'
