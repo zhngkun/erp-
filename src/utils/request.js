@@ -158,6 +158,7 @@ import { getHrStore } from '@/mock/hr/records'
 import { getOaStore } from '@/mock/oa/records'
 import { getAccountingStore } from '@/mock/accounting/records'
 import { getReportStore } from '@/mock/report/records'
+import { getSystemStore } from '@/mock/system/records'
 import {
   mockBatchDeleteCashPaymentMethod,
   mockBatchUpdateCashPaymentMethod,
@@ -921,6 +922,29 @@ async function request(config) {
   } else if (url?.match(/^\/report\/records\/[^/]+$/) && m === 'get') {
     const recordKey = url.split('/')[3]
     result = await getReportStore(recordKey).getList(params)
+  } else if (url?.match(/^\/system\/records\/[^/]+$/) && m === 'get') {
+    const recordKey = url.split('/')[3]
+    result = await getSystemStore(recordKey).getList(params)
+  } else if (url?.match(/^\/system\/records\/[^/]+$/) && m === 'post') {
+    const recordKey = url.split('/')[3]
+    result = await getSystemStore(recordKey).create(data)
+  } else if (url?.match(/^\/system\/records\/[^/]+\/batch-delete$/) && m === 'post') {
+    const recordKey = url.split('/')[3]
+    result = await getSystemStore(recordKey).batchDelete(data?.ids)
+  } else if (url?.match(/^\/system\/records\/[^/]+\/batch-update$/) && m === 'post') {
+    const recordKey = url.split('/')[3]
+    const { ids, ...rest } = data || {}
+    result = await getSystemStore(recordKey).batchUpdate(ids, rest)
+  } else if (url?.match(/^\/system\/records\/[^/]+\/[^/]+$/) && m === 'put') {
+    const parts = url.split('/')
+    const recordKey = parts[3]
+    const id = parts[4]
+    result = await getSystemStore(recordKey).update(id, data)
+  } else if (url?.match(/^\/system\/records\/[^/]+\/[^/]+$/) && m === 'delete') {
+    const parts = url.split('/')
+    const recordKey = parts[3]
+    const id = parts[4]
+    result = await getSystemStore(recordKey).remove(id)
   } else {
     result = { code: 1, message: `未配置 mock: ${m.toUpperCase()} ${url}`, data: null }
   }

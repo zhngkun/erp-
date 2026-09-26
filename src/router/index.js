@@ -300,11 +300,11 @@ export const constantRoutes = [
     redirect: '/system/employee',
     meta: { title: '系统管理', icon: 'Setting' },
     children: [
-      { path: 'mcp', name: 'SystemMcp', component: Placeholder, meta: { title: 'MCP管理', icon: 'Key' } },
-      { path: 'org-type', name: 'SystemOrgType', component: Placeholder, meta: { title: '组织类型', icon: 'OfficeBuilding' } },
-      { path: 'org', name: 'SystemOrg', component: Placeholder, meta: { title: '组织管理', icon: 'School' } },
-      { path: 'log', name: 'SystemLog', component: Placeholder, meta: { title: '系统日志', icon: 'Warning' } },
-      { path: 'dept', name: 'SystemDept', component: Placeholder, meta: { title: '部门管理', icon: 'School' } },
+      { path: 'mcp', name: 'SystemMcp', component: () => import('@/views/system/McpView.vue'), meta: { title: 'MCP管理', icon: 'Key' } },
+      { path: 'org-type', name: 'SystemOrgType', component: () => import('@/views/system/OrgTypeView.vue'), meta: { title: '组织类型', icon: 'OfficeBuilding' } },
+      { path: 'org', name: 'SystemOrg', component: () => import('@/views/system/OrgView.vue'), meta: { title: '组织管理', icon: 'School' } },
+      { path: 'log', name: 'SystemLog', component: () => import('@/views/system/LogView.vue'), meta: { title: '系统日志', icon: 'Warning' } },
+      { path: 'dept', name: 'SystemDept', component: () => import('@/views/system/DeptView.vue'), meta: { title: '部门管理', icon: 'School' } },
       {
         path: 'role',
         name: 'SystemRole',
@@ -317,8 +317,8 @@ export const constantRoutes = [
         component: () => import('@/views/system/UserView.vue'),
         meta: { title: '员工管理', icon: 'User' },
       },
-      { path: 'config', name: 'SystemConfig', component: Placeholder, meta: { title: '系统配置', icon: 'Setting' } },
-      { path: 'profile', name: 'SystemProfile', component: Placeholder, meta: { title: '个人信息', icon: 'InfoFilled' } },
+      { path: 'config', name: 'SystemConfig', component: () => import('@/views/system/ConfigView.vue'), meta: { title: '系统配置', icon: 'Setting' } },
+      { path: 'profile', name: 'SystemProfile', component: () => import('@/views/system/ProfileView.vue'), meta: { title: '个人信息', icon: 'InfoFilled' } },
     ],
   },
   {
