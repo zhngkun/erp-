@@ -51,14 +51,17 @@ export async function mockLogin({ username, password }) {
   if (!username || !password) {
     return fail('请输入账号和密码')
   }
+  const isAdmin = username === 'admin'
   return ok({
     token: `mock-token-${Date.now()}`,
     userInfo: {
       id: 1,
       username,
-      nickname: username === 'admin' ? '管理员' : username,
+      nickname: isAdmin ? '管理员' : username,
+      phone: isAdmin ? '18612349562' : '13800000000',
+      role: isAdmin ? '超级管理员' : '普通用户',
       avatar: '',
-      roles: ['admin'],
+      roles: isAdmin ? ['admin'] : ['user'],
     },
   })
 }
