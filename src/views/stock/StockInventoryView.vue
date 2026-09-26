@@ -1,5 +1,5 @@
 <script setup>
-import { onMounted, reactive, ref, watch } from 'vue'
+import { computed, onMounted, reactive, ref, watch } from 'vue'
 import { ElMessage } from 'element-plus'
 import { Refresh, Setting } from '@element-plus/icons-vue'
 import { getStockInventoryList } from '@/api/stock'
@@ -9,6 +9,7 @@ const TABS = [
   { name: 'total', label: '总仓库存' },
   { name: 'stock', label: '分仓库存' },
   { name: 'location', label: '货位库存' },
+  { name: 'order', label: '订单库存' },
 ]
 
 const loading = ref(false)
@@ -17,6 +18,11 @@ const total = ref(0)
 const activeTab = ref('total')
 const detailVisible = ref(false)
 const detailRow = ref(null)
+
+/** 货位库存 / 订单库存：按仓+货位维度展示 */
+const isLocationLike = computed(
+  () => activeTab.value === 'location' || activeTab.value === 'order',
+)
 
 const query = reactive({
   materialName: '',
@@ -46,6 +52,9 @@ async function fetchList() {
       locationName: query.locationName,
       page: query.page,
       pageSize: query.pageSize,
+      ...(activeTab.value === 'order'
+        ? { affiliatedOrganization: 'SaleOrder' }
+        : {}),
     })
     tableData.value = data.list
     total.value = data.total
@@ -132,7 +141,7 @@ onMounted(fetchList)
             @keyup.enter="handleSearch"
           />
         </el-form-item>
-        <el-form-item v-if="activeTab === 'location'" label="货位">
+        <el-form-item v-if="isLocationLike" label="货位">
           <el-input
             v-model="query.locationName"
             clearable
@@ -198,10 +207,23 @@ onMounted(fetchList)
         show-overflow-tooltip
       />
       <el-table-column
-        v-if="activeTab === 'location'"
+        v-if="isLocationLike"
         prop="locationName"
         label="货位"
         min-width="100"
+        show-overflow-tooltip
+      />
+      <el-table-column
+        v-if="activeTab === 'order'"
+        prop="ownerType"
+        label="归属类型"
+        width="110"
+      />
+      <el-table-column
+        v-if="activeTab === 'order'"
+        prop="ownerName"
+        label="归属"
+        min-width="120"
         show-overflow-tooltip
       />
       <el-table-column
@@ -217,7 +239,7 @@ onMounted(fetchList)
         align="right"
       />
       <el-table-column
-        v-if="activeTab !== 'location'"
+        v-if="!isLocationLike"
         prop="inTransitNumber"
         label="在途数量"
         width="100"
@@ -264,7 +286,18 @@ onMounted(fetchList)
         </template>
       </el-table-column>
       <el-table-column
-        v-if="activeTab !== 'location'"
+        v-if="isLocationLike"
+        prop="lastInstockPriceTotal"
+        label="最近入库总价"
+        width="120"
+        align="right"
+      >
+        <template #default="{ row }">
+          {{ formatAmount(row.lastInstockPriceTotal) }}
+        </template>
+      </el-table-column>
+      <el-table-column
+        v-if="!isLocationLike"
         prop="lastOutstockTime"
         label="最近出库时间"
         min-width="170"
@@ -279,7 +312,12 @@ onMounted(fetchList)
       <el-table-column label="操作" width="180" fixed="right">
         <template #default="{ row }">
           <div class="table-actions">
-            <el-button link type="primary" @click="openDetail(row)">
+            <el-button
+              v-if="activeTab !== 'order'"
+              link
+              type="primary"
+              @click="openDetail(row)"
+            >
               详情
             </el-button>
             <el-button
@@ -328,6 +366,12 @@ onMounted(fetchList)
         </el-descriptions-item>
         <el-descriptions-item v-if="detailRow.locationName" label="货位">
           {{ detailRow.locationName }}
+        </el-descriptions-item>
+        <el-descriptions-item v-if="detailRow.ownerType" label="归属类型">
+          {{ detailRow.ownerType }}
+        </el-descriptions-item>
+        <el-descriptions-item v-if="detailRow.ownerName" label="归属">
+          {{ detailRow.ownerName }}
         </el-descriptions-item>
         <el-descriptions-item label="主单位库存">
           {{ detailRow.numberTotal }}

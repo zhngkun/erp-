@@ -219,6 +219,79 @@ const locationSeed = [
   },
 ]
 
+/** 订单库存：货位维度 + 销售订单归属 */
+const orderSeed = [
+  {
+    id: 31,
+    materialName: '铝合金型材 6063',
+    spec: '40×40×2.0',
+    cover: '',
+    code: 'SKU-6063-4040',
+    categoryName: '型材',
+    brandName: '朋来',
+    stockName: '原材料仓',
+    locationName: 'A-01-01',
+    affiliatedOrganization: 'SaleOrder',
+    ownerType: '销售订单',
+    ownerId: 1001,
+    ownerName: 'SO-20260922001',
+    numberTotal: 80,
+    showNumberTotal: 80,
+    purchasePrice: 26.5,
+    averagePrice: 28.5,
+    costPriceTotal: 2280,
+    lastInstockPrice: 28.5,
+    lastInstockPriceTotal: 2280,
+    remark: '订单预留',
+  },
+  {
+    id: 32,
+    materialName: '伺服电机 750W',
+    spec: '750W/220V',
+    cover: '',
+    code: 'SKU-SVO-750',
+    categoryName: '电气',
+    brandName: '汇川',
+    stockName: '成品仓',
+    locationName: 'F-03-01',
+    affiliatedOrganization: 'SaleOrder',
+    ownerType: '销售订单',
+    ownerId: 1002,
+    ownerName: 'SO-20260925003',
+    numberTotal: 4,
+    showNumberTotal: 4,
+    purchasePrice: 1180,
+    averagePrice: 1280,
+    costPriceTotal: 5120,
+    lastInstockPrice: 1280,
+    lastInstockPriceTotal: 5120,
+    remark: '',
+  },
+  {
+    id: 33,
+    materialName: '不锈钢板 304',
+    spec: '1.2mm×1220×2440',
+    cover: '',
+    code: 'SKU-SS304-12',
+    categoryName: '板材',
+    brandName: '宝钢',
+    stockName: '原材料仓',
+    locationName: 'B-02-03',
+    affiliatedOrganization: 'SaleOrder',
+    ownerType: '销售订单',
+    ownerId: 1003,
+    ownerName: 'SO-20260918008',
+    numberTotal: 6,
+    showNumberTotal: 6,
+    purchasePrice: 180,
+    averagePrice: 186,
+    costPriceTotal: 1116,
+    lastInstockPrice: 186,
+    lastInstockPriceTotal: 1116,
+    remark: '',
+  },
+]
+
 function filterInventory(rows, params = {}) {
   let next = [...rows]
   const { materialName = '', code = '', stockName = '', locationName = '' } =
@@ -248,7 +321,13 @@ export async function mockGetStockInventoryList(params = {}) {
   await sleep()
   const { tab = 'total', page = 1, pageSize = 10 } = params
   const source =
-    tab === 'stock' ? stockSeed : tab === 'location' ? locationSeed : totalSeed
+    tab === 'stock'
+      ? stockSeed
+      : tab === 'location'
+        ? locationSeed
+        : tab === 'order'
+          ? orderSeed
+          : totalSeed
   const rows = filterInventory(source, params)
   return ok(paginate(rows, page, pageSize))
 }
