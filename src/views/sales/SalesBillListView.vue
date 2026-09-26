@@ -117,6 +117,7 @@ function formatAmount(val) {
 function cellValue(row, col) {
   const val = row[col.prop]
   if (col.format === 'amount') return formatAmount(val)
+  if (col.format === 'bool') return val ? '是' : '否'
   return val ?? '—'
 }
 

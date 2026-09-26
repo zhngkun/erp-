@@ -79,6 +79,8 @@ const form = reactive({
   spec: '',
   cover: '',
   materialCode: '',
+  customerMaterialName: '',
+  customerMaterialCode: '',
   priceType: '价格',
   salePrice: 0,
   adjustRatio: 100,
@@ -159,6 +161,8 @@ function resetForm() {
   form.spec = ''
   form.cover = ''
   form.materialCode = ''
+  form.customerMaterialName = ''
+  form.customerMaterialCode = ''
   form.priceType = '价格'
   form.salePrice = 0
   form.adjustRatio = 100
@@ -190,6 +194,8 @@ function openEdit(row) {
     spec: row.spec || '',
     cover: row.cover || '',
     materialCode: row.materialCode || '',
+    customerMaterialName: row.customerMaterialName || '',
+    customerMaterialCode: row.customerMaterialCode || '',
     priceType: row.priceType,
     salePrice: row.salePrice ?? 0,
     adjustRatio: row.adjustRatio ?? 100,
@@ -556,6 +562,18 @@ onMounted(fetchList)
         show-overflow-tooltip
       />
       <el-table-column
+        prop="customerMaterialName"
+        label="客品名称"
+        min-width="120"
+        show-overflow-tooltip
+      />
+      <el-table-column
+        prop="customerMaterialCode"
+        label="客品编码"
+        min-width="120"
+        show-overflow-tooltip
+      />
+      <el-table-column
         prop="priceType"
         label="价格类型"
         width="90"
@@ -573,8 +591,8 @@ onMounted(fetchList)
       </el-table-column>
       <el-table-column
         prop="adjustRatio"
-        label="调整比例"
-        width="100"
+        label="调价比例(%)"
+        width="120"
         align="right"
       >
         <template #default="{ row }">
@@ -697,6 +715,18 @@ onMounted(fetchList)
         <el-form-item label="SKU编码">
           <el-input v-model="form.materialCode" placeholder="请输入SKU编码" />
         </el-form-item>
+        <el-form-item label="客品名称">
+          <el-input
+            v-model="form.customerMaterialName"
+            placeholder="请输入客品名称"
+          />
+        </el-form-item>
+        <el-form-item label="客品编码">
+          <el-input
+            v-model="form.customerMaterialCode"
+            placeholder="请输入客品编码"
+          />
+        </el-form-item>
         <el-form-item label="价格类型" prop="priceType">
           <el-select v-model="form.priceType" style="width: 100%">
             <el-option
@@ -715,7 +745,7 @@ onMounted(fetchList)
             :step="1"
           />
         </el-form-item>
-        <el-form-item label="调整比例">
+        <el-form-item label="调价比例(%)">
           <el-input-number
             v-model="form.adjustRatio"
             :min="0"

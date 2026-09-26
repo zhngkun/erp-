@@ -72,11 +72,12 @@ export const hrStores = {
   salaryAdjust: createBillMockStore({
     prefix: 'SA',
     seedList: [
-      base({ id: 1, billCode: 'SA-20260925001', amountTotal: 1500, deptName: '生产部' }),
+      base({ id: 1, billCode: 'SA-20260925001', adminName: '李明', amountTotal: 1500, deptName: '生产部' }),
       base({
         id: 2,
         billCode: 'SA-20260910002',
         billDate: '2026-09-10',
+        adminName: '王芳',
         amountTotal: -300,
         deptName: '质量部',
         status: '已审核',
