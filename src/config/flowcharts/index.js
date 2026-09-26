@@ -3,6 +3,7 @@ import { FLOW_EDGE_TYPE } from './helpers'
 import { cashFlowchart } from './cash'
 import { productionFlowchart } from './production'
 import { purchaseFlowchart } from './purchase'
+import { qualityFlowchart } from './quality'
 import { salesFlowchart } from './sales'
 import { stockFlowchart } from './stock'
 
@@ -21,6 +22,7 @@ export const customFlowcharts = {
   '/sales': salesFlowchart,
   '/cash': cashFlowchart,
   '/production': productionFlowchart,
+  '/quality': qualityFlowchart,
 }
 
 /**
