@@ -304,8 +304,8 @@ export const menuRoutes = [
       { path: '/quality/outgoing', name: 'QualityOutgoing', meta: { title: '出货质检', icon: 'Briefcase' } },
       { path: '/quality/outgoing-report', name: 'QualityOutgoingReport', meta: { title: '出货质检报告', icon: 'Timer' } },
       { path: '/quality/patrol-report', name: 'QualityPatrolReport', meta: { title: '巡检报告', icon: 'Paperclip' } },
-      { path: '/quality/first-report', name: 'QualityFirstReport', meta: { title: '第一次质检报告', icon: 'Document' } },
-      { path: '/quality/review', name: 'QualityReview', meta: { title: '质量回顾', icon: 'ZoomIn' } },
+      { path: '/quality/first-report', name: 'QualityFirstReport', meta: { title: '首次质检报告', icon: 'Document' } },
+      { path: '/quality/review', name: 'QualityReview', meta: { title: '质量追溯', icon: 'ZoomIn' } },
     ],
   },
   {
