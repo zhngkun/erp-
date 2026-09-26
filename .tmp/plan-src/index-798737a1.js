@@ -1,0 +1,1 @@
+const e=t=>{let i=[t.oneDistrictId||0,t.twoDistrictId||0,t.threeDistrictId||0,t.fourDistrictId||0];return i=i.filter(r=>r>0),i},c=(t,i="/")=>{let r=[t.oneDistrict||"",t.twoDistrict||"",t.threeDistrict||"",t.fourDistrict||""];return r=r.filter(s=>!!s),r.join(i)};export{c as a,e as f};

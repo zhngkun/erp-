@@ -32,11 +32,11 @@ export const constantRoutes = [
     redirect: '/plan/mps',
     meta: { title: '计划管理', icon: 'DocumentChecked' },
     children: [
-      { path: 'mps', name: 'PlanMps', component: Placeholder, meta: { title: '主制作计划', icon: 'DataBoard' } },
-      { path: 'mrp-scheme', name: 'PlanMrpScheme', component: Placeholder, meta: { title: 'MRP方案', icon: 'EditPen' } },
-      { path: 'mrp', name: 'PlanMrp', component: Placeholder, meta: { title: 'MRP计划', icon: 'Aim' } },
-      { path: 'schedule', name: 'PlanSchedule', component: Placeholder, meta: { title: '计划排程', icon: 'Flag' } },
-      { path: 'project-schedule', name: 'PlanProjectSchedule', component: Placeholder, meta: { title: '项目排产', icon: 'Clock' } },
+      { path: 'mps', name: 'PlanMps', component: () => import('@/views/plan/MpsView.vue'), meta: { title: '主制作计划', icon: 'DataBoard' } },
+      { path: 'mrp-scheme', name: 'PlanMrpScheme', component: () => import('@/views/plan/MrpSchemeView.vue'), meta: { title: 'MRP方案', icon: 'EditPen' } },
+      { path: 'mrp', name: 'PlanMrp', component: () => import('@/views/plan/MrpView.vue'), meta: { title: 'MRP计划', icon: 'Aim' } },
+      { path: 'schedule', name: 'PlanSchedule', component: () => import('@/views/plan/ScheduleView.vue'), meta: { title: '计划排程', icon: 'Flag' } },
+      { path: 'project-schedule', name: 'PlanProjectSchedule', component: () => import('@/views/plan/ProjectScheduleView.vue'), meta: { title: '项目排产', icon: 'Clock' } },
     ],
   },
   {

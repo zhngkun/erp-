@@ -1,0 +1,2 @@
+import{r as a,G as l,q as _,H as u,w as t,I as n,M as d,O as m,L as h}from"./vendor-395646b4.js";const f={style:{width:"100%",height:"100%"}},v=["innerHTML"],w=a({name:"MarkDownPreview"}),M=a({...w,props:{content:{default:""}},setup(o){const s=o,r=l([]),c=_(()=>s.content);return u(c,()=>{r.value=s.content.split(`
+`).map(e=>e.trim()).filter(e=>e)}),(e,k)=>(t(),n("div",f,[(t(!0),n(d,null,m(r.value,(p,i)=>(t(),n("div",{key:i},[h("p",{innerHTML:p},null,8,v)]))),128))]))}});export{M as _};
