@@ -253,6 +253,56 @@ export const BILL_CONFIGS = {
       'instockLocationName',
     ],
   },
+  assembly: {
+    title: '组装拆卸',
+    billKey: 'assembly',
+    addLabel: '新增组装拆卸',
+    extraSearch: [
+      { key: 'businessType', label: '业务类型', placeholder: '组装/拆卸' },
+    ],
+    columns: [
+      { prop: 'businessType', label: '业务类型', width: 100 },
+      { prop: 'stockName', label: '仓库', minWidth: 120 },
+      { prop: 'sourceBillCode', label: '来源单据', minWidth: 140 },
+    ],
+    formExtras: [
+      { key: 'businessType', label: '业务类型', required: true },
+      { key: 'stockName', label: '仓库', required: true },
+      { key: 'sourceBillCode', label: '来源单据' },
+    ],
+    itemFields: [
+      'materialName',
+      'number',
+      'unitName',
+      'stockName',
+      'locationName',
+      'costPrice',
+    ],
+    amountField: 'costPriceTotal',
+  },
+  pack: {
+    title: '打包装箱',
+    billKey: 'pack',
+    addLabel: '新增打包装箱',
+    columns: [
+      { prop: 'packageNumber', label: '箱数', width: 90 },
+      { prop: 'stockName', label: '仓库', minWidth: 120 },
+      { prop: 'sourceBillCode', label: '来源单据', minWidth: 140 },
+    ],
+    formExtras: [
+      { key: 'stockName', label: '仓库', required: true },
+      { key: 'packageNumber', label: '箱数' },
+      { key: 'sourceBillCode', label: '来源单据' },
+    ],
+    itemFields: [
+      'materialName',
+      'number',
+      'unitName',
+      'stockName',
+      'locationName',
+      'remark',
+    ],
+  },
 }
 
 export const ITEM_FIELD_LABELS = {

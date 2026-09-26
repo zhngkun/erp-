@@ -1,0 +1,65 @@
+export const WARNING_CONFIGS = {
+  stock: {
+    title: '库存预警',
+    columns: [
+      { prop: 'materialName', label: '物料名称', minWidth: 140 },
+      { prop: 'code', label: '编码', minWidth: 120 },
+      { prop: 'stockName', label: '仓库', minWidth: 110 },
+      { prop: 'warningType', label: '预警类型', minWidth: 110 },
+      { prop: 'currentNumber', label: '当前库存', width: 100 },
+      { prop: 'safeNumber', label: '安全库存', width: 100 },
+      { prop: 'diffNumber', label: '差额', width: 90 },
+      { prop: 'level', label: '级别', width: 90 },
+      { prop: 'updatedAt', label: '更新时间', minWidth: 160 },
+    ],
+  },
+  purchase: {
+    title: '采购预警',
+    columns: [
+      { prop: 'billCode', label: '单据编号', minWidth: 150 },
+      { prop: 'supplierName', label: '供应商', minWidth: 140 },
+      { prop: 'warningType', label: '预警类型', minWidth: 110 },
+      { prop: 'arrivalDate', label: '交货日期', minWidth: 120 },
+      { prop: 'overdueDays', label: '逾期天数', width: 100 },
+      { prop: 'level', label: '级别', width: 90 },
+      { prop: 'updatedAt', label: '更新时间', minWidth: 160 },
+    ],
+  },
+  sales: {
+    title: '销售预警',
+    columns: [
+      { prop: 'billCode', label: '单据编号', minWidth: 150 },
+      { prop: 'customerName', label: '客户', minWidth: 140 },
+      { prop: 'warningType', label: '预警类型', minWidth: 110 },
+      { prop: 'deliveryDate', label: '交期', minWidth: 120 },
+      { prop: 'overdueDays', label: '逾期天数', width: 100 },
+      { prop: 'level', label: '级别', width: 90 },
+      { prop: 'updatedAt', label: '更新时间', minWidth: 160 },
+    ],
+  },
+  production: {
+    title: '生产预警',
+    columns: [
+      { prop: 'billCode', label: '生产单号', minWidth: 150 },
+      { prop: 'materialName', label: '物料', minWidth: 140 },
+      { prop: 'warningType', label: '预警类型', minWidth: 110 },
+      { prop: 'planEndDate', label: '计划完工', minWidth: 120 },
+      { prop: 'overdueDays', label: '逾期天数', width: 100 },
+      { prop: 'level', label: '级别', width: 90 },
+      { prop: 'updatedAt', label: '更新时间', minWidth: 160 },
+    ],
+  },
+  cash: {
+    title: '收付款预警',
+    columns: [
+      { prop: 'billCode', label: '单据编号', minWidth: 150 },
+      { prop: 'partnerName', label: '往来单位', minWidth: 140 },
+      { prop: 'warningType', label: '预警类型', minWidth: 110 },
+      { prop: 'expireDate', label: '到期日', minWidth: 120 },
+      { prop: 'amount', label: '金额', width: 110, format: 'amount' },
+      { prop: 'overdueDays', label: '逾期天数', width: 100 },
+      { prop: 'level', label: '级别', width: 90 },
+      { prop: 'updatedAt', label: '更新时间', minWidth: 160 },
+    ],
+  },
+}

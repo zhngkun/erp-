@@ -283,6 +283,65 @@ export const BILL_CONFIGS = {
     ],
     amountField: 'amountTotal',
   },
+  compare: {
+    title: '采购比价',
+    billKey: 'compare',
+    addLabel: '新增采购比价',
+    extraSearch: [
+      { key: 'supplierName', label: '供应商', placeholder: '请输入供应商' },
+    ],
+    columns: [
+      { prop: 'sourceBillCode', label: '来源单据', minWidth: 140 },
+      { prop: 'supplierName', label: '供应商', minWidth: 140 },
+      { prop: 'compareResult', label: '比价结果', minWidth: 140 },
+      {
+        prop: 'amountTotal',
+        label: '价税合计',
+        width: 110,
+        align: 'right',
+        format: 'amount',
+      },
+    ],
+    formExtras: [
+      { key: 'sourceBillCode', label: '来源单据' },
+      { key: 'supplierName', label: '供应商', required: true },
+      { key: 'compareResult', label: '比价结果' },
+    ],
+    itemFields: [
+      'materialName',
+      'number',
+      'unitName',
+      'costPrice',
+      'taxCostPrice',
+    ],
+    amountField: 'amountTotal',
+    moreActions: [{ command: 'pushOrder', label: '下推采购订单' }],
+  },
+  pricing: {
+    title: '采购定价',
+    billKey: 'pricing',
+    addLabel: '新增采购定价',
+    extraSearch: [
+      { key: 'supplierName', label: '供应商', placeholder: '请输入供应商' },
+    ],
+    columns: [
+      { prop: 'supplierName', label: '供应商', minWidth: 140 },
+      { prop: 'priceType', label: '价格类型', width: 110 },
+      {
+        prop: 'amountTotal',
+        label: '价税合计',
+        width: 110,
+        align: 'right',
+        format: 'amount',
+      },
+    ],
+    formExtras: [
+      { key: 'supplierName', label: '供应商', required: true },
+      { key: 'priceType', label: '价格类型' },
+    ],
+    itemFields: ['materialName', 'number', 'unitName', 'costPrice', 'taxCostPrice'],
+    amountField: 'amountTotal',
+  },
 }
 
 export const ITEM_FIELD_LABELS = {

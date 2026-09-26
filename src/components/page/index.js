@@ -1,3 +1,4 @@
 export { default as PageSearch } from './PageSearch.vue'
 export { default as PageTable } from './PageTable.vue'
 export { default as PageList } from './PageList.vue'
+export { default as ColumnSettingDialog } from './ColumnSettingDialog.vue'

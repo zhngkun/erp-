@@ -3,7 +3,15 @@ import { computed, onMounted, reactive, ref, watch } from 'vue'
 import { ElMessage, ElMessageBox } from 'element-plus'
 import { ArrowDown, Plus, Refresh, Setting } from '@element-plus/icons-vue'
 import { createCashBillApi } from '@/api/cash'
-import { PageList } from '@/components/page'
+import { ColumnSettingDialog, PageList } from '@/components/page'
+import {
+  exportRowsToCsv,
+  filterVisibleColumns,
+  loadColumnVisibility,
+  printRows,
+  stripForCopy,
+} from '@/utils/listToolkit'
+
 import {
   BILL_CONFIGS,
   ITEM_FIELD_LABELS,
@@ -27,6 +35,52 @@ const detailRow = ref(null)
 const dialogVisible = ref(false)
 const dialogMode = ref('create')
 const formRef = ref(null)
+const colSettingVisible = ref(false)
+const colVisibility = ref({})
+
+const baseColumns = computed(() => [
+  { prop: 'billCode', label: '单据编号' },
+  { prop: 'billDate', label: '单据日期' },
+  { prop: 'itemSummary', label: '明细摘要' },
+  ...(config.value?.columns || []),
+  { prop: 'numberTotal', label: '数量合计' },
+  { prop: 'status', label: '状态' },
+  { prop: 'createAdminName', label: '创建人' },
+  { prop: 'createdAt', label: '创建时间' },
+  { prop: 'remark', label: '备注' },
+])
+const visibleConfigColumns = computed(() =>
+  filterVisibleColumns(config.value?.columns || [], colVisibility.value),
+)
+const colStorageKey = computed(() => `cash.${props.billKey}`)
+colVisibility.value = loadColumnVisibility(colStorageKey.value, baseColumns.value)
+
+function isColVisible(prop) {
+  return colVisibility.value[prop] !== false
+}
+function onColSettingChange(vis) {
+  colVisibility.value = vis
+}
+function handleExport() {
+  const cols = filterVisibleColumns(baseColumns.value, colVisibility.value)
+  exportRowsToCsv(cols, tableData.value, `${config.value.title}-${Date.now()}`, cellValue)
+  ElMessage.success('已导出当前页')
+}
+function handlePrintRow(row) {
+  const cols = filterVisibleColumns(baseColumns.value, colVisibility.value)
+  if (!printRows(cols, [row], `${config.value.title} ${row.billCode}`, cellValue)) {
+    ElMessage.warning('请允许浏览器弹窗以打印')
+  }
+}
+function openCopy(row) {
+  openCreate()
+  const copied = stripForCopy(row)
+  Object.assign(form, copied, { id: null, status: '已保存' })
+  if (Array.isArray(copied.itemList)) {
+    form.itemList = copied.itemList.map((i) => ({ ...i }))
+  }
+  ElMessage.success('已复制，请确认后保存')
+}
 
 const query = reactive({
   billCode: '',
@@ -489,24 +543,51 @@ async function handleBatchCommand(command) {
   }
 }
 
+
+async function handlePush(command, row) {
+  const map = {
+
+  }
+  const target = map[command]
+  if (!target) {
+    const act = (config.value.moreActions || []).find((a) => a.command === command)
+    ElMessage.info(`${act?.label || command}待开发`)
+    return
+  }
+  if (row.status !== '已审核') {
+    ElMessage.warning('仅已审核单据可下推')
+    return
+  }
+  try {
+    await ElMessageBox.confirm(`确认下推生成「${target.label}」？`, '下推确认', { type: 'info' })
+    const targetApi = createCashBillApi(target.target)
+    await targetApi.create({
+      ...stripForCopy(row),
+      sourceBillCode: row.billCode,
+      sourceBillType: config.value.title,
+      remark: `由${row.billCode}下推`,
+      status: '已保存',
+    })
+    ElMessage.success(`已下推${target.label}`)
+  } catch { /* cancel */ }
+}
+
 function handleMoreCommand(command, row) {
   if (command === 'edit') openEdit(row)
   else if (command === 'audit') handleAudit(row)
   else if (command === 'abandon') handleAbandon(row)
   else if (command === 'delete') handleDelete(row)
-  else if (command === 'copy') ElMessage.info('复制待开发')
-  else if (command === 'print') ElMessage.info('打印待开发')
+  else if (command === 'copy') openCopy(row)
+  else if (command === 'print') handlePrintRow(row)
   else {
-    const act = (config.value.moreActions || []).find(
-      (a) => a.command === command,
-    )
-    ElMessage.info(`${act?.label || command}待开发`)
+    handlePush(command, row)
   }
 }
 
 watch(
   () => props.billKey,
   () => {
+    colVisibility.value = loadColumnVisibility(colStorageKey.value, baseColumns.value)
     handleReset()
   },
 )
@@ -603,7 +684,7 @@ onMounted(fetchList)
             <el-tooltip content="导出" placement="top">
               <el-button
                 circle
-                @click="ElMessage.info('导出待开发')"
+                @click="handleExport"
               >
                 导
               </el-button>
@@ -615,7 +696,7 @@ onMounted(fetchList)
               <el-button
                 circle
                 :icon="Setting"
-                @click="ElMessage.info('列设置待开发')"
+                @click="colSettingVisible = true"
               />
             </el-tooltip>
           </div>
@@ -643,7 +724,7 @@ onMounted(fetchList)
         show-overflow-tooltip
       />
       <el-table-column
-        v-for="col in config.columns"
+        v-for="col in visibleConfigColumns"
         :key="col.prop"
         :prop="col.prop"
         :label="col.label"
@@ -766,7 +847,7 @@ onMounted(fetchList)
             {{ detailRow.billDate }}
           </el-descriptions-item>
           <el-descriptions-item
-            v-for="col in config.columns"
+            v-for="col in visibleConfigColumns"
             :key="col.prop"
             :label="col.label"
           >
@@ -901,7 +982,14 @@ onMounted(fetchList)
         </el-button>
       </template>
     </el-dialog>
-  </div>
+  
+    <ColumnSettingDialog
+      v-model="colSettingVisible"
+      :storage-key="colStorageKey"
+      :columns="baseColumns"
+      @change="onColSettingChange"
+    />
+</div>
 </template>
 
 <style scoped>

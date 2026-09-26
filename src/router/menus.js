@@ -93,6 +93,11 @@ export const menuRoutes = [
             meta: { title: '客户价格本', icon: 'Notebook' },
           },
           {
+            path: '/basic/customer/material',
+            name: 'CustomerMaterial',
+            meta: { title: '客户物料', icon: 'Connection' },
+          },
+          {
             path: '/basic/customer/owner',
             name: 'CustomerOwner',
             meta: { title: '客户负责人', icon: 'Avatar' },
@@ -159,6 +164,11 @@ export const menuRoutes = [
             name: 'InventoryList',
             meta: { title: '存货管理', icon: 'Goods' },
           },
+          {
+            path: '/basic/inventory/sku',
+            name: 'InventorySku',
+            meta: { title: 'SKU管理', icon: 'Goods' },
+          },
         ],
       },
       {
@@ -197,6 +207,8 @@ export const menuRoutes = [
       { path: '/stock/consumable-out', name: 'StockConsumableOut', meta: { title: '耗材出库', icon: 'ShoppingBag' } },
       { path: '/stock/move', name: 'StockMove', meta: { title: '货位调整', icon: 'Document' } },
       { path: '/stock/location-transfer', name: 'StockLocationTransfer', meta: { title: '货位调拨', icon: 'PriceTag' } },
+      { path: '/stock/assembly', name: 'StockAssembly', meta: { title: '组装拆卸', icon: 'SetUp' } },
+      { path: '/stock/pack', name: 'StockPack', meta: { title: '打包装箱', icon: 'Box' } },
     ],
   },
   {
@@ -206,6 +218,8 @@ export const menuRoutes = [
     children: [
       { path: '/purchase/plan', name: 'PurchasePlan', meta: { title: '采购计划', icon: 'VideoCamera' } },
       { path: '/purchase/requisition', name: 'PurchaseRequisition', meta: { title: '请购单', icon: 'EditPen' } },
+      { path: '/purchase/compare', name: 'PurchaseCompare', meta: { title: '采购比价', icon: 'Histogram' } },
+      { path: '/purchase/pricing', name: 'PurchasePricing', meta: { title: '采购定价', icon: 'Coin' } },
       { path: '/purchase/order', name: 'PurchaseOrder', meta: { title: '采购订单', icon: 'Calendar' } },
       { path: '/purchase/inbound', name: 'PurchaseInbound', meta: { title: '采购入库', icon: 'ShoppingBag' } },
       { path: '/purchase/return-exchange', name: 'PurchaseReturnExchange', meta: { title: '采购退换', icon: 'DocumentDelete' } },
@@ -356,6 +370,18 @@ export const menuRoutes = [
       { path: '/accounting/fund', name: 'AccountingFund', meta: { title: '资金', icon: 'Box' } },
       { path: '/accounting/asset', name: 'AccountingAsset', meta: { title: '资产', icon: 'Operation' } },
       { path: '/accounting/deposit', name: 'AccountingDeposit', meta: { title: '结账', icon: 'Lock' } },
+    ],
+  },
+  {
+    path: '/warning',
+    name: 'Warning',
+    meta: { title: '预警中心', icon: 'Bell' },
+    children: [
+      { path: '/warning/stock', name: 'WarningStock', meta: { title: '库存预警', icon: 'Box' } },
+      { path: '/warning/purchase', name: 'WarningPurchase', meta: { title: '采购预警', icon: 'ShoppingCart' } },
+      { path: '/warning/sales', name: 'WarningSales', meta: { title: '销售预警', icon: 'ShoppingBag' } },
+      { path: '/warning/production', name: 'WarningProduction', meta: { title: '生产预警', icon: 'Cpu' } },
+      { path: '/warning/cash', name: 'WarningCash', meta: { title: '收付款预警', icon: 'Wallet' } },
     ],
   },
   {

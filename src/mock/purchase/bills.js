@@ -352,6 +352,51 @@ export const billStores = {
     ],
     filterFn: supplierFilter,
   }),
+
+  compare: createBillMockStore({
+    prefix: 'PC',
+    seedList: [
+      bill({
+        id: 1,
+        billCode: 'PC-20260925001',
+        sourceBillCode: 'PR-20260920001',
+        sourceBillType: '请购单',
+        supplierName: '华东五金批发',
+        compareResult: '推荐华东五金',
+        itemList: [{ ...materials[0], number: 100, costPrice: 27.8 }],
+        ...withAmount([{ ...materials[0], number: 100, costPrice: 27.8 }]),
+      }),
+      bill({
+        id: 2,
+        billCode: 'PC-20260912002',
+        billDate: '2026-09-12',
+        status: '已审核',
+        sourceBillCode: 'PR-20260910002',
+        sourceBillType: '请购单',
+        supplierName: '苏州精密传动',
+        compareResult: '价格最优',
+        verifyData: '张伟 / 2026-09-12 16:00',
+        itemList: [{ ...materials[1], number: 20 }],
+        ...withAmount([{ ...materials[1], number: 20 }]),
+      }),
+    ],
+    filterFn: supplierFilter,
+  }),
+
+  pricing: createBillMockStore({
+    prefix: 'PP',
+    seedList: [
+      bill({
+        id: 1,
+        billCode: 'PP-20260925001',
+        supplierName: '华东五金批发',
+        priceType: '协议价',
+        itemList: [{ ...materials[0], number: 1, costPrice: 28.0 }],
+        ...withAmount([{ ...materials[0], number: 1, costPrice: 28.0 }]),
+      }),
+    ],
+    filterFn: supplierFilter,
+  }),
 }
 
 export function getPurchaseBillStore(key) {

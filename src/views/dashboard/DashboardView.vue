@@ -1,25 +1,99 @@
 <script setup>
-import { computed } from 'vue'
+import { computed, onMounted, ref } from 'vue'
+import { useRouter } from 'vue-router'
 import { useUserStore } from '@/stores/user'
-import { Odometer, User, Setting, Document } from '@element-plus/icons-vue'
+import {
+  Box,
+  Document,
+  Money,
+  Odometer,
+  ShoppingCart,
+  TrendCharts,
+  Warning,
+} from '@element-plus/icons-vue'
+import { getWarningList } from '@/api/warning'
 
 const userStore = useUserStore()
+const router = useRouter()
 const nickname = computed(() => userStore.userInfo?.nickname || '用户')
 
-const stats = [
-  { title: '今日待办', value: '12', icon: Document, tone: 'indigo' },
-  { title: '系统用户', value: '86', icon: User, tone: 'emerald' },
-  { title: '角色配置', value: '8', icon: Setting, tone: 'pink' },
-  { title: '运行状态', value: '正常', icon: Odometer, tone: 'indigo' },
-]
+const stats = ref([
+  { title: '待办单据', value: '—', icon: Document, tone: 'indigo', path: '/oa/todo' },
+  { title: '销售待出库', value: '—', icon: ShoppingCart, tone: 'emerald', path: '/sales/outbound' },
+  { title: '采购待入库', value: '—', icon: Box, tone: 'pink', path: '/purchase/inbound' },
+  { title: '库存预警', value: '—', icon: Warning, tone: 'amber', path: '/warning/stock' },
+  { title: '收款逾期', value: '—', icon: Money, tone: 'indigo', path: '/warning/cash' },
+  { title: '生产超时', value: '—', icon: TrendCharts, tone: 'emerald', path: '/warning/production' },
+])
+
+const loading = ref(false)
+
+async function loadStats() {
+  loading.value = true
+  try {
+    const [stock, purchase, sales, production, cash] = await Promise.all([
+      getWarningList('stock', { page: 1, pageSize: 1 }),
+      getWarningList('purchase', { page: 1, pageSize: 1 }),
+      getWarningList('sales', { page: 1, pageSize: 1 }),
+      getWarningList('production', { page: 1, pageSize: 1 }),
+      getWarningList('cash', { page: 1, pageSize: 1 }),
+    ])
+    stats.value = [
+      { title: '待办单据', value: '12', icon: Document, tone: 'indigo', path: '/oa/todo' },
+      {
+        title: '销售预警',
+        value: String(sales.total ?? 0),
+        icon: ShoppingCart,
+        tone: 'emerald',
+        path: '/warning/sales',
+      },
+      {
+        title: '采购预警',
+        value: String(purchase.total ?? 0),
+        icon: Box,
+        tone: 'pink',
+        path: '/warning/purchase',
+      },
+      {
+        title: '库存预警',
+        value: String(stock.total ?? 0),
+        icon: Warning,
+        tone: 'amber',
+        path: '/warning/stock',
+      },
+      {
+        title: '收付款预警',
+        value: String(cash.total ?? 0),
+        icon: Money,
+        tone: 'indigo',
+        path: '/warning/cash',
+      },
+      {
+        title: '生产预警',
+        value: String(production.total ?? 0),
+        icon: TrendCharts,
+        tone: 'emerald',
+        path: '/warning/production',
+      },
+    ]
+  } finally {
+    loading.value = false
+  }
+}
+
+function go(path) {
+  if (path) router.push(path)
+}
+
+onMounted(loadStats)
 </script>
 
 <template>
-  <div class="dashboard">
+  <div class="dashboard" v-loading="loading">
     <section class="welcome soft-card">
       <div>
         <h2>你好，{{ nickname }}</h2>
-        <p>这是 Soft UI 风格的 ERP 基础骨架，后续可在此扩展业务模块。</p>
+        <p>业务概览：销售 / 采购 / 库存 / 生产 / 收付款预警一览。</p>
       </div>
       <div class="welcome-badge">
         <el-icon :size="22"><Odometer /></el-icon>
@@ -31,6 +105,7 @@ const stats = [
         v-for="item in stats"
         :key="item.title"
         class="stat-card soft-card"
+        @click="go(item.path)"
       >
         <div class="stat-icon" :data-tone="item.tone">
           <el-icon :size="20"><component :is="item.icon" /></el-icon>
@@ -43,12 +118,12 @@ const stats = [
     </section>
 
     <section class="guide soft-card">
-      <h3>后续扩展建议</h3>
+      <h3>快捷入口</h3>
       <ul>
-        <li>在 <code>src/router</code> 增加业务路由与菜单</li>
-        <li>在 <code>src/views</code> 按模块新建页面</li>
-        <li>接入真实登录接口，替换 <code>stores/user.js</code> 中的 mock</li>
-        <li>按需补充权限、字典、请求封装等基础设施</li>
+        <li @click="go('/warning/stock')">预警中心：库存 / 采购 / 销售 / 生产 / 收付款</li>
+        <li @click="go('/stock/assembly')">库存：组装拆卸、打包装箱</li>
+        <li @click="go('/purchase/compare')">采购：比价、定价</li>
+        <li @click="go('/basic/inventory/sku')">基础资料：SKU、客户物料</li>
       </ul>
     </section>
   </div>
@@ -74,128 +149,101 @@ const stats = [
 
 .soft-card:hover {
   transform: translateY(-2px);
-  box-shadow: var(--soft-shadow-lg);
 }
 
 .welcome {
   display: flex;
-  align-items: center;
   justify-content: space-between;
-  gap: 16px;
+  align-items: center;
 }
 
 .welcome h2 {
-  margin: 0;
-  font-size: 1.25rem;
-  color: var(--soft-text);
+  margin: 0 0 6px;
+  font-size: 20px;
 }
 
 .welcome p {
-  margin: 4px 0 0;
-  color: var(--soft-text-secondary);
-  max-width: 42rem;
-  font-size: 0.875rem;
+  margin: 0;
+  color: var(--el-text-color-secondary);
+  font-size: 13px;
 }
 
 .welcome-badge {
-  width: 44px;
-  height: 44px;
-  border-radius: 999px;
+  width: 48px;
+  height: 48px;
+  border-radius: 14px;
   display: grid;
   place-items: center;
-  background: var(--soft-primary-light);
-  color: var(--soft-primary);
-  flex-shrink: 0;
+  background: linear-gradient(135deg, #5e72e4, #825ee4);
+  color: #fff;
 }
 
 .stat-grid {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 12px;
 }
 
 .stat-card {
   display: flex;
-  align-items: center;
   gap: 12px;
+  align-items: center;
+  cursor: pointer;
 }
 
 .stat-icon {
-  width: 40px;
-  height: 40px;
-  border-radius: 999px;
+  width: 42px;
+  height: 42px;
+  border-radius: 12px;
   display: grid;
   place-items: center;
-  flex-shrink: 0;
+  color: #fff;
 }
 
 .stat-icon[data-tone='indigo'] {
-  background: var(--soft-primary-light);
-  color: var(--soft-primary);
+  background: #5e72e4;
 }
-
 .stat-icon[data-tone='emerald'] {
-  background: var(--soft-status-on-bg);
-  color: var(--soft-status-on-text);
+  background: #2dce89;
 }
-
 .stat-icon[data-tone='pink'] {
-  background: #fdf2f8;
-  color: #db2777;
+  background: #f5365c;
 }
-
-html.dark .stat-icon[data-tone='pink'] {
-  background: #4a1942;
-  color: #f9a8d4;
+.stat-icon[data-tone='amber'] {
+  background: #fb6340;
 }
 
 .stat-label {
   margin: 0;
-  font-size: 0.8125rem;
-  color: var(--soft-text-muted);
+  font-size: 12px;
+  color: var(--el-text-color-secondary);
 }
 
 .stat-value {
   margin: 2px 0 0;
-  font-size: 1.25rem;
+  font-size: 22px;
   font-weight: 700;
-  color: var(--soft-text);
 }
 
 .guide h3 {
   margin: 0 0 8px;
-  font-size: 1rem;
-  color: var(--soft-text);
+  font-size: 15px;
 }
 
 .guide ul {
   margin: 0;
-  padding-left: 1.2rem;
-  color: var(--soft-text-secondary);
-  line-height: 1.6;
-  font-size: 0.875rem;
+  padding-left: 18px;
 }
 
-.guide code {
-  background: var(--soft-fill);
-  border-radius: 0.5rem;
-  padding: 2px 6px;
-  color: var(--soft-primary);
+.guide li {
+  margin: 6px 0;
+  cursor: pointer;
+  color: var(--el-color-primary);
 }
 
-@media (max-width: 1100px) {
+@media (max-width: 960px) {
   .stat-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-}
-
-@media (max-width: 640px) {
-  .stat-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .soft-card {
-    padding: 12px;
   }
 }
 </style>

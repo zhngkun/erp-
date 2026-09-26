@@ -159,6 +159,19 @@ import { getOaStore } from '@/mock/oa/records'
 import { getAccountingStore } from '@/mock/accounting/records'
 import { getReportStore } from '@/mock/report/records'
 import { getSystemStore } from '@/mock/system/records'
+import { getWarningList } from '@/mock/warning/records'
+import {
+  mockCreateSku,
+  mockGetSkuList,
+  mockRemoveSku,
+  mockUpdateSku,
+} from '@/mock/sku'
+import {
+  mockCreateCustomerMaterial,
+  mockGetCustomerMaterialList,
+  mockRemoveCustomerMaterial,
+  mockUpdateCustomerMaterial,
+} from '@/mock/customerMaterial'
 import {
   mockBatchDeleteCashPaymentMethod,
   mockBatchUpdateCashPaymentMethod,
@@ -945,6 +958,29 @@ async function request(config) {
     const recordKey = parts[3]
     const id = parts[4]
     result = await getSystemStore(recordKey).remove(id)
+  } else if (url?.match(/^\/warning\/records\/[^/]+$/) && m === 'get') {
+    const warningKey = url.split('/')[3]
+    result = await getWarningList(warningKey, params)
+  } else if (url === '/basic/sku' && m === 'get') {
+    result = await mockGetSkuList(params)
+  } else if (url === '/basic/sku' && m === 'post') {
+    result = await mockCreateSku(data)
+  } else if (url?.match(/^\/basic\/sku\/[^/]+$/) && m === 'put') {
+    const id = url.split('/')[3]
+    result = await mockUpdateSku(id, data)
+  } else if (url?.match(/^\/basic\/sku\/[^/]+$/) && m === 'delete') {
+    const id = url.split('/')[3]
+    result = await mockRemoveSku(id)
+  } else if (url === '/basic/customer-material' && m === 'get') {
+    result = await mockGetCustomerMaterialList(params)
+  } else if (url === '/basic/customer-material' && m === 'post') {
+    result = await mockCreateCustomerMaterial(data)
+  } else if (url?.match(/^\/basic\/customer-material\/[^/]+$/) && m === 'put') {
+    const id = url.split('/')[3]
+    result = await mockUpdateCustomerMaterial(id, data)
+  } else if (url?.match(/^\/basic\/customer-material\/[^/]+$/) && m === 'delete') {
+    const id = url.split('/')[3]
+    result = await mockRemoveCustomerMaterial(id)
   } else {
     result = { code: 1, message: `未配置 mock: ${m.toUpperCase()} ${url}`, data: null }
   }

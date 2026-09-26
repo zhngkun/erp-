@@ -506,6 +506,49 @@ export const billStores = {
       }),
     ],
   }),
+
+  assembly: createBillMockStore({
+    prefix: 'ASM',
+    seedList: [
+      bill({
+        id: 1,
+        billCode: 'ASM-20260925001',
+        businessType: '组装',
+        stockName: '成品仓',
+        sourceBillCode: '',
+        itemList: [
+          itemLine({ ...materials[0], number: 1, costPrice: 120 }),
+          itemLine({ ...materials[1], number: 4, costPrice: 18 }),
+        ],
+        costPriceTotal: 192,
+      }),
+      bill({
+        id: 2,
+        billCode: 'ASM-20260918002',
+        billDate: '2026-09-18',
+        businessType: '拆卸',
+        stockName: '半成品仓',
+        status: '已审核',
+        verifyData: '张伟 / 2026-09-18 15:00',
+        itemList: [itemLine({ ...materials[2], number: 1, costPrice: 860 })],
+        costPriceTotal: 860,
+      }),
+    ],
+  }),
+
+  pack: createBillMockStore({
+    prefix: 'PK',
+    seedList: [
+      bill({
+        id: 1,
+        billCode: 'PK-20260925001',
+        stockName: '成品仓',
+        packageNumber: 5,
+        sourceBillCode: 'SX-20260925001',
+        itemList: [itemLine({ ...materials[0], number: 50 })],
+      }),
+    ],
+  }),
 }
 
 export function getBillStore(key) {

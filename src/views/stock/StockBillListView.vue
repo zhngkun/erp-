@@ -3,7 +3,14 @@ import { computed, onMounted, reactive, ref, watch } from 'vue'
 import { ElMessage, ElMessageBox } from 'element-plus'
 import { ArrowDown, Plus, Refresh, Setting } from '@element-plus/icons-vue'
 import { createStockBillApi } from '@/api/stock'
-import { PageList } from '@/components/page'
+import { ColumnSettingDialog, PageList } from '@/components/page'
+import {
+  exportRowsToCsv,
+  filterVisibleColumns,
+  loadColumnVisibility,
+  printRows,
+  stripForCopy,
+} from '@/utils/listToolkit'
 import {
   BILL_CONFIGS,
   ITEM_FIELD_LABELS,
@@ -27,6 +34,41 @@ const detailRow = ref(null)
 const dialogVisible = ref(false)
 const dialogMode = ref('create')
 const formRef = ref(null)
+const colSettingVisible = ref(false)
+const colVisibility = ref({})
+
+const baseColumns = computed(() => [
+  { prop: 'billCode', label: '单据编号' },
+  { prop: 'billDate', label: '单据日期' },
+  { prop: 'itemSummary', label: '明细摘要' },
+  ...(config.value?.columns || []),
+  { prop: 'numberTotal', label: '数量合计' },
+  { prop: 'status', label: '状态' },
+  { prop: 'createAdminName', label: '创建人' },
+  { prop: 'createdAt', label: '创建时间' },
+  { prop: 'remark', label: '备注' },
+])
+
+const visibleConfigColumns = computed(() =>
+  filterVisibleColumns(config.value?.columns || [], colVisibility.value),
+)
+
+const colStorageKey = computed(() => `stock.${props.billKey}`)
+
+colVisibility.value = loadColumnVisibility(
+  `stock.${props.billKey}`,
+  [
+    { prop: 'billCode', label: '单据编号' },
+    { prop: 'billDate', label: '单据日期' },
+    { prop: 'itemSummary', label: '明细摘要' },
+    ...(BILL_CONFIGS[props.billKey]?.columns || []),
+    { prop: 'numberTotal', label: '数量合计' },
+    { prop: 'status', label: '状态' },
+    { prop: 'createAdminName', label: '创建人' },
+    { prop: 'createdAt', label: '创建时间' },
+    { prop: 'remark', label: '备注' },
+  ],
+)
 
 const query = reactive({
   billCode: '',
@@ -75,6 +117,7 @@ const form = reactive({
   businessType: '',
   procedureName: '',
   processingMethod: '自制',
+  packageNumber: 0,
   itemList: [emptyItem()],
 })
 
@@ -160,6 +203,7 @@ function resetForm() {
   form.businessType = ''
   form.procedureName = ''
   form.processingMethod = '自制'
+  form.packageNumber = 0
   form.itemList = [emptyItem()]
 }
 
@@ -167,6 +211,92 @@ function openCreate() {
   dialogMode.value = 'create'
   resetForm()
   dialogVisible.value = true
+}
+
+function openCopy(row) {
+  dialogMode.value = 'create'
+  resetForm()
+  const copied = stripForCopy(row)
+  Object.assign(form, {
+    billDate: copied.billDate,
+    remark: copied.remark || '',
+    supplierName: copied.supplierName || '',
+    customerName: copied.customerName || '',
+    responsibleAdminName: copied.responsibleAdminName || '',
+    reason: copied.reason || '',
+    stockName: copied.stockName || '',
+    instockStockName: copied.instockStockName || '',
+    sourceBillCode: '',
+    personType: copied.personType || '员工',
+    personName: copied.personName || '',
+    businessType: copied.businessType || '',
+    procedureName: copied.procedureName || '',
+    processingMethod: copied.processingMethod || '自制',
+    itemList: (copied.itemList || []).map((i) => ({ ...emptyItem(), ...i })),
+  })
+  if (!form.itemList.length) form.itemList = [emptyItem()]
+  dialogVisible.value = true
+  ElMessage.success('已复制，请确认后保存')
+}
+
+function handleExport() {
+  const cols = filterVisibleColumns(baseColumns.value, colVisibility.value)
+  exportRowsToCsv(cols, tableData.value, `${config.value.title}-${Date.now()}`, cellValue)
+  ElMessage.success('已导出当前页')
+}
+
+function handlePrintRow(row) {
+  const cols = filterVisibleColumns(baseColumns.value, colVisibility.value)
+  const ok = printRows(cols, [row], `${config.value.title} ${row.billCode}`, cellValue)
+  if (!ok) ElMessage.warning('请允许浏览器弹窗以打印')
+}
+
+function onColSettingChange(vis) {
+  colVisibility.value = vis
+}
+
+function isColVisible(prop) {
+  return colVisibility.value[prop] !== false
+}
+
+async function handlePush(command, row) {
+  const map = {
+    pushOut: { target: 'transferOut', label: '调拨出库' },
+    pushIn: { target: 'transferIn', label: '调拨入库' },
+    pushRevert: { target: 'returnIn', label: '归还入库' },
+  }
+  const target = map[command]
+  if (!target) {
+    ElMessage.info(`${command}待开发`)
+    return
+  }
+  if (row.status !== '已审核') {
+    ElMessage.warning('仅已审核单据可下推')
+    return
+  }
+  try {
+    await ElMessageBox.confirm(
+      `确认下推生成「${target.label}」？`,
+      '下推确认',
+      { type: 'info' },
+    )
+    const targetApi = createStockBillApi(target.target)
+    await targetApi.create({
+      billDate: new Date().toISOString().slice(0, 10),
+      sourceBillCode: row.billCode,
+      sourceBillType: config.value.title,
+      stockName: row.stockName || row.instockStockName || '',
+      instockStockName: row.instockStockName || '',
+      remark: `由${row.billCode}下推`,
+      itemList: (row.itemList || []).map((i) => ({ ...i })),
+      numberTotal: row.numberTotal,
+      itemSummary: row.itemSummary,
+      status: '已保存',
+    })
+    ElMessage.success(`已下推${target.label}`)
+  } catch {
+    /* cancel */
+  }
 }
 
 function openEdit(row) {
@@ -366,23 +496,20 @@ function handleMoreCommand(command, row) {
   else if (command === 'audit') handleAudit(row)
   else if (command === 'abandon') handleAbandon(row)
   else if (command === 'delete') handleDelete(row)
-  else if (command === 'copy') ElMessage.info('复制待开发')
-  else if (command === 'print') ElMessage.info('打印待开发')
-  else if (
-    ['pushOut', 'pushIn', 'pushRevert'].includes(command)
-  ) {
-    const labels = {
-      pushOut: '下推调拨出库',
-      pushIn: '下推调拨入库',
-      pushRevert: '下推归还入库',
-    }
-    ElMessage.info(`${labels[command]}待开发`)
+  else if (command === 'copy') openCopy(row)
+  else if (command === 'print') handlePrintRow(row)
+  else if (['pushOut', 'pushIn', 'pushRevert'].includes(command)) {
+    handlePush(command, row)
   }
 }
 
 watch(
   () => props.billKey,
   () => {
+    colVisibility.value = loadColumnVisibility(
+      colStorageKey.value,
+      baseColumns.value,
+    )
     handleReset()
   },
 )
@@ -477,12 +604,7 @@ onMounted(fetchList)
           </div>
           <div class="order-toolbar__right">
             <el-tooltip content="导出" placement="top">
-              <el-button
-                circle
-                @click="ElMessage.info('导出待开发')"
-              >
-                导
-              </el-button>
+              <el-button circle @click="handleExport">导</el-button>
             </el-tooltip>
             <el-tooltip content="刷新" placement="top">
               <el-button circle :icon="Refresh" @click="fetchList" />
@@ -491,7 +613,7 @@ onMounted(fetchList)
               <el-button
                 circle
                 :icon="Setting"
-                @click="ElMessage.info('列设置待开发')"
+                @click="colSettingVisible = true"
               />
             </el-tooltip>
           </div>
@@ -500,6 +622,7 @@ onMounted(fetchList)
 
       <el-table-column type="selection" width="48" />
       <el-table-column
+        v-if="isColVisible('billCode')"
         prop="billCode"
         label="单据编号"
         min-width="150"
@@ -511,15 +634,21 @@ onMounted(fetchList)
           </el-button>
         </template>
       </el-table-column>
-      <el-table-column prop="billDate" label="单据日期" width="120" />
       <el-table-column
+        v-if="isColVisible('billDate')"
+        prop="billDate"
+        label="单据日期"
+        width="120"
+      />
+      <el-table-column
+        v-if="isColVisible('itemSummary')"
         prop="itemSummary"
         label="明细摘要"
         min-width="160"
         show-overflow-tooltip
       />
       <el-table-column
-        v-for="col in config.columns"
+        v-for="col in visibleConfigColumns"
         :key="col.prop"
         :prop="col.prop"
         :label="col.label"
@@ -766,6 +895,13 @@ onMounted(fetchList)
         </el-button>
       </template>
     </el-dialog>
+
+    <ColumnSettingDialog
+      v-model="colSettingVisible"
+      :storage-key="colStorageKey"
+      :columns="baseColumns"
+      @change="onColSettingChange"
+    />
   </div>
 </template>
 
