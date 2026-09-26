@@ -116,6 +116,35 @@ export const LIST_CONFIGS = {
     ],
   },
 
+  generalLedger: {
+    title: '总账',
+    addLabel: '新增总账',
+    kind: 'report',
+    searchKeys: ['code', 'name'],
+    dateSearch: false,
+    hideAdd: true,
+    columns: [
+      { prop: 'code', label: '科目编码', minWidth: 120 },
+      { prop: 'name', label: '科目名称', minWidth: 140 },
+      { prop: 'month', label: '期间', width: 100 },
+      { prop: 'abstracts', label: '摘要', minWidth: 160 },
+      { prop: 'borrowAmount', label: '借方金额', minWidth: 120, format: 'amount' },
+      { prop: 'loanAmount', label: '贷方金额', minWidth: 120, format: 'amount' },
+      { prop: 'direction', label: '方向', width: 80 },
+      { prop: 'balance', label: '余额', minWidth: 120, format: 'amount' },
+    ],
+    formFields: [
+      { key: 'code', label: '科目编码', required: true },
+      { key: 'name', label: '科目名称', required: true },
+      { key: 'month', label: '期间', required: true },
+      { key: 'abstracts', label: '摘要' },
+      { key: 'borrowAmount', label: '借方金额', type: 'number' },
+      { key: 'loanAmount', label: '贷方金额', type: 'number' },
+      { key: 'direction', label: '方向', type: 'select', optionsKey: 'direction' },
+      { key: 'balance', label: '余额', type: 'number' },
+    ],
+  },
+
   balanceSheet: {
     title: '资产负债表',
     addLabel: '新增报表行',

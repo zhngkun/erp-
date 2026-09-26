@@ -78,6 +78,22 @@ const form = reactive({
   openingReceivable: 0,
   openingReceivableBalance: 0,
   receivableAmount: 0,
+  receivedAmount: 0,
+  endingReceivable: 0,
+  prepaidBalance: 0,
+  paymentMethod: '',
+  paymentPeriodDays: null,
+  fax: '',
+  taxNo: '',
+  taxRate: null,
+  discountProportion: null,
+  openBank: '',
+  accountNo: '',
+  minAmount: null,
+  daysOfWarn: null,
+  district: '',
+  industry: '',
+  valueAssessment: '',
   contact: '',
   phone: '',
   address: '',
@@ -160,6 +176,22 @@ function resetForm() {
   form.openingReceivable = 0
   form.openingReceivableBalance = 0
   form.receivableAmount = 0
+  form.receivedAmount = 0
+  form.endingReceivable = 0
+  form.prepaidBalance = 0
+  form.paymentMethod = ''
+  form.paymentPeriodDays = null
+  form.fax = ''
+  form.taxNo = ''
+  form.taxRate = null
+  form.discountProportion = null
+  form.openBank = ''
+  form.accountNo = ''
+  form.minAmount = null
+  form.daysOfWarn = null
+  form.district = ''
+  form.industry = ''
+  form.valueAssessment = ''
   form.contact = ''
   form.phone = ''
   form.address = ''
@@ -188,6 +220,22 @@ function openEdit(row) {
     openingReceivable: row.openingReceivable ?? 0,
     openingReceivableBalance: row.openingReceivableBalance ?? 0,
     receivableAmount: row.receivableAmount ?? 0,
+    receivedAmount: row.receivedAmount ?? 0,
+    endingReceivable: row.endingReceivable ?? 0,
+    prepaidBalance: row.prepaidBalance ?? 0,
+    paymentMethod: row.paymentMethod || '',
+    paymentPeriodDays: row.paymentPeriodDays ?? null,
+    fax: row.fax || '',
+    taxNo: row.taxNo || '',
+    taxRate: row.taxRate ?? null,
+    discountProportion: row.discountProportion ?? null,
+    openBank: row.openBank || '',
+    accountNo: row.accountNo || '',
+    minAmount: row.minAmount ?? null,
+    daysOfWarn: row.daysOfWarn ?? null,
+    district: row.district || '',
+    industry: row.industry || '',
+    valueAssessment: row.valueAssessment || '',
     contact: row.contact || '',
     phone: row.phone || '',
     address: row.address || '',
@@ -220,6 +268,22 @@ async function submitForm() {
         openingReceivable: form.openingReceivable,
         openingReceivableBalance: form.openingReceivableBalance,
         receivableAmount: form.receivableAmount,
+        receivedAmount: form.receivedAmount,
+        endingReceivable: form.endingReceivable,
+        prepaidBalance: form.prepaidBalance,
+        paymentMethod: form.paymentMethod,
+        paymentPeriodDays: form.paymentPeriodDays,
+        fax: form.fax,
+        taxNo: form.taxNo,
+        taxRate: form.taxRate,
+        discountProportion: form.discountProportion,
+        openBank: form.openBank,
+        accountNo: form.accountNo,
+        minAmount: form.minAmount,
+        daysOfWarn: form.daysOfWarn,
+        district: form.district,
+        industry: form.industry,
+        valueAssessment: form.valueAssessment,
         contact: form.contact,
         phone: form.phone,
         address: form.address,
@@ -574,9 +638,156 @@ onMounted(async () => {
           <el-table-column
             prop="openingReceivable"
             label="期初应收"
-            width="100"
+            width="110"
             sortable
             align="right"
+          />
+          <el-table-column
+            prop="openingReceivableBalance"
+            label="期初应收余额"
+            width="120"
+            sortable
+            align="right"
+          />
+          <el-table-column
+            prop="receivableAmount"
+            label="应收金额"
+            width="110"
+            sortable
+            align="right"
+          />
+          <el-table-column
+            prop="receivedAmount"
+            label="已收金额"
+            width="110"
+            sortable
+            align="right"
+          />
+          <el-table-column
+            prop="endingReceivable"
+            label="期末应收"
+            width="110"
+            sortable
+            align="right"
+          />
+          <el-table-column
+            prop="prepaidBalance"
+            label="预收余额"
+            width="110"
+            sortable
+            align="right"
+          />
+          <el-table-column
+            prop="paymentMethod"
+            label="结算方式"
+            width="100"
+            align="center"
+            show-overflow-tooltip
+          />
+          <el-table-column
+            prop="paymentPeriodDays"
+            label="账期天数"
+            width="100"
+            align="center"
+          />
+          <el-table-column
+            prop="fax"
+            label="传真"
+            min-width="110"
+            show-overflow-tooltip
+          />
+          <el-table-column
+            prop="taxNo"
+            label="纳税人识别号"
+            min-width="150"
+            show-overflow-tooltip
+          />
+          <el-table-column
+            prop="taxRate"
+            label="税率(%)"
+            width="90"
+            align="right"
+          />
+          <el-table-column
+            prop="discountProportion"
+            label="折扣比例(%)"
+            width="110"
+            align="right"
+          />
+          <el-table-column
+            prop="openBank"
+            label="开户银行"
+            min-width="120"
+            show-overflow-tooltip
+          />
+          <el-table-column
+            prop="accountNo"
+            label="账号"
+            min-width="140"
+            show-overflow-tooltip
+          />
+          <el-table-column
+            prop="minAmount"
+            label="销售预警金额"
+            width="120"
+            align="right"
+          />
+          <el-table-column
+            prop="daysOfWarn"
+            label="销售预警天数"
+            width="120"
+            align="center"
+          />
+          <el-table-column
+            prop="district"
+            label="行政地址"
+            min-width="140"
+            show-overflow-tooltip
+          />
+          <el-table-column
+            prop="address"
+            label="详细地址"
+            min-width="140"
+            show-overflow-tooltip
+          />
+          <el-table-column
+            prop="industry"
+            label="行业"
+            min-width="110"
+            show-overflow-tooltip
+          />
+          <el-table-column
+            prop="valueAssessment"
+            label="价值评估"
+            min-width="110"
+            show-overflow-tooltip
+          />
+          <el-table-column
+            prop="lastReceiptTime"
+            label="最近收款时间"
+            min-width="160"
+            sortable
+            show-overflow-tooltip
+          />
+          <el-table-column
+            prop="lastPickupDate"
+            label="最近拿货时间"
+            min-width="140"
+            sortable
+            show-overflow-tooltip
+          />
+          <el-table-column
+            prop="remark"
+            label="备注"
+            min-width="120"
+            show-overflow-tooltip
+          />
+          <el-table-column
+            prop="createdAt"
+            label="创建时间"
+            min-width="170"
+            sortable
+            show-overflow-tooltip
           />
           <el-table-column label="操作" width="160" fixed="right">
             <template #default="{ row }">
@@ -686,11 +897,20 @@ onMounted(async () => {
         <el-form-item label="地址">
           <el-input v-model="form.address" maxlength="120" />
         </el-form-item>
+        <el-form-item label="行政地址">
+          <el-input v-model="form.district" maxlength="80" placeholder="省市区" />
+        </el-form-item>
         <el-form-item label="是否启用">
           <el-switch
             :model-value="form.enabled === 1"
             @change="(val) => (form.enabled = val ? 1 : 0)"
           />
+        </el-form-item>
+        <el-form-item label="结算方式">
+          <el-input v-model="form.paymentMethod" maxlength="40" placeholder="如：月结" />
+        </el-form-item>
+        <el-form-item label="账期天数">
+          <el-input-number v-model="form.paymentPeriodDays" :min="0" :precision="0" />
         </el-form-item>
         <el-form-item label="期初应收">
           <el-input-number
@@ -698,6 +918,51 @@ onMounted(async () => {
             :min="0"
             :precision="2"
           />
+        </el-form-item>
+        <el-form-item label="期初应收余额">
+          <el-input-number
+            v-model="form.openingReceivableBalance"
+            :min="0"
+            :precision="2"
+          />
+        </el-form-item>
+        <el-form-item label="预收余额">
+          <el-input-number v-model="form.prepaidBalance" :min="0" :precision="2" />
+        </el-form-item>
+        <el-form-item label="传真">
+          <el-input v-model="form.fax" maxlength="40" />
+        </el-form-item>
+        <el-form-item label="纳税人识别号">
+          <el-input v-model="form.taxNo" maxlength="40" />
+        </el-form-item>
+        <el-form-item label="税率(%)">
+          <el-input-number v-model="form.taxRate" :min="0" :max="100" :precision="2" />
+        </el-form-item>
+        <el-form-item label="折扣比例(%)">
+          <el-input-number
+            v-model="form.discountProportion"
+            :min="0"
+            :max="100"
+            :precision="2"
+          />
+        </el-form-item>
+        <el-form-item label="开户银行">
+          <el-input v-model="form.openBank" maxlength="60" />
+        </el-form-item>
+        <el-form-item label="账号">
+          <el-input v-model="form.accountNo" maxlength="40" />
+        </el-form-item>
+        <el-form-item label="销售预警金额">
+          <el-input-number v-model="form.minAmount" :min="0" :precision="2" />
+        </el-form-item>
+        <el-form-item label="销售预警天数">
+          <el-input-number v-model="form.daysOfWarn" :min="0" :precision="0" />
+        </el-form-item>
+        <el-form-item label="行业">
+          <el-input v-model="form.industry" maxlength="40" />
+        </el-form-item>
+        <el-form-item label="价值评估">
+          <el-input v-model="form.valueAssessment" maxlength="40" />
         </el-form-item>
         <el-form-item label="备注">
           <el-input
@@ -756,14 +1021,71 @@ onMounted(async () => {
         <el-descriptions-item label="地址" :span="2">
           {{ detailRow.address || '—' }}
         </el-descriptions-item>
+        <el-descriptions-item label="行政地址" :span="2">
+          {{ detailRow.district || '—' }}
+        </el-descriptions-item>
         <el-descriptions-item label="是否启用">
           {{ detailRow.enabled === 1 ? '启用' : '停用' }}
+        </el-descriptions-item>
+        <el-descriptions-item label="结算方式">
+          {{ detailRow.paymentMethod || '—' }}
+        </el-descriptions-item>
+        <el-descriptions-item label="账期天数">
+          {{ detailRow.paymentPeriodDays ?? '—' }}
         </el-descriptions-item>
         <el-descriptions-item label="期初应收">
           {{ detailRow.openingReceivable }}
         </el-descriptions-item>
+        <el-descriptions-item label="期初应收余额">
+          {{ detailRow.openingReceivableBalance }}
+        </el-descriptions-item>
         <el-descriptions-item label="应收金额">
           {{ detailRow.receivableAmount }}
+        </el-descriptions-item>
+        <el-descriptions-item label="已收金额">
+          {{ detailRow.receivedAmount }}
+        </el-descriptions-item>
+        <el-descriptions-item label="期末应收">
+          {{ detailRow.endingReceivable }}
+        </el-descriptions-item>
+        <el-descriptions-item label="预收余额">
+          {{ detailRow.prepaidBalance }}
+        </el-descriptions-item>
+        <el-descriptions-item label="传真">
+          {{ detailRow.fax || '—' }}
+        </el-descriptions-item>
+        <el-descriptions-item label="纳税人识别号">
+          {{ detailRow.taxNo || '—' }}
+        </el-descriptions-item>
+        <el-descriptions-item label="税率(%)">
+          {{ detailRow.taxRate ?? '—' }}
+        </el-descriptions-item>
+        <el-descriptions-item label="折扣比例(%)">
+          {{ detailRow.discountProportion ?? '—' }}
+        </el-descriptions-item>
+        <el-descriptions-item label="开户银行">
+          {{ detailRow.openBank || '—' }}
+        </el-descriptions-item>
+        <el-descriptions-item label="账号">
+          {{ detailRow.accountNo || '—' }}
+        </el-descriptions-item>
+        <el-descriptions-item label="销售预警金额">
+          {{ detailRow.minAmount ?? '—' }}
+        </el-descriptions-item>
+        <el-descriptions-item label="销售预警天数">
+          {{ detailRow.daysOfWarn ?? '—' }}
+        </el-descriptions-item>
+        <el-descriptions-item label="行业">
+          {{ detailRow.industry || '—' }}
+        </el-descriptions-item>
+        <el-descriptions-item label="价值评估">
+          {{ detailRow.valueAssessment || '—' }}
+        </el-descriptions-item>
+        <el-descriptions-item label="最近收款时间">
+          {{ detailRow.lastReceiptTime || '—' }}
+        </el-descriptions-item>
+        <el-descriptions-item label="最近拿货时间">
+          {{ detailRow.lastPickupDate || '—' }}
         </el-descriptions-item>
         <el-descriptions-item label="创建时间">
           {{ detailRow.createdAt }}

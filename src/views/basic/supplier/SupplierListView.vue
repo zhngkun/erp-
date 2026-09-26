@@ -71,6 +71,21 @@ const form = reactive({
   openingPayable: 0,
   openingPayableBalance: 0,
   payableAmount: 0,
+  paidAmount: 0,
+  endingPayable: 0,
+  prepaidBalance: 0,
+  fax: '',
+  taxNo: '',
+  taxRate: null,
+  discountProportion: null,
+  openBank: '',
+  accountNo: '',
+  acceptanceNo: '',
+  supplySafety: '',
+  remark: '',
+  lastPaymentTime: '',
+  verifyData: '',
+  sort: 0,
   contact: '',
   phone: '',
   address: '',
@@ -151,6 +166,21 @@ function resetForm() {
   form.openingPayable = 0
   form.openingPayableBalance = 0
   form.payableAmount = 0
+  form.paidAmount = 0
+  form.endingPayable = 0
+  form.prepaidBalance = 0
+  form.fax = ''
+  form.taxNo = ''
+  form.taxRate = null
+  form.discountProportion = null
+  form.openBank = ''
+  form.accountNo = ''
+  form.acceptanceNo = ''
+  form.supplySafety = ''
+  form.remark = ''
+  form.lastPaymentTime = ''
+  form.verifyData = ''
+  form.sort = 0
   form.contact = ''
   form.phone = ''
   form.address = ''
@@ -178,6 +208,21 @@ function openEdit(row) {
     openingPayable: row.openingPayable ?? 0,
     openingPayableBalance: row.openingPayableBalance ?? 0,
     payableAmount: row.payableAmount ?? 0,
+    paidAmount: row.paidAmount ?? 0,
+    endingPayable: row.endingPayable ?? 0,
+    prepaidBalance: row.prepaidBalance ?? 0,
+    fax: row.fax || '',
+    taxNo: row.taxNo || '',
+    taxRate: row.taxRate ?? null,
+    discountProportion: row.discountProportion ?? null,
+    openBank: row.openBank || '',
+    accountNo: row.accountNo || '',
+    acceptanceNo: row.acceptanceNo || '',
+    supplySafety: row.supplySafety || '',
+    remark: row.remark || '',
+    lastPaymentTime: row.lastPaymentTime || '',
+    verifyData: row.verifyData || '',
+    sort: row.sort ?? 0,
     contact: row.contact || '',
     phone: row.phone || '',
     address: row.address || '',
@@ -209,6 +254,21 @@ async function submitForm() {
         openingPayable: form.openingPayable,
         openingPayableBalance: form.openingPayableBalance,
         payableAmount: form.payableAmount,
+        paidAmount: form.paidAmount,
+        endingPayable: form.endingPayable,
+        prepaidBalance: form.prepaidBalance,
+        fax: form.fax,
+        taxNo: form.taxNo,
+        taxRate: form.taxRate,
+        discountProportion: form.discountProportion,
+        openBank: form.openBank,
+        accountNo: form.accountNo,
+        acceptanceNo: form.acceptanceNo,
+        supplySafety: form.supplySafety,
+        remark: form.remark,
+        lastPaymentTime: form.lastPaymentTime,
+        verifyData: form.verifyData,
+        sort: form.sort,
         contact: form.contact,
         phone: form.phone,
         address: form.address,
@@ -538,7 +598,110 @@ onMounted(async () => {
             prop="payableAmount"
             label="应付金额"
             width="100"
+            sortable
             align="right"
+          />
+          <el-table-column
+            prop="paidAmount"
+            label="已付金额"
+            width="100"
+            sortable
+            align="right"
+          />
+          <el-table-column
+            prop="endingPayable"
+            label="期末应付"
+            width="100"
+            sortable
+            align="right"
+          />
+          <el-table-column
+            prop="prepaidBalance"
+            label="预付余额"
+            width="100"
+            sortable
+            align="right"
+          />
+          <el-table-column
+            prop="fax"
+            label="传真"
+            min-width="110"
+            show-overflow-tooltip
+          />
+          <el-table-column
+            prop="taxNo"
+            label="纳税人识别号"
+            min-width="150"
+            show-overflow-tooltip
+          />
+          <el-table-column
+            prop="taxRate"
+            label="税率(%)"
+            width="90"
+            align="right"
+          />
+          <el-table-column
+            prop="discountProportion"
+            label="折扣比例(%)"
+            width="110"
+            align="right"
+          />
+          <el-table-column
+            prop="openBank"
+            label="开户银行"
+            min-width="120"
+            show-overflow-tooltip
+          />
+          <el-table-column
+            prop="accountNo"
+            label="账号"
+            min-width="140"
+            show-overflow-tooltip
+          />
+          <el-table-column
+            prop="address"
+            label="地址"
+            min-width="140"
+            show-overflow-tooltip
+          />
+          <el-table-column
+            prop="acceptanceNo"
+            label="承兑号"
+            min-width="120"
+            show-overflow-tooltip
+          />
+          <el-table-column
+            prop="supplySafety"
+            label="供货保障"
+            min-width="110"
+            show-overflow-tooltip
+          />
+          <el-table-column
+            prop="remark"
+            label="备注"
+            min-width="120"
+            show-overflow-tooltip
+          />
+          <el-table-column
+            prop="lastPaymentTime"
+            label="最近付款时间"
+            min-width="160"
+            sortable
+            show-overflow-tooltip
+          />
+          <el-table-column
+            prop="verifyData"
+            label="审核信息"
+            min-width="120"
+            show-overflow-tooltip
+          />
+          <el-table-column prop="sort" label="排序值" width="90" sortable />
+          <el-table-column
+            prop="createdAt"
+            label="创建时间"
+            min-width="170"
+            sortable
+            show-overflow-tooltip
           />
           <el-table-column label="操作" width="150" fixed="right">
             <template #default="{ row }">
@@ -661,6 +824,50 @@ onMounted(async () => {
         <el-form-item label="应付金额">
           <el-input-number v-model="form.payableAmount" :min="0" :precision="2" />
         </el-form-item>
+        <el-form-item label="已付金额">
+          <el-input-number v-model="form.paidAmount" :min="0" :precision="2" />
+        </el-form-item>
+        <el-form-item label="期末应付">
+          <el-input-number v-model="form.endingPayable" :min="0" :precision="2" />
+        </el-form-item>
+        <el-form-item label="预付余额">
+          <el-input-number v-model="form.prepaidBalance" :min="0" :precision="2" />
+        </el-form-item>
+        <el-form-item label="传真">
+          <el-input v-model="form.fax" maxlength="40" />
+        </el-form-item>
+        <el-form-item label="纳税人识别号">
+          <el-input v-model="form.taxNo" maxlength="40" />
+        </el-form-item>
+        <el-form-item label="税率(%)">
+          <el-input-number v-model="form.taxRate" :min="0" :max="100" :precision="2" />
+        </el-form-item>
+        <el-form-item label="折扣比例(%)">
+          <el-input-number
+            v-model="form.discountProportion"
+            :min="0"
+            :max="100"
+            :precision="2"
+          />
+        </el-form-item>
+        <el-form-item label="开户银行">
+          <el-input v-model="form.openBank" maxlength="60" />
+        </el-form-item>
+        <el-form-item label="账号">
+          <el-input v-model="form.accountNo" maxlength="40" />
+        </el-form-item>
+        <el-form-item label="承兑号">
+          <el-input v-model="form.acceptanceNo" maxlength="40" />
+        </el-form-item>
+        <el-form-item label="供货保障">
+          <el-input v-model="form.supplySafety" maxlength="40" />
+        </el-form-item>
+        <el-form-item label="排序值">
+          <el-input-number v-model="form.sort" :min="0" :precision="0" />
+        </el-form-item>
+        <el-form-item label="备注">
+          <el-input v-model="form.remark" type="textarea" :rows="2" maxlength="200" />
+        </el-form-item>
       </el-form>
       <template #footer>
         <el-button @click="dialogVisible = false">取消</el-button>
@@ -718,6 +925,51 @@ onMounted(async () => {
         </el-descriptions-item>
         <el-descriptions-item label="应付金额">
           {{ detailRow.payableAmount }}
+        </el-descriptions-item>
+        <el-descriptions-item label="已付金额">
+          {{ detailRow.paidAmount }}
+        </el-descriptions-item>
+        <el-descriptions-item label="期末应付">
+          {{ detailRow.endingPayable }}
+        </el-descriptions-item>
+        <el-descriptions-item label="预付余额">
+          {{ detailRow.prepaidBalance }}
+        </el-descriptions-item>
+        <el-descriptions-item label="传真">
+          {{ detailRow.fax || '—' }}
+        </el-descriptions-item>
+        <el-descriptions-item label="纳税人识别号">
+          {{ detailRow.taxNo || '—' }}
+        </el-descriptions-item>
+        <el-descriptions-item label="税率(%)">
+          {{ detailRow.taxRate ?? '—' }}
+        </el-descriptions-item>
+        <el-descriptions-item label="折扣比例(%)">
+          {{ detailRow.discountProportion ?? '—' }}
+        </el-descriptions-item>
+        <el-descriptions-item label="开户银行">
+          {{ detailRow.openBank || '—' }}
+        </el-descriptions-item>
+        <el-descriptions-item label="账号">
+          {{ detailRow.accountNo || '—' }}
+        </el-descriptions-item>
+        <el-descriptions-item label="承兑号">
+          {{ detailRow.acceptanceNo || '—' }}
+        </el-descriptions-item>
+        <el-descriptions-item label="供货保障">
+          {{ detailRow.supplySafety || '—' }}
+        </el-descriptions-item>
+        <el-descriptions-item label="最近付款时间">
+          {{ detailRow.lastPaymentTime || '—' }}
+        </el-descriptions-item>
+        <el-descriptions-item label="审核信息">
+          {{ detailRow.verifyData || '—' }}
+        </el-descriptions-item>
+        <el-descriptions-item label="排序值">
+          {{ detailRow.sort ?? '—' }}
+        </el-descriptions-item>
+        <el-descriptions-item label="备注">
+          {{ detailRow.remark || '—' }}
         </el-descriptions-item>
         <el-descriptions-item label="创建时间">
           {{ detailRow.createdAt }}

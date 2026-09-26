@@ -564,7 +564,7 @@ onMounted(async () => {
           <el-table-column prop="sort" label="排序值" width="90" sortable />
           <el-table-column
             prop="org"
-            label="管理组织"
+            label="创建组织"
             min-width="110"
             show-overflow-tooltip
           />
@@ -652,7 +652,7 @@ onMounted(async () => {
             </el-form-item>
           </el-col>
           <el-col :span="12">
-            <el-form-item label="管理组织">
+            <el-form-item label="创建组织">
               <el-input v-model="form.org" maxlength="40" />
             </el-form-item>
           </el-col>

@@ -164,6 +164,13 @@ onMounted(fetchList)
         show-overflow-tooltip
       />
       <el-table-column prop="personName" label="经办人" width="90" />
+      <el-table-column
+        prop="personCode"
+        label="经办人编码"
+        width="110"
+        show-overflow-tooltip
+      />
+      <el-table-column prop="billOperateType" label="单据操作" width="100" />
       <el-table-column prop="changeType" label="变动类型" width="90" align="center">
         <template #default="{ row }">
           <el-tag
@@ -211,6 +218,26 @@ onMounted(fetchList)
       >
         <template #default="{ row }">
           {{ formatAmount(row.afterPrice) }}
+        </template>
+      </el-table-column>
+      <el-table-column
+        prop="beforePriceTotal"
+        label="变动前金额"
+        width="110"
+        align="right"
+      >
+        <template #default="{ row }">
+          {{ formatAmount(row.beforePriceTotal) }}
+        </template>
+      </el-table-column>
+      <el-table-column
+        prop="afterPriceTotal"
+        label="变动后金额"
+        width="110"
+        align="right"
+      >
+        <template #default="{ row }">
+          {{ formatAmount(row.afterPriceTotal) }}
         </template>
       </el-table-column>
       <el-table-column

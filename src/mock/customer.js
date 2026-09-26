@@ -242,7 +242,67 @@ const seedCustomers = [
   },
 ]
 
-let customers = seedCustomers.map((item) => ({ ...item }))
+/** 补齐与线上列表对齐的扩展字段默认值 */
+function enrichCustomerFields(row, index) {
+  const extras = [
+    {
+      prepaidBalance: 2000,
+      paymentMethod: '月结',
+      paymentPeriodDays: 30,
+      fax: '0512-88880001',
+      taxNo: '91320500MA1XXXXX01',
+      taxRate: 13,
+      discountProportion: 0,
+      openBank: '工行苏州分行',
+      accountNo: '6222021001001001001',
+      minAmount: 5000,
+      daysOfWarn: 30,
+      district: '江苏省·苏州市·工业园区',
+      industry: '机械制造',
+      valueAssessment: '高价值',
+      lastReceiptTime: '2026-09-21 15:20:00',
+    },
+    {
+      prepaidBalance: 0,
+      paymentMethod: '现结',
+      paymentPeriodDays: 0,
+      fax: '',
+      taxNo: '',
+      taxRate: 13,
+      discountProportion: 5,
+      openBank: '',
+      accountNo: '',
+      minAmount: 3000,
+      daysOfWarn: 15,
+      district: '江苏省·苏州市·相城区',
+      industry: '贸易',
+      valueAssessment: '普通',
+      lastReceiptTime: '2026-09-18 09:10:00',
+    },
+  ]
+  const e = extras[index % extras.length]
+  return {
+    prepaidBalance: 0,
+    paymentMethod: '',
+    paymentPeriodDays: null,
+    fax: '',
+    taxNo: '',
+    taxRate: null,
+    discountProportion: null,
+    openBank: '',
+    accountNo: '',
+    minAmount: null,
+    daysOfWarn: null,
+    district: '',
+    industry: '',
+    valueAssessment: '',
+    lastReceiptTime: '',
+    ...e,
+    ...row,
+  }
+}
+
+let customers = seedCustomers.map((item, index) => enrichCustomerFields({ ...item }, index))
 let nextId = seedCustomers.length + 1
 
 const CATEGORY_NAME = {
@@ -353,10 +413,25 @@ export async function mockCreateCustomer(payload) {
     receivableAmount: Number(payload.receivableAmount) || 0,
     receivedAmount: Number(payload.receivedAmount) || 0,
     endingReceivable: Number(payload.endingReceivable) || 0,
+    prepaidBalance: Number(payload.prepaidBalance) || 0,
+    paymentMethod: payload.paymentMethod || '',
+    paymentPeriodDays: payload.paymentPeriodDays ?? null,
+    fax: payload.fax || '',
+    taxNo: payload.taxNo || '',
+    taxRate: payload.taxRate ?? null,
+    discountProportion: payload.discountProportion ?? null,
+    openBank: payload.openBank || '',
+    accountNo: payload.accountNo || '',
+    minAmount: payload.minAmount ?? null,
+    daysOfWarn: payload.daysOfWarn ?? null,
+    district: payload.district || '',
+    industry: payload.industry || '',
+    valueAssessment: payload.valueAssessment || '',
     contact: payload.contact || '',
     phone: payload.phone || '',
     address: payload.address || '',
     lastPickupDate: payload.lastPickupDate || '',
+    lastReceiptTime: payload.lastReceiptTime || '',
     remark: payload.remark || '',
     createdAt: now,
   }

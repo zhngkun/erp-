@@ -200,6 +200,12 @@ onMounted(fetchList)
       <el-table-column prop="categoryName" label="分类" width="100" />
       <el-table-column prop="brandName" label="品牌" width="90" />
       <el-table-column
+        prop="recommendSupplierName"
+        label="推荐供应商"
+        min-width="130"
+        show-overflow-tooltip
+      />
+      <el-table-column
         v-if="activeTab !== 'total'"
         prop="stockName"
         label="仓库"
@@ -360,6 +366,9 @@ onMounted(fetchList)
         </el-descriptions-item>
         <el-descriptions-item label="品牌">
           {{ detailRow.brandName }}
+        </el-descriptions-item>
+        <el-descriptions-item label="推荐供应商">
+          {{ detailRow.recommendSupplierName || '—' }}
         </el-descriptions-item>
         <el-descriptions-item v-if="detailRow.stockName" label="仓库">
           {{ detailRow.stockName }}

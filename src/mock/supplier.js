@@ -240,7 +240,66 @@ const seedSuppliers = [
   },
 ]
 
-let suppliers = seedSuppliers.map((item) => ({ ...item }))
+function enrichSupplierFields(row, index) {
+  const paid = Math.max(0, Number(row.payableAmount || 0) - Number(row.openingPayableBalance || 0))
+  const extras = [
+    {
+      fax: '0512-66660001',
+      taxNo: '91320500MA1SUPP001',
+      taxRate: 13,
+      discountProportion: 0,
+      openBank: '建行苏州分行',
+      accountNo: '6227001001001001001',
+      acceptanceNo: '',
+      supplySafety: 'A级',
+      remark: '战略供应商',
+      lastPaymentTime: '2026-09-20 14:00:00',
+      verifyData: '张伟 / 2026-09-10',
+      sort: 10,
+      prepaidBalance: 1500,
+    },
+    {
+      fax: '',
+      taxNo: '',
+      taxRate: 13,
+      discountProportion: 2,
+      openBank: '',
+      accountNo: '',
+      acceptanceNo: 'CD-202609',
+      supplySafety: 'B级',
+      remark: '',
+      lastPaymentTime: '2026-09-15 11:30:00',
+      verifyData: '李娜 / 2026-09-12',
+      sort: 20,
+      prepaidBalance: 0,
+    },
+  ]
+  const e = extras[index % extras.length]
+  return {
+    paidAmount: paid,
+    endingPayable: Number(row.openingPayableBalance || 0),
+    prepaidBalance: 0,
+    fax: '',
+    taxNo: '',
+    taxRate: null,
+    discountProportion: null,
+    openBank: '',
+    accountNo: '',
+    acceptanceNo: '',
+    supplySafety: '',
+    remark: '',
+    lastPaymentTime: '',
+    verifyData: '',
+    sort: index + 1,
+    ...e,
+    ...row,
+    paidAmount: row.paidAmount ?? e.paidAmount ?? paid,
+    endingPayable: row.endingPayable ?? e.endingPayable ?? Number(row.openingPayableBalance || 0),
+    prepaidBalance: row.prepaidBalance ?? e.prepaidBalance ?? 0,
+  }
+}
+
+let suppliers = seedSuppliers.map((item, index) => enrichSupplierFields({ ...item }, index))
 let nextId = seedSuppliers.length + 1
 
 export async function mockGetSupplierList(params = {}) {
@@ -317,6 +376,21 @@ export async function mockCreateSupplier(payload) {
     openingPayable: payload.openingPayable ?? 0,
     openingPayableBalance: payload.openingPayableBalance ?? 0,
     payableAmount: payload.payableAmount ?? 0,
+    paidAmount: payload.paidAmount ?? 0,
+    endingPayable: payload.endingPayable ?? 0,
+    prepaidBalance: payload.prepaidBalance ?? 0,
+    fax: payload.fax || '',
+    taxNo: payload.taxNo || '',
+    taxRate: payload.taxRate ?? null,
+    discountProportion: payload.discountProportion ?? null,
+    openBank: payload.openBank || '',
+    accountNo: payload.accountNo || '',
+    acceptanceNo: payload.acceptanceNo || '',
+    supplySafety: payload.supplySafety || '',
+    remark: payload.remark || '',
+    lastPaymentTime: payload.lastPaymentTime || '',
+    verifyData: payload.verifyData || '',
+    sort: payload.sort ?? 0,
     contact: payload.contact || '',
     phone: payload.phone || '',
     address: payload.address || '',
