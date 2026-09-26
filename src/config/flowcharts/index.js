@@ -1,5 +1,6 @@
 import { menuRoutes } from '@/router/menus'
 import { FLOW_EDGE_TYPE } from './helpers'
+import { purchaseFlowchart } from './purchase'
 import { stockFlowchart } from './stock'
 
 /**
@@ -13,6 +14,7 @@ import { stockFlowchart } from './stock'
  */
 export const customFlowcharts = {
   '/stock': stockFlowchart,
+  '/purchase': purchaseFlowchart,
 }
 
 /**
@@ -86,4 +88,4 @@ export function getModuleOverviewPath(modulePath) {
   return `${modulePath}/overview`
 }
 
-export { defineFlowchart, flowEdge, flowNode } from './helpers'
+export { defineFlowchart, flowCurve, flowEdge, flowNode } from './helpers'

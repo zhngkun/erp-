@@ -44,12 +44,16 @@ const FLOW_THEME = {
     overflowMode: 'default',
   },
   polyline: {
-    stroke: '#1677ff',
-    strokeWidth: 2,
+    stroke: '#91caff',
+    strokeWidth: 1.5,
+  },
+  bezier: {
+    stroke: '#91caff',
+    strokeWidth: 1.5,
   },
   arrow: {
-    offset: 10,
-    verticalLength: 5,
+    offset: 8,
+    verticalLength: 4,
     endArrowType: 'solid',
     startArrowType: 'none',
     fill: '#1677ff',
