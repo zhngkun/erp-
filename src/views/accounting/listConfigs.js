@@ -1,0 +1,240 @@
+/** 会计财务列表配置 —— 表头与朋来 P8 对齐 */
+
+export const STATUS_OPTIONS = [
+  { value: '已保存', label: '已保存', type: 'info' },
+  { value: '待审核', label: '待审核', type: 'warning' },
+  { value: '已审核', label: '已审核', type: 'success' },
+  { value: '审核拒绝', label: '审核拒绝', type: 'danger' },
+]
+
+export const DIRECTION_OPTIONS = [
+  { value: '借', label: '借' },
+  { value: '贷', label: '贷' },
+]
+
+export const ASSET_STATUS_OPTIONS = [
+  { value: '在用', label: '在用' },
+  { value: '闲置', label: '闲置' },
+  { value: '报废', label: '报废' },
+]
+
+export const DEPRECIATION_METHOD_OPTIONS = [
+  { value: '平均年限法', label: '平均年限法' },
+  { value: '工作量法', label: '工作量法' },
+]
+
+export const PROVISION_METHOD_OPTIONS = [
+  { value: '按月计提', label: '按月计提' },
+  { value: '一次性计提', label: '一次性计提' },
+]
+
+export const LIST_CONFIGS = {
+  subject: {
+    title: '会计科目',
+    addLabel: '新增一级科目',
+    kind: 'master',
+    searchKeys: ['code', 'name'],
+    dateSearch: false,
+    columns: [
+      { prop: 'code', label: '科目编码', minWidth: 150 },
+      { prop: 'name', label: '科目名称', minWidth: 150 },
+      { prop: 'direction', label: '余额方向', width: 100 },
+      { prop: 'unitName', label: '数量核算', minWidth: 120 },
+      { prop: 'auxiliaryType', label: '辅助核算', minWidth: 140 },
+      { prop: 'currencyNames', label: '外币核算', minWidth: 120 },
+      { prop: 'enable', label: '是否启用', width: 100, format: 'enable' },
+    ],
+    formFields: [
+      { key: 'code', label: '科目编码', required: true },
+      { key: 'name', label: '科目名称', required: true },
+      { key: 'direction', label: '余额方向', type: 'select', optionsKey: 'direction', required: true },
+      { key: 'unitName', label: '数量核算' },
+      { key: 'auxiliaryType', label: '辅助核算' },
+      { key: 'currencyNames', label: '外币核算' },
+      { key: 'enable', label: '是否启用', type: 'switch' },
+    ],
+  },
+
+  voucher: {
+    title: '凭证列表',
+    addLabel: '新增凭证',
+    kind: 'bill',
+    searchKeys: ['billCode', 'createAdminName', 'status'],
+    dateSearch: true,
+    columns: [
+      { prop: 'billCode', label: '凭证编号', minWidth: 165 },
+      { prop: 'billDate', label: '单据日期', minWidth: 120 },
+      { prop: 'wordName', label: '凭证字', width: 100 },
+      { prop: 'wordTitle', label: '标题', minWidth: 120 },
+      { prop: 'status', label: '状态', width: 100, format: 'status' },
+      { prop: 'borrowAmountTotal', label: '借方金额', minWidth: 120, format: 'amount' },
+      { prop: 'loanAmountTotal', label: '贷方金额', minWidth: 120, format: 'amount' },
+      { prop: 'verifyData', label: '审核人', minWidth: 120 },
+      { prop: 'createAdminName', label: '创建人', minWidth: 100 },
+      { prop: 'createdAt', label: '创建时间', minWidth: 160 },
+    ],
+    formFields: [
+      { key: 'billDate', label: '单据日期', type: 'date', required: true },
+      { key: 'wordName', label: '凭证字', required: true },
+      { key: 'wordTitle', label: '标题', required: true },
+      { key: 'borrowAmountTotal', label: '借方金额', type: 'number', required: true },
+      { key: 'loanAmountTotal', label: '贷方金额', type: 'number', required: true },
+      { key: 'remark', label: '备注', type: 'textarea' },
+    ],
+    moreActions: [
+      { command: 'link', label: '联查' },
+      { command: 'log', label: '日志' },
+    ],
+  },
+
+  subjectBalance: {
+    title: '科目余额',
+    addLabel: '新增科目余额',
+    kind: 'report',
+    searchKeys: ['code', 'name'],
+    dateSearch: false,
+    hideAdd: true,
+    columns: [
+      { prop: 'code', label: '科目编码', minWidth: 140 },
+      { prop: 'name', label: '科目名称', minWidth: 140 },
+      { prop: 'beginDataBorrowAmount', label: '期初余额-借方', minWidth: 130, format: 'amount' },
+      { prop: 'beginDataLoanAmount', label: '期初余额-贷方', minWidth: 130, format: 'amount' },
+      { prop: 'happenDataBorrowAmount', label: '本期发生额-借方', minWidth: 140, format: 'amount' },
+      { prop: 'happenDataLoanAmount', label: '本期发生额-贷方', minWidth: 140, format: 'amount' },
+      { prop: 'endDataBorrowAmount', label: '期末余额-借方', minWidth: 130, format: 'amount' },
+      { prop: 'endDataLoanAmount', label: '期末余额-贷方', minWidth: 130, format: 'amount' },
+    ],
+    formFields: [
+      { key: 'code', label: '科目编码', required: true },
+      { key: 'name', label: '科目名称', required: true },
+      { key: 'beginDataBorrowAmount', label: '期初余额-借方', type: 'number' },
+      { key: 'beginDataLoanAmount', label: '期初余额-贷方', type: 'number' },
+      { key: 'happenDataBorrowAmount', label: '本期发生额-借方', type: 'number' },
+      { key: 'happenDataLoanAmount', label: '本期发生额-贷方', type: 'number' },
+      { key: 'endDataBorrowAmount', label: '期末余额-借方', type: 'number' },
+      { key: 'endDataLoanAmount', label: '期末余额-贷方', type: 'number' },
+    ],
+  },
+
+  balanceSheet: {
+    title: '资产负债表',
+    addLabel: '新增报表行',
+    kind: 'report',
+    searchKeys: ['name'],
+    dateSearch: false,
+    hideAdd: true,
+    columns: [
+      { prop: 'name', label: '资产', minWidth: 160 },
+      { prop: 'lineNum', label: '行号', width: 80 },
+      { prop: 'endBalance', label: '期末余额', minWidth: 120, format: 'amount' },
+      { prop: 'yearBeginBalance', label: '年初余额', minWidth: 120, format: 'amount' },
+      { prop: 'name2', label: '负债和所有者权益', minWidth: 180 },
+      { prop: 'lineNum2', label: '行号', width: 80 },
+      { prop: 'endBalance2', label: '期末余额', minWidth: 120, format: 'amount' },
+      { prop: 'yearBeginBalance2', label: '年初余额', minWidth: 120, format: 'amount' },
+    ],
+    formFields: [
+      { key: 'name', label: '资产', required: true },
+      { key: 'lineNum', label: '行号', type: 'number' },
+      { key: 'endBalance', label: '期末余额', type: 'number' },
+      { key: 'yearBeginBalance', label: '年初余额', type: 'number' },
+      { key: 'name2', label: '负债和所有者权益' },
+      { key: 'lineNum2', label: '行号', type: 'number' },
+      { key: 'endBalance2', label: '期末余额', type: 'number' },
+      { key: 'yearBeginBalance2', label: '年初余额', type: 'number' },
+    ],
+  },
+
+  journal: {
+    title: '日记账',
+    addLabel: '新增日记账',
+    kind: 'bill',
+    searchKeys: ['billCode', 'voucherAbstract'],
+    dateSearch: true,
+    columns: [
+      { prop: 'billCode', label: '单据编号', minWidth: 165 },
+      { prop: 'billDate', label: '单据日期', minWidth: 120 },
+      { prop: 'voucherName', label: '凭证', minWidth: 120 },
+      { prop: 'voucherAbstract', label: '摘要', minWidth: 160 },
+      { prop: 'feeType', label: '收支类别', minWidth: 120 },
+      { prop: 'borrowAmount', label: '收入', minWidth: 110, format: 'amount' },
+      { prop: 'loanAmount', label: '支出', minWidth: 110, format: 'amount' },
+      { prop: 'balance', label: '余额', minWidth: 110, format: 'amount' },
+      { prop: 'createdAt', label: '创建时间', minWidth: 160 },
+    ],
+    formFields: [
+      { key: 'billDate', label: '单据日期', type: 'date', required: true },
+      { key: 'voucherName', label: '凭证' },
+      { key: 'voucherAbstract', label: '摘要', required: true },
+      { key: 'feeType', label: '收支类别', required: true },
+      { key: 'borrowAmount', label: '收入', type: 'number' },
+      { key: 'loanAmount', label: '支出', type: 'number' },
+      { key: 'balance', label: '余额', type: 'number' },
+    ],
+  },
+
+  assetDevice: {
+    title: '资产管理',
+    addLabel: '新增资产',
+    kind: 'master',
+    searchKeys: ['name', 'code'],
+    dateSearch: false,
+    columns: [
+      { prop: 'name', label: '资产名称', minWidth: 140 },
+      { prop: 'code', label: '资产编码', minWidth: 130 },
+      { prop: 'depreciationData', label: '凭证', minWidth: 120 },
+      { prop: 'assetCategoryName', label: '资产分类', minWidth: 120 },
+      { prop: 'depreciationMethod', label: '折旧方式', minWidth: 120 },
+      { prop: 'provisionMethod', label: '计提方式', minWidth: 120 },
+      { prop: 'originalValue', label: '原值', minWidth: 110, format: 'amount' },
+      { prop: 'usagePeriod', label: '已使用(月)', width: 110 },
+      { prop: 'monthDepreciation', label: '月折旧额', minWidth: 110, format: 'amount' },
+      { prop: 'expectedResidualRate', label: '预计残值率(%)', width: 130 },
+      { prop: 'expectedResidual', label: '残值', minWidth: 100, format: 'amount' },
+      { prop: 'cumulativeDepreciation', label: '累计折旧', minWidth: 110, format: 'amount' },
+      { prop: 'nowValue', label: '资产净值', minWidth: 110, format: 'amount' },
+      { prop: 'assetStatus', label: '资产状态', width: 100 },
+      { prop: 'enableDate', label: '启用日期', minWidth: 120 },
+      { prop: 'enterDate', label: '录入期间', minWidth: 120 },
+      { prop: 'remark', label: '备注', minWidth: 120 },
+      { prop: 'createdAt', label: '创建时间', minWidth: 160 },
+    ],
+    formFields: [
+      { key: 'name', label: '资产名称', required: true },
+      { key: 'code', label: '资产编码', required: true },
+      { key: 'assetCategoryName', label: '资产分类', required: true },
+      { key: 'depreciationMethod', label: '折旧方式', type: 'select', optionsKey: 'depreciationMethod', required: true },
+      { key: 'provisionMethod', label: '计提方式', type: 'select', optionsKey: 'provisionMethod', required: true },
+      { key: 'originalValue', label: '原值', type: 'number', required: true },
+      { key: 'usagePeriod', label: '已使用(月)', type: 'number' },
+      { key: 'monthDepreciation', label: '月折旧额', type: 'number' },
+      { key: 'expectedResidualRate', label: '预计残值率(%)', type: 'number' },
+      { key: 'expectedResidual', label: '残值', type: 'number' },
+      { key: 'cumulativeDepreciation', label: '累计折旧', type: 'number' },
+      { key: 'nowValue', label: '资产净值', type: 'number' },
+      { key: 'assetStatus', label: '资产状态', type: 'select', optionsKey: 'assetStatus' },
+      { key: 'enableDate', label: '启用日期', type: 'date', required: true },
+      { key: 'enterDate', label: '录入期间', required: true },
+      { key: 'remark', label: '备注', type: 'textarea' },
+    ],
+    moreActions: [{ command: 'depreciation', label: '计提折旧' }],
+  },
+
+  settle: {
+    title: '结账',
+    addLabel: '新增结转项',
+    kind: 'master',
+    searchKeys: ['name'],
+    dateSearch: false,
+    columns: [
+      { prop: 'name', label: '结转项', minWidth: 160 },
+      { prop: 'value', label: '金额', minWidth: 120, format: 'amount' },
+      { prop: 'voucherStatus', label: '凭证状态', minWidth: 120 },
+    ],
+    formFields: [
+      { key: 'name', label: '结转项', required: true },
+      { key: 'value', label: '金额', type: 'number' },
+      { key: 'voucherStatus', label: '凭证状态' },
+    ],
+  },
+}

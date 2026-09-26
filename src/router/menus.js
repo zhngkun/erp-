@@ -349,13 +349,13 @@ export const menuRoutes = [
     name: 'Accounting',
     meta: { title: '会计财务', icon: 'Tickets' },
     children: [
-      { path: '/accounting/infra', name: 'AccountingInfra', meta: { title: '基础设施', icon: 'Operation' } },
-      { path: '/accounting/resource', name: 'AccountingResource', meta: { title: '资源中心', icon: 'Folder' } },
-      { path: '/accounting/ledger', name: 'AccountingLedger', meta: { title: '财务簿', icon: 'Notebook' } },
+      { path: '/accounting/infra', name: 'AccountingInfra', meta: { title: '基础设置', icon: 'Operation' } },
+      { path: '/accounting/resource', name: 'AccountingResource', meta: { title: '凭证中心', icon: 'Folder' } },
+      { path: '/accounting/ledger', name: 'AccountingLedger', meta: { title: '财务账簿', icon: 'Notebook' } },
       { path: '/accounting/report', name: 'AccountingReport', meta: { title: '财务报表', icon: 'DataLine' } },
       { path: '/accounting/fund', name: 'AccountingFund', meta: { title: '资金', icon: 'Box' } },
       { path: '/accounting/asset', name: 'AccountingAsset', meta: { title: '资产', icon: 'Operation' } },
-      { path: '/accounting/deposit', name: 'AccountingDeposit', meta: { title: '存款结算', icon: 'Lock' } },
+      { path: '/accounting/deposit', name: 'AccountingDeposit', meta: { title: '结账', icon: 'Lock' } },
     ],
   },
   {
