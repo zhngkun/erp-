@@ -1,0 +1,1 @@
+import{p as e,z as t}from"./_plugin-vue_export-helper-Dlxk8Dg_.js";import{t as n}from"./ReportListView-aP5YxGQr.js";var r={__name:`BoardSalesView`,setup(r){return(r,i)=>(t(),e(n,{"record-key":`boardSales`}))}};export{r as default};

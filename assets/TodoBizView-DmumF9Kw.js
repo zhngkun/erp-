@@ -1,0 +1,1 @@
+import{p as e,z as t}from"./_plugin-vue_export-helper-Dlxk8Dg_.js";import{t as n}from"./OaListView-y7xrjVXK.js";var r={__name:`TodoBizView`,setup(r){return(r,i)=>(t(),e(n,{"record-key":`todoBiz`}))}};export{r as default};

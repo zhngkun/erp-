@@ -1,0 +1,1 @@
+import{p as e,z as t}from"./_plugin-vue_export-helper-Dlxk8Dg_.js";import{t as n}from"./ProdListView-2_Al9dj6.js";var r={__name:`IndependentDemandView`,setup(r){return(r,i)=>(t(),e(n,{"record-key":`independentDemand`}))}};export{r as default};

@@ -1,0 +1,1 @@
+const a={num:"number",unitPrice:"machiningPrice",taxRate:"taxRate",taxUnitPrice:"taxMachiningPrice",priceTotal:"machiningPriceTotal",taxAmountTotal:"taxAmountTotal",taxPriceTotal:"taxMachiningPriceTotal"};export{a as c};

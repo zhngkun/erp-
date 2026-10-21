@@ -1,0 +1,1 @@
+import{p as e,z as t}from"./_plugin-vue_export-helper-Dlxk8Dg_.js";import{t as n}from"./SystemListView-4imTpE9x.js";var r={__name:`ProfileView`,setup(r){return(r,i)=>(t(),e(n,{"record-key":`profile`}))}};export{r as default};

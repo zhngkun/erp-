@@ -1,0 +1,1 @@
+import{p as e,z as t}from"./_plugin-vue_export-helper-Dlxk8Dg_.js";import{t as n}from"./CashBillListView-euaDGCUO.js";var r={__name:`CashIncomeView`,setup(r){return(r,i)=>(t(),e(n,{"bill-key":`income`}))}};export{r as default};

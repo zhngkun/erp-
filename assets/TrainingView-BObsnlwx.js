@@ -1,0 +1,1 @@
+import{p as e,z as t}from"./_plugin-vue_export-helper-Dlxk8Dg_.js";import{t as n}from"./HrListView-CHMPBz0w.js";var r={__name:`TrainingView`,setup(r){return(r,i)=>(t(),e(n,{"record-key":`training`}))}};export{r as default};

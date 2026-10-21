@@ -1,0 +1,1 @@
+import{jn as e}from"./use-global-config--d3z7Yaq.js";var t=t=>[``,...e].includes(t);export{t};

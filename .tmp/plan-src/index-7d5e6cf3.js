@@ -1,0 +1,1 @@
+import{a as r}from"./index-e7ef5a2b.js";const t=[{label:r("menu.production_order"),value:"splitByProductionOrder"},{label:r("common.product"),value:"splitByMaterial"},{label:r("production.process"),value:"splitByProcedure"}],s=o=>{let e="";return t.forEach(l=>{o[l.value]&&(e+=`+${l.label}`)}),e.slice(1)};export{s as f,t as p};

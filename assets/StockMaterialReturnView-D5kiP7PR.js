@@ -1,0 +1,1 @@
+import{p as e,z as t}from"./_plugin-vue_export-helper-Dlxk8Dg_.js";import{t as n}from"./StockBillListView-DMeeAtmK.js";var r={__name:`StockMaterialReturnView`,setup(r){return(r,i)=>(t(),e(n,{"bill-key":`materialReturn`}))}};export{r as default};

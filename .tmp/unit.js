@@ -1,0 +1,1 @@
+import{_ as e}from"./UnitRefer.vue_vue_type_script_setup_true_name_UnitRefer_lang-26ca220e.js";import{r as t,w as o,x as r}from"./vendor-395646b4.js";import"./index-27a8907d.js";import"./index-e7ef5a2b.js";const _=t({name:"base_unit"}),f=t({..._,setup(a){return(n,s)=>(o(),r(e))}});export{f as default};

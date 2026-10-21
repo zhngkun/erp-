@@ -1,0 +1,1 @@
+import{p as e,z as t}from"./_plugin-vue_export-helper-Dlxk8Dg_.js";import{t as n}from"./PurchaseBillListView-Dc8pCJmg.js";var r={__name:`PurchasePricingView`,setup(r){return(r,i)=>(t(),e(n,{"bill-key":`pricing`}))}};export{r as default};

@@ -1,0 +1,1 @@
+import{p as e,z as t}from"./_plugin-vue_export-helper-Dlxk8Dg_.js";import{t as n}from"./QualityListView-BIdoJTRt.js";var r={__name:`PatrolReportView`,setup(r){return(r,i)=>(t(),e(n,{"record-key":`patrolReport`}))}};export{r as default};
