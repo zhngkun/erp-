@@ -2,6 +2,14 @@
 
 Vue 3 + JavaScript + Vite + Element Plus 的 ERP 基础骨架，视觉遵循 Soft UI（柔和界面风）。
 
+## 在线演示
+
+👉 **[打开在线演示](https://zhngkun.github.io/erp-/)**
+
+演示账号：`admin` / `123456`（任意非空也可）
+
+> 当前为前端 Mock 数据，无需后端即可浏览页面。
+
 ## 功能
 
 - 登录页（本地 mock，任意账号密码可登录）
